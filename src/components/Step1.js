@@ -21,9 +21,6 @@ export default class Step1 extends React.Component {
 				<p>Segon 2</p>
 				<p>Segon 3</p>
 				<h2>Postre o Beguda</h2>
-				<button id="demanar">
-					<b>Demanar</b>
-				</button>
 			</div>
 		);
 	}

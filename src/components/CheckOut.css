@@ -1,0 +1,24 @@
+#checkout {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    height: 50px;
+    width: 50px;
+    border: 0;
+    background: transparent;
+    background-image: url('../assets/iconmonstr-checkout-8-240.png');
+    background-size: cover;
+}
+
+#your-order {
+    position: fixed;
+    top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95vw;
+    left: 2.5vw;
+    height: 90vh;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: whitesmoke;
+}
