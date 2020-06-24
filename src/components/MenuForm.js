@@ -71,7 +71,7 @@ class MenuForm extends React.Component {
 			currentStep: this.state.currentStep - 1
 		});
 	};
-	callback = () => {
+	asyncConLog = () => {
 		console.log(this.state.menus);
 		console.log(this.state.cashRegister);
 	};
@@ -82,48 +82,54 @@ class MenuForm extends React.Component {
 			this.setState(
 				{
 					menus: this.state.menus.concat({
+						//Concatenate the specific dishes.
 						menuType: menuType,
 						primer: e.primer,
 						segon: e.segon,
 						postres: e.postres
 					}),
 					cashRegister: this.state.cashRegister.concat({
+						//Concat the menu type.
 						menuType
 					}),
-					currentStep: 2
+					currentStep: 2 //Back to menu type selection.
 				},
-				this.callback
+				this.asyncConLog
 			);
 		} else if (menuType === 'dosPrimers') {
 			this.setState(
 				{
 					menus: this.state.menus.concat({
+						//Concatenate the specific dishes.
 						menuType: menuType,
 						primerA: e.primerA,
 						primerB: e.primerB,
 						postres: e.postres
 					}),
 					cashRegister: this.state.cashRegister.concat({
+						//Concat the menu type.
 						menuType
 					}),
-					currentStep: 2
+					currentStep: 2 //Back to menu type selection.
 				},
-				this.callback
+				this.asyncConLog
 			);
 		} else if (menuType === 'platPostres') {
 			this.setState(
 				{
 					menus: this.state.menus.concat({
+						//Concatenate the specific dishes.
 						menuType: menuType,
 						platUnic: e.platUnic,
 						postres: e.postres
 					}),
 					cashRegister: this.state.cashRegister.concat({
+						//Concat the menu type.
 						menuType
 					}),
-					currentStep: 2
+					currentStep: 2 //Back to menu type selection.
 				},
-				this.callback
+				this.asyncConLog
 			);
 		}
 	};

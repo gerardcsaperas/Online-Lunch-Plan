@@ -1,4 +1,6 @@
 import React from 'react';
+import DishesDetails from './DishesDetails';
+import './CheckOutChildren.css';
 
 function CheckOutChildren(props) {
 	let primerSegonCount = 0;
@@ -7,11 +9,11 @@ function CheckOutChildren(props) {
 
 	const menuData = [
 		{
-			menuType: 'Menú Complet',
+			menuType: 'M. Complet',
 			price: 8.95
 		},
 		{
-			menuType: 'Menú 2 Primers',
+			menuType: '2 Primers',
 			price: 7.95
 		},
 		{
@@ -22,6 +24,9 @@ function CheckOutChildren(props) {
 
 	for (let i of props.cashRegister) {
 		switch (i.menuType) {
+			default:
+				console.log('You got a problem @line 26, CheckOutChildren.js');
+				break;
 			case 'primerSegon':
 				primerSegonCount++;
 				break;
@@ -35,40 +40,56 @@ function CheckOutChildren(props) {
 	}
 
 	const primerSegonRow = (ele) => {
-		return (
-			<div id="checkout-elements">
-				<p>{ele.menuType}</p>
-				<p>{primerSegonCount}</p>
-				<p>{`${ele.price} €`}</p>
-				<p>{`${primerSegonCount * ele.price} €`}</p>
-			</div>
-		);
+		if (primerSegonCount > 0) {
+			return (
+				<div id="checkout-elements-row">
+					<p>{ele.menuType}</p>
+					<p>{primerSegonCount}</p>
+					<p>{`${ele.price} €`}</p>
+					<p>{`${(primerSegonCount * ele.price).toFixed(2)} €`}</p>
+				</div>
+			);
+		}
 	};
 
 	const dosPrimersRow = (ele) => {
-		if (ele.count > 0) {
+		if (dosPrimersCount > 0) {
 			return (
-				<div id="checkout-elements">
+				<div id="checkout-elements-row">
 					<p>{ele.menuType}</p>
 					<p>{dosPrimersCount}</p>
 					<p>{`${ele.price} €`}</p>
-					<p>{`${dosPrimersCount * ele.price} €`}</p>
+					<p>{`${(dosPrimersCount * ele.price).toFixed(2)} €`}</p>
 				</div>
 			);
 		}
 	};
 
 	const platPostresRow = (ele) => {
-		if (ele.count > 0) {
+		if (platPostresCount > 0) {
 			return (
-				<div id="checkout-elements">
+				<div id="checkout-elements-row">
 					<p>{ele.menuType}</p>
 					<p>{platPostresCount}</p>
 					<p>{`${ele.price} €`}</p>
-					<p>{`${platPostresCount * ele.price} €`}</p>
+					<p>{`${(platPostresCount * ele.price).toFixed(2)} €`}</p>
 				</div>
 			);
 		}
+	};
+
+	const calculateTotalDebit = (ele) => {
+		const primerSegonTotalDebit = ele[0].price * primerSegonCount;
+		const dosPrimersTotalDebit = ele[1].price * dosPrimersCount;
+		const platPostresTotalDebit = ele[2].price * platPostresCount;
+
+		const grandTotal = primerSegonTotalDebit + dosPrimersTotalDebit + platPostresTotalDebit;
+
+		return (
+			<p>
+				<b>{` ${grandTotal} €`}</b>
+			</p>
+		);
 	};
 
 	return (
@@ -83,11 +104,24 @@ function CheckOutChildren(props) {
 				<p>
 					<b>€/Unitat</b>
 				</p>
+				<p>
+					<b>Total</b>
+				</p>
 			</div>
 			<hr />
 			{primerSegonRow(menuData[0])}
 			{dosPrimersRow(menuData[1])}
 			{platPostresRow(menuData[2])}
+			<div id="grandTotal">
+				<p>
+					<b>Total</b>
+				</p>
+				{calculateTotalDebit(menuData)}
+			</div>
+			<button id="pay">Pagar</button>
+			<hr />
+			<h1>Detalls</h1>
+			<DishesDetails menus={props.menus} />
 		</div>
 	);
 }

@@ -1,0 +1,14 @@
+#description-row,
+#checkout-elements-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#grandTotal {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    justify-content: space-between;
+}

@@ -14,7 +14,7 @@ class Step3 extends React.Component {
 			postres: ''
 		};
 	}
-	callback = () => {
+	consoleLogCallback = () => {
 		console.log(this.state);
 	}; //Logs the state in the console
 	handleSelection = (e) => {
@@ -22,27 +22,30 @@ class Step3 extends React.Component {
 		let dish = e.target.value;
 
 		switch (this.props.menuType) {
+			default:
+				console.log('You got a problem @line 26, Step3.js');
+				break;
 			case 'primerSegon':
 				if (course === 'primer') {
 					this.setState(
 						{
 							primer: dish
 						},
-						this.callback
+						this.consoleLogCallback
 					);
 				} else if (course === 'segon') {
 					this.setState(
 						{
 							segon: dish
 						},
-						this.callback
+						this.consoleLogCallback
 					);
 				} else if (course === 'postres') {
 					this.setState(
 						{
 							postres: dish
 						},
-						this.callback
+						this.consoleLogCallback
 					);
 				}
 				break;
@@ -52,21 +55,21 @@ class Step3 extends React.Component {
 						{
 							primerA: dish
 						},
-						this.callback
+						this.consoleLogCallback
 					);
 				} else if (course === 'primerB') {
 					this.setState(
 						{
 							primerB: dish
 						},
-						this.callback
+						this.consoleLogCallback
 					);
 				} else if (course === 'postres') {
 					this.setState(
 						{
 							postres: dish
 						},
-						this.callback
+						this.consoleLogCallback
 					);
 				}
 				break;
@@ -76,14 +79,14 @@ class Step3 extends React.Component {
 						{
 							platUnic: dish
 						},
-						this.callback
+						this.consoleLogCallback
 					);
 				} else if (course === 'postres') {
 					this.setState(
 						{
 							postres: dish
 						},
-						this.callback
+						this.consoleLogCallback
 					);
 				}
 				break;
@@ -91,12 +94,16 @@ class Step3 extends React.Component {
 	};
 	passToParent = () => {
 		let { primer, primerA, primerB, platUnic, segon, postres, menuType } = this.state;
-		//Switch to make sure all obligatory radio boxes are filled for every menu type
+		//Switch to make sure all obligatory radio boxes are filled for every menu type.
 		switch (menuType) {
+			default:
+				console.log('You got a problem @ line 96, Step3.js');
+				break;
 			case 'primerSegon':
 				if (primer !== '' && segon !== '' && postres !== '') {
-					this.props.addAnotherMenu(this.state);
+					this.props.addAnotherMenu(this.state); //Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
+						//Clear state for future use.
 						primer: '',
 						primerA: '',
 						primerB: '',
@@ -110,8 +117,9 @@ class Step3 extends React.Component {
 				break;
 			case 'dosPrimers':
 				if (primerA !== '' && primerB !== '' && postres !== '') {
-					this.props.addAnotherMenu(this.state);
+					this.props.addAnotherMenu(this.state); //Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
+						//Clear state for future use.
 						primer: '',
 						primerA: '',
 						primerB: '',
@@ -125,8 +133,9 @@ class Step3 extends React.Component {
 				break;
 			case 'platPostres':
 				if (platUnic !== '' && postres !== '') {
-					this.props.addAnotherMenu(this.state);
+					this.props.addAnotherMenu(this.state); //Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
+						//Clear state for future use.
 						primer: '',
 						primerA: '',
 						primerB: '',
@@ -145,12 +154,14 @@ class Step3 extends React.Component {
 			{
 				menuType: this.props.menuType
 			},
-			this.passToParent
+			this.passToParent //This function does all the work related to updating parent's state correctly.
 		);
 	};
 	render() {
 		if (this.props.currentStep === 3) {
 			switch (this.props.menuType) {
+				default:
+					return null;
 				case 'primerSegon':
 					return (
 						<div className="Step3">
@@ -245,7 +256,6 @@ class Step3 extends React.Component {
 							</button>
 						</div>
 					);
-					break;
 				case 'dosPrimers':
 					return (
 						<div className="Step3">
@@ -259,7 +269,7 @@ class Step3 extends React.Component {
 								value="primer-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerA-r-1">Primer 1</label>
+							<label htmlFor="primerA-1">Primer 1</label>
 							<br />
 							<input
 								type="radio"
@@ -287,7 +297,7 @@ class Step3 extends React.Component {
 								value="primer-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerB-1">Segon 1</label>
+							<label htmlFor="primerB-1">Primer 1</label>
 							<br />
 							<input
 								type="radio"
@@ -296,7 +306,7 @@ class Step3 extends React.Component {
 								value="primer-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerB-2">Segon 2</label>
+							<label htmlFor="primerB-2">Primer 2</label>
 							<br />
 							<input
 								type="radio"
@@ -305,7 +315,7 @@ class Step3 extends React.Component {
 								value="primer-3"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerB-3">Segon 3</label>
+							<label htmlFor="primerB-3">Primer 3</label>
 							<br />
 							<h2>Postres</h2>
 							<input
@@ -339,7 +349,6 @@ class Step3 extends React.Component {
 							</button>
 						</div>
 					);
-					break;
 				case 'platPostres':
 					return (
 						<div className="Step3">
@@ -432,7 +441,6 @@ class Step3 extends React.Component {
 							</button>
 						</div>
 					);
-					break;
 				case 'serveiCatering':
 					return (
 						<div className="Step3">
@@ -442,7 +450,6 @@ class Step3 extends React.Component {
 							</button>
 						</div>
 					);
-					break;
 			}
 		} else {
 			return null;

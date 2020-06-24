@@ -3,11 +3,6 @@ import './CheckOut.css';
 import CheckOutChildren from './CheckOutChildren';
 
 export class CheckOut extends Component {
-	renderMenus = (menus) => {
-		for (let i of menus) {
-			console.log(i);
-		}
-	};
 	render() {
 		if (this.props.showCheckOut) {
 			return (
