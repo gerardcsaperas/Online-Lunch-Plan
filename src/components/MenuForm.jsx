@@ -6,17 +6,6 @@ import Step3 from './Step3';
 import ChangeDate from './ChangeDate';
 import CheckOut from './CheckOut';
 
-//Stripe imports
-import CheckoutForm from './CheckoutForm';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-const promise = loadStripe(
-	'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
-);
-
 class MenuForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -208,9 +197,6 @@ class MenuForm extends React.Component {
 						selectDate={this.selectDate}
 					/>
 				</form>
-				{/*<Elements stripe={promise}>
-					<CheckoutForm currentStep={this.state.currentStep} />
-				</Elements>*/}
 			</section>
 		);
 	}
