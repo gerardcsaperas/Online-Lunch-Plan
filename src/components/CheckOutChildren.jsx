@@ -87,7 +87,7 @@ function CheckOutChildren(props) {
 
 		return (
 			<p>
-				<b>{` ${grandTotal} €`}</b>
+				<b>{` ${grandTotal.toFixed(2)} €`}</b>
 			</p>
 		);
 	};
@@ -118,7 +118,9 @@ function CheckOutChildren(props) {
 				</p>
 				{calculateTotalDebit(menuData)}
 			</div>
-			<button id="pay">Pagar</button>
+			<button id="pay" type="submit" onClick={props.handleSubmit}>
+				Pagar
+			</button>
 			<hr />
 			<h1>Detalls</h1>
 			<DishesDetails menus={props.menus} />

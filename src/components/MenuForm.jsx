@@ -33,6 +33,20 @@ class MenuForm extends React.Component {
 	};
 	handleSubmit = (e) => {
 		e.preventDefault();
+		window.fetch('/create-payment-intent', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state)
+		});
+		// .then((res) => {
+		// 	console.log(res);
+		// 	return res.json();
+		// });
+		// .then((data) => {
+		// 	console.log(data);
+		// });
 	};
 	handleChange = (e) => {
 		console.log(e.target);
@@ -148,74 +162,10 @@ class MenuForm extends React.Component {
 			});
 		}
 	};
-	/*checkOutChildren = () => {
-		let primerSegonCount = 0;
-		let dosPrimersCount = 0;
-		let platPostresCount = 0;
-
-		const menuData = [
-			{
-				menuType: 'Menú Complet',
-				count: primerSegonCount,
-				price: 8.95
-			},
-			{
-				menuType: 'Menú 2 Primers',
-				count: dosPrimersCount,
-				price: 7.95
-			},
-			{
-				menuType: 'Mig Menú',
-				count: platPostresCount,
-				price: 6.95
-			}
-		];
-
-		for (let i of this.state.cashRegister) {
-			switch (i) {
-				case 'primerSegon':
-					primerSegonCount++;
-					break;
-				case 'dosPrimers':
-					dosPrimersCount++;
-					break;
-				case 'platPostres':
-					platPostresCount++;
-					break;
-			}
-		}
-
-		for (let ele of menuData) {
-			//if (ele.count > 0) {
-			return (
-				<div id="checkout-row">
-					<div id="description-row">
-						<p>
-							<b>Descripció</b>
-						</p>
-						<p>
-							<b>Quant.</b>
-						</p>
-						<p>
-							<b>€/Unitat</b>
-						</p>
-					</div>
-					<hr />
-					<div id="checkout-elements">
-						<p>{ele.menuType}</p>
-						<p>{ele.count}</p>
-						<p>{`${ele.price} €`}</p>
-						<p>{`${ele.count * ele.price} €`}</p>
-					</div>
-				</div>
-			);
-			//}
-		}
-	};*/
 	render() {
 		return (
 			<section>
-				<form className="MenuForm" onSubmit={this.handleSubmit}>
+				<form className="MenuForm" action="/create-payment-intent" method="post" onSubmit={this.handleSubmit}>
 					<Step1 currentStep={this.state.currentStep} />
 					<Step2 currentStep={this.state.currentStep} handleClick={this.handleClick} />
 					<Step3
@@ -233,6 +183,7 @@ class MenuForm extends React.Component {
 						showCheckOut={this.state.showCheckOut}
 						menus={this.state.menus}
 						cashRegister={this.state.cashRegister}
+						handleSubmit={this.handleSubmit}
 					/>
 					<ChangeDate
 						currentStep={this.state.currentStep}
