@@ -1,11 +1,44 @@
 import React from 'react';
 import DishesDetails from './DishesDetails';
 import './CheckOutChildren.css';
-import axios from 'axios';
 
-import StripeCheckout from 'react-stripe-checkout';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe(
+	'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
+);
 
 function CheckOutChildren(props) {
+	const handleClick = async (event) => {
+		// When the customer clicks on the button, redirect them to Checkout.
+		const stripe = await stripePromise;
+
+		// Add items
+		const lineItems = [];
+
+		if (primerSegonCount > 0) {
+			lineItems.push({ price: 'price_1GxvoPAhsXSRq7ctlanuX0rn', quantity: primerSegonCount });
+		}
+
+		if (dosPrimersCount > 0) {
+			lineItems.push({ price: 'price_1GxvpKAhsXSRq7ctoKSmajN0', quantity: dosPrimersCount });
+		}
+
+		if (platPostresCount > 0) {
+			lineItems.push({ price: 'price_1GxvqUAhsXSRq7ctYSgw51Jk', quantity: platPostresCount });
+		}
+
+		const { error } = await stripe.redirectToCheckout({
+			lineItems: lineItems,
+			mode: 'payment',
+			successUrl: 'https://example.com/success',
+			cancelUrl: 'https://example.com/cancel'
+		});
+		// If `redirectToCheckout` fails due to a browser or network
+		// error, display the localized error message to your customer
+		// using `error.message`.
+		if (error) console.log(error.message);
+	};
+
 	let primerSegonCount = 0;
 	let dosPrimersCount = 0;
 	let platPostresCount = 0;
@@ -91,16 +124,6 @@ function CheckOutChildren(props) {
 		return grandTotal.toFixed(2);
 	};
 
-	const handleToken = async (token) => {
-		const response = await axios.post('/checkout', {
-			token,
-			grandTotal: (calculateTotalDebit(menuData) * 100).toFixed(2),
-			products: [ primerSegonCount, dosPrimersCount, platPostresCount ]
-		});
-
-		console.log(response);
-	};
-
 	return (
 		<div id="checkout-row">
 			<div id="description-row">
@@ -129,14 +152,9 @@ function CheckOutChildren(props) {
 					<b>{` ${calculateTotalDebit(menuData)} €`}</b>
 				</p>
 			</div>
-			<StripeCheckout
-				stripeKey="pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3"
-				token={handleToken}
-				billingAddress
-				shippingAddress
-				amount={(calculateTotalDebit(menuData) * 100).toFixed(2)}
-				currency="EUR"
-			/>
+			<button role="link" onClick={handleClick}>
+				Pagar
+			</button>
 			<hr />
 			<h1>Detalls</h1>
 			<DishesDetails menus={props.menus} />
