@@ -11,7 +11,11 @@ export class CheckOut extends Component {
 					<div id="your-order">
 						<h1>La teva comanda</h1>
 						<hr />
-						<CheckOutChildren menus={this.props.menus} cashRegister={this.props.cashRegister} />
+						<CheckOutChildren
+							menus={this.props.menus}
+							cashRegister={this.props.cashRegister}
+							toPayment={this.props.toPayment}
+						/>
 					</div>
 				</div>
 			);

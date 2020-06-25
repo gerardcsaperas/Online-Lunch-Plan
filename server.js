@@ -1,72 +1,59 @@
-const express = require('express');
+const cors = require("cors");
+const express = require("express");
+const env = require('dotenv').config({ path: './.env' })
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const { uuid } = require('uuidv4');
+
 const app = express();
-const { resolve } = require('path');
-const env = require('dotenv').config({ path: './.env' });
 
-// This is your real test secret API key.
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
-app.use(express.static('.'));
 app.use(express.json());
+app.use(cors());
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-    console.log('Hello World');
+app.get("/", (req, res) => {
+    res.send("Add your Stripe Secret Key to the .require('stripe') statement!");
 });
 
-const calculateOrderAmount = (items) => {
-    // Replace this constant with a calculation of the order's amount
-    // Calculate the order total on the server to prevent
-    // people from directly manipulating the amount on the client
+app.post("/checkout", async(req, res) => {
+    console.log("Request:", req.body);
 
-    let primerSegonCount = 0;
-    const primerSegonPrice = 8.95;
+    let error;
+    let status;
+    try {
+        const { grandTotal, token, products } = req.body;
 
-    let dosPrimersCount = 0;
-    const dosPrimersPrice = 7.95;
+        const customer = await stripe.customers.create({
+            email: token.email,
+            source: token.id
+        });
 
+        const idempotencyKey = uuid();
+        const charge = await stripe.charges.create({
+            amount: parseFloat(grandTotal),
+            currency: "eur",
+            customer: customer.id,
+            receipt_email: token.email,
+            description: `Purchased the following menus ${products[0]}, ${products[1]}, ${products[2]}`,
+            shipping: {
+                name: token.card.name,
+                address: {
+                    line1: token.card.address_line1,
+                    line2: token.card.address_line2,
+                    city: token.card.address_city,
+                    country: token.card.address_country,
+                    postal_code: token.card.address_zip
+                }
+            }
+        }, {
+            idempotencyKey
+        });
+        console.log("Charge:", { charge });
+        status = "success";
+    } catch (error) {
+        console.error("Error:", error);
+        status = "failure";
+    }
 
-    let platPostresCount = 0;
-    const platPostresPrice = 6.95
-
-
-    items.forEach(item => {
-        switch (item.menuType) {
-            default: console.log('You got a problem @line 26, CheckOutChildren.js');
-            break;
-            case 'primerSegon':
-                    primerSegonCount++;
-                break;
-            case 'dosPrimers':
-                    dosPrimersCount++;
-                break;
-            case 'platPostres':
-                    platPostresCount++;
-                break;
-        }
-    })
-
-    const grandTotal = (primerSegonCount * primerSegonPrice + dosPrimersCount * dosPrimersPrice + platPostresCount * platPostresPrice).toFixed(2);
-
-    return grandTotal;
-};
-
-app.post('/create-payment-intent', async(req, res) => {
-    console.log(req.body);
-    const items = req.body.cashRegister;
-    // // Create a PaymentIntent with the order amount and currency
-
-    console.log(calculateOrderAmount(items));
-
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount: calculateOrderAmount(items),
-        currency: 'eur'
-    });
-    res.send({
-        clientSecret: paymentIntent.client_secret
-    });
+    res.json({ error, status });
 });
 
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, () => console.log(`Node server listening on port ${PORT}`));
+app.listen(8080);

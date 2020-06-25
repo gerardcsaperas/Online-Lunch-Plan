@@ -1,6 +1,9 @@
 import React from 'react';
 import DishesDetails from './DishesDetails';
 import './CheckOutChildren.css';
+import axios from 'axios';
+
+import StripeCheckout from 'react-stripe-checkout';
 
 function CheckOutChildren(props) {
 	let primerSegonCount = 0;
@@ -85,11 +88,17 @@ function CheckOutChildren(props) {
 
 		const grandTotal = primerSegonTotalDebit + dosPrimersTotalDebit + platPostresTotalDebit;
 
-		return (
-			<p>
-				<b>{` ${grandTotal.toFixed(2)} €`}</b>
-			</p>
-		);
+		return grandTotal.toFixed(2);
+	};
+
+	const handleToken = async (token) => {
+		const response = await axios.post('/checkout', {
+			token,
+			grandTotal: (calculateTotalDebit(menuData) * 100).toFixed(2),
+			products: [ primerSegonCount, dosPrimersCount, platPostresCount ]
+		});
+
+		console.log(response);
 	};
 
 	return (
@@ -116,11 +125,18 @@ function CheckOutChildren(props) {
 				<p>
 					<b>Total</b>
 				</p>
-				{calculateTotalDebit(menuData)}
+				<p>
+					<b>{` ${calculateTotalDebit(menuData)} €`}</b>
+				</p>
 			</div>
-			<button id="pay" type="submit" onClick={props.handleSubmit}>
-				Pagar
-			</button>
+			<StripeCheckout
+				stripeKey="pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3"
+				token={handleToken}
+				billingAddress
+				shippingAddress
+				amount={(calculateTotalDebit(menuData) * 100).toFixed(2)}
+				currency="EUR"
+			/>
 			<hr />
 			<h1>Detalls</h1>
 			<DishesDetails menus={props.menus} />
