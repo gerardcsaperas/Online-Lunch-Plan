@@ -13,6 +13,8 @@ class MenuForm extends React.Component {
 			//State is used for storing data and user inputs
 			currentStep: 1,
 			currDate: new Date(),
+			//Monday is 1, Friday is 5
+			dayOfTheWeek: new Date().getDay(),
 			menuType: '',
 			menus: [],
 			cashRegister: [],
@@ -33,20 +35,6 @@ class MenuForm extends React.Component {
 	};
 	handleSubmit = (e) => {
 		e.preventDefault();
-		// window.fetch('/create-payment-intent', {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json'
-		// 	},
-		// 	body: JSON.stringify(this.state)
-		// });
-		// .then((res) => {
-		// 	console.log(res);
-		// 	return res.json();
-		// });
-		// .then((data) => {
-		// 	console.log(data);
-		// });
 	};
 	handleChange = (e) => {
 		console.log(e.target);
@@ -75,47 +63,51 @@ class MenuForm extends React.Component {
 	};
 	changeDate = (e) => {
 		this.setState({
-			currentStep: 0
+			currentStep: 'changeDate'
 		});
 	};
 	selectDate = (e) => {
 		let date = new Date(e.target.innerHTML.split(' ')[1]);
-		console.log(date);
 		this.setState({
 			currentStep: 1,
-			currDate: date
+			currDate: date,
+			dayOfTheWeek: date.getDay()
 		});
 	};
 	_back = (e) => {
-		this.setState({
-			currentStep: this.state.currentStep - 1
-		});
+		if (this.state.currentStep === 'changeDate') {
+			this.setState({
+				currentStep: 1
+			});
+		} else {
+			this.setState({
+				currentStep: this.state.currentStep - 1
+			});
+		}
 	};
+	// Console log things asyncronously
 	asyncConLog = () => {
 		console.log(this.state.menus);
 		console.log(this.state.cashRegister);
 	};
 	addAnotherMenu = (e) => {
 		let { menuType } = e;
-		//We update the state according to the menu ordered (to avoid clotting component's state)
+		// We update the state according to the menu ordered (to avoid clotting component's state)
 		if (menuType === 'primerSegon') {
-			this.setState(
-				{
-					menus: this.state.menus.concat({
-						//Concatenate the specific dishes.
-						menuType: menuType,
-						primer: e.primer,
-						segon: e.segon,
-						postres: e.postres
-					}),
-					cashRegister: this.state.cashRegister.concat({
-						//Concat the menu type.
-						menuType
-					}),
-					currentStep: 2 //Back to menu type selection.
-				},
-				this.asyncConLog
-			);
+			this.setState({
+				menus: this.state.menus.concat({
+					//Concatenate the specific dishes.
+					menuType: menuType,
+					primer: e.primer,
+					segon: e.segon,
+					postres: e.postres
+				}),
+				cashRegister: this.state.cashRegister.concat({
+					//Concat the menu type.
+					menuType
+				}),
+				currentStep: 2 //Back to menu type selection.
+			});
 		} else if (menuType === 'dosPrimers') {
 			this.setState(
 				{
@@ -138,13 +130,13 @@ class MenuForm extends React.Component {
 			this.setState(
 				{
 					menus: this.state.menus.concat({
-						//Concatenate the specific dishes.
+						// Concatenate the specific dishes.
 						menuType: menuType,
 						platUnic: e.platUnic,
 						postres: e.postres
 					}),
 					cashRegister: this.state.cashRegister.concat({
-						//Concat the menu type.
+						// Concat the menu type.
 						menuType
 					}),
 					currentStep: 2 //Back to menu type selection.
@@ -171,11 +163,12 @@ class MenuForm extends React.Component {
 	render() {
 		return (
 			<section>
-				<form className="MenuForm" action="/create-payment-intent" method="post" onSubmit={this.handleSubmit}>
-					<Step1 currentStep={this.state.currentStep} />
+				<form className="MenuForm" onSubmit={this.handleSubmit}>
+					<Step1 currentStep={this.state.currentStep} dayOfTheWeek={this.state.dayOfTheWeek} />
 					<Step2 currentStep={this.state.currentStep} handleClick={this.handleClick} />
 					<Step3
 						currentStep={this.state.currentStep}
+						dayOfTheWeek={this.state.dayOfTheWeek}
 						handleChange={this.handleChange}
 						menuType={this.state.menuType}
 						_back={this._back}

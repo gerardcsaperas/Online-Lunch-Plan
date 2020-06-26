@@ -1,6 +1,9 @@
 import React from 'react';
 import './Step3.css';
 
+//Import menu data from a separate file in order to automatically update UI according to date
+import menuOf from './menuData';
+
 class Step3 extends React.Component {
 	constructor(props) {
 		super(props);
@@ -94,16 +97,16 @@ class Step3 extends React.Component {
 	};
 	passToParent = () => {
 		let { primer, primerA, primerB, platUnic, segon, postres, menuType } = this.state;
-		//Switch to make sure all obligatory radio boxes are filled for every menu type.
+		// Switch to make sure all obligatory radio boxes are filled for every menu type.
 		switch (menuType) {
 			default:
 				console.log('You got a problem @ line 96, Step3.js');
 				break;
 			case 'primerSegon':
 				if (primer !== '' && segon !== '' && postres !== '') {
-					this.props.addAnotherMenu(this.state); //Call to the function passed by the parent with Step3's state as arguments.
+					this.props.addAnotherMenu(this.state); // Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
-						//Clear state for future use.
+						// Clear state for future use.
 						primer: '',
 						primerA: '',
 						primerB: '',
@@ -117,9 +120,9 @@ class Step3 extends React.Component {
 				break;
 			case 'dosPrimers':
 				if (primerA !== '' && primerB !== '' && postres !== '') {
-					this.props.addAnotherMenu(this.state); //Call to the function passed by the parent with Step3's state as arguments.
+					this.props.addAnotherMenu(this.state); // Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
-						//Clear state for future use.
+						// Clear state for future use.
 						primer: '',
 						primerA: '',
 						primerB: '',
@@ -154,10 +157,12 @@ class Step3 extends React.Component {
 			{
 				menuType: this.props.menuType
 			},
-			this.passToParent //This function does all the work related to updating parent's state correctly.
+			this.passToParent // This function does all the work related to updating parent's state correctly.
 		);
 	};
 	render() {
+		let dayOfTheWeek = this.props.dayOfTheWeek;
+
 		if (this.props.currentStep === 3) {
 			switch (this.props.menuType) {
 				default:
@@ -175,7 +180,7 @@ class Step3 extends React.Component {
 								value="primer-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primer-1">Primer 1</label>
+							<label htmlFor="primer-1">{menuOf[dayOfTheWeek].primers[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -184,7 +189,7 @@ class Step3 extends React.Component {
 								value="primer-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primer-2">Primer 2</label>
+							<label htmlFor="primer-2">{menuOf[dayOfTheWeek].primers[1]}</label>
 							<br />
 							<input
 								type="radio"
@@ -193,7 +198,7 @@ class Step3 extends React.Component {
 								value="primer-3"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primer-3">Primer 3</label>
+							<label htmlFor="primer-3">{menuOf[dayOfTheWeek].primers[2]}</label>
 							<br />
 							<h2>Segons</h2>
 							<input
@@ -203,7 +208,7 @@ class Step3 extends React.Component {
 								value="segon-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="segon-1">Segon 1</label>
+							<label htmlFor="segon-1">{menuOf[dayOfTheWeek].segons[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -212,7 +217,7 @@ class Step3 extends React.Component {
 								value="segon-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="segon-2">Segon 2</label>
+							<label htmlFor="segon-2">{menuOf[dayOfTheWeek].segons[1]}</label>
 							<br />
 							<input
 								type="radio"
@@ -221,7 +226,7 @@ class Step3 extends React.Component {
 								value="segon-3"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="segon-3">Segon 3</label>
+							<label htmlFor="segon-3">{menuOf[dayOfTheWeek].segons[2]}</label>
 							<br />
 							<h2>Postres</h2>
 							<input
@@ -231,7 +236,7 @@ class Step3 extends React.Component {
 								value="postre-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="postre-1">Postre 1</label>
+							<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -240,7 +245,7 @@ class Step3 extends React.Component {
 								value="postre-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="postre-2">Postre 2</label>
+							<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
 							<br />
 							<button id="begudes" onClick={this.props.addDrinks}>
 								Afegeix begudes
@@ -269,7 +274,7 @@ class Step3 extends React.Component {
 								value="primer-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerA-1">Primer 1</label>
+							<label htmlFor="primerA-1">{menuOf[dayOfTheWeek].primers[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -278,7 +283,7 @@ class Step3 extends React.Component {
 								value="primer-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerA-2">Primer 2</label>
+							<label htmlFor="primerA-2">{menuOf[dayOfTheWeek].primers[1]}</label>
 							<br />
 							<input
 								type="radio"
@@ -287,7 +292,7 @@ class Step3 extends React.Component {
 								value="primer-3"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerA-3">Primer 3</label>
+							<label htmlFor="primerA-3">{menuOf[dayOfTheWeek].primers[2]}</label>
 							<br />
 							<h2>Primer 2</h2>
 							<input
@@ -297,7 +302,7 @@ class Step3 extends React.Component {
 								value="primer-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerB-1">Primer 1</label>
+							<label htmlFor="primerB-1">{menuOf[dayOfTheWeek].primers[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -306,7 +311,7 @@ class Step3 extends React.Component {
 								value="primer-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerB-2">Primer 2</label>
+							<label htmlFor="primerB-2">{menuOf[dayOfTheWeek].primers[1]}</label>
 							<br />
 							<input
 								type="radio"
@@ -315,7 +320,7 @@ class Step3 extends React.Component {
 								value="primer-3"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="primerB-3">Primer 3</label>
+							<label htmlFor="primerB-3">{menuOf[dayOfTheWeek].primers[2]}</label>
 							<br />
 							<h2>Postres</h2>
 							<input
@@ -325,7 +330,7 @@ class Step3 extends React.Component {
 								value="postre-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="postre-1">Postre 1</label>
+							<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -334,7 +339,7 @@ class Step3 extends React.Component {
 								value="postre-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="postre-2">Postre 2</label>
+							<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
 							<button id="begudes" onClick={this.props.addDrinks}>
 								Afegeix begudes
 							</button>
@@ -362,7 +367,7 @@ class Step3 extends React.Component {
 								value="primer-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="platUnic-1">Primer 1</label>
+							<label htmlFor="platUnic-1">{menuOf[dayOfTheWeek].primers[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -371,7 +376,7 @@ class Step3 extends React.Component {
 								value="primer-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="platUnic-2">Primer 2</label>
+							<label htmlFor="platUnic-2">{menuOf[dayOfTheWeek].primers[1]}</label>
 							<br />
 							<input
 								type="radio"
@@ -380,7 +385,7 @@ class Step3 extends React.Component {
 								value="primer-3"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="platUnic-3">Primer 3</label>
+							<label htmlFor="platUnic-3">{menuOf[dayOfTheWeek].primers[2]}</label>
 							<br />
 							<input
 								type="radio"
@@ -389,7 +394,7 @@ class Step3 extends React.Component {
 								value="segon-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="platUnic-4">Segon 1</label>
+							<label htmlFor="platUnic-4">{menuOf[dayOfTheWeek].segons[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -398,7 +403,7 @@ class Step3 extends React.Component {
 								value="segon-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="platUnic-5">Segon 2</label>
+							<label htmlFor="platUnic-5">{menuOf[dayOfTheWeek].segons[1]}</label>
 							<br />
 							<input
 								type="radio"
@@ -407,7 +412,7 @@ class Step3 extends React.Component {
 								value="segon-3"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="platUnic-6">Segon 3</label>
+							<label htmlFor="platUnic-6">{menuOf[dayOfTheWeek].segons[2]}</label>
 							<br />
 							<h2>Postres</h2>
 							<input
@@ -417,7 +422,7 @@ class Step3 extends React.Component {
 								value="postre-1"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="postre-1">Postre 1</label>
+							<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
 							<br />
 							<input
 								type="radio"
@@ -426,7 +431,7 @@ class Step3 extends React.Component {
 								value="postre-2"
 								onChange={this.handleSelection}
 							/>
-							<label htmlFor="postre-2">Postre 2</label>
+							<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
 							<button id="begudes" onClick={this.props.addDrinks}>
 								Afegeix begudes
 							</button>

@@ -17,7 +17,7 @@ export default function ChangeDate(props) {
 				Canviar Dia
 			</button>
 		);
-	} else if (props.currentStep === 0) {
+	} else if (props.currentStep === 'changeDate') {
 		return (
 			<div id="dateSelector">
 				<h1>Tria un dia</h1>
