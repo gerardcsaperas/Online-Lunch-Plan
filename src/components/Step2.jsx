@@ -29,15 +29,13 @@ export default class Step2 extends Component {
 						<br />Postre | Beguda<br />
 						<br />7,95 €
 					</button>
-					<button
-						id="serveiCatering"
-						type="button"
-						className="customerNeeds"
-						onClick={this.props.handleClick}
-					>
-						Càtering per a events
+					<button id="orderDrinks" type="button" className="customerNeeds" onClick={this.props.toDrinks}>
+						Begudes
 					</button>
 				</div>
+				<button id="back" onClick={this.props._back}>
+					Enrrere
+				</button>
 			</div>
 		);
 	}

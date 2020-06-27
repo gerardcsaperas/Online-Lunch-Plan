@@ -3,8 +3,10 @@ import './MenuForm.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import OrderDrinks from './OrderDrinks';
 import ChangeDate from './ChangeDate';
-import CheckOut from './CheckOut';
+import OrderBasket from './OrderBasket';
+import { Button } from 'react-bootstrap';
 
 class MenuForm extends React.Component {
 	constructor(props) {
@@ -18,16 +20,24 @@ class MenuForm extends React.Component {
 			menuType: '',
 			menus: [],
 			cashRegister: [],
-			showCheckOut: false
+			showCheckOut: false,
+			drinksOrdered: {
+				water: 0,
+				cola: 0,
+				colaZero: 0,
+				beer: 0,
+				lemonFanta: 0,
+				orangeFanta: 0
+			}
 		};
 	}
 	orderButton = () => {
 		let { currentStep } = this.state;
 		if (currentStep === 1) {
 			return (
-				<button id="Demanar" type="button" onClick={this.handleClick}>
+				<Button id="Demanar" type="button" onClick={this.handleClick}>
 					Demanar
-				</button>
+				</Button>
 			);
 		} else {
 			return null;
@@ -78,6 +88,14 @@ class MenuForm extends React.Component {
 		if (this.state.currentStep === 'changeDate') {
 			this.setState({
 				currentStep: 1
+			});
+		} else if (this.state.currentStep === 'orderDrinks') {
+			this.setState({
+				currentStep: 2
+			});
+		} else if (this.state.currentStep === 1) {
+			this.setState({
+				showCheckOut: false
 			});
 		} else {
 			this.setState({
@@ -145,8 +163,86 @@ class MenuForm extends React.Component {
 			);
 		}
 	};
-	addAndPay = (e) => {};
-	addDrinks = (e) => {};
+	addAndPay = (e) => {
+		let { menuType } = e;
+		// We update the state according to the menu ordered (to avoid clotting component's state)
+		if (menuType === 'primerSegon') {
+			this.setState({
+				menus: this.state.menus.concat({
+					// Concatenate the specific dishes.
+					menuType: menuType,
+					primer: e.primer,
+					segon: e.segon,
+					postres: e.postres
+				}),
+				cashRegister: this.state.cashRegister.concat({
+					// Concat the menu type.
+					menuType
+				}),
+				currentStep: 1,
+				showCheckOut: true // Order review and checkout screen
+			});
+		} else if (menuType === 'dosPrimers') {
+			this.setState(
+				{
+					menus: this.state.menus.concat({
+						//Concatenate the specific dishes.
+						menuType: menuType,
+						primerA: e.primerA,
+						primerB: e.primerB,
+						postres: e.postres
+					}),
+					cashRegister: this.state.cashRegister.concat({
+						//Concat the menu type.
+						menuType
+					}),
+					currentStep: 1,
+					showCheckOut: true // Order review and checkout screen
+				},
+				this.asyncConLog
+			);
+		} else if (menuType === 'platPostres') {
+			this.setState(
+				{
+					menus: this.state.menus.concat({
+						// Concatenate the specific dishes.
+						menuType: menuType,
+						platUnic: e.platUnic,
+						postres: e.postres
+					}),
+					cashRegister: this.state.cashRegister.concat({
+						// Concat the menu type.
+						menuType
+					}),
+					currentStep: 1,
+					showCheckOut: true // Order review and checkout screen
+				},
+				this.asyncConLog
+			);
+		}
+	};
+	toDrinks = () => {
+		this.setState({
+			currentStep: 'orderDrinks',
+			showCheckOut: false
+		});
+	};
+	addDrinksAndPay = async (e) => {
+		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = e;
+		await this.setState({
+			drinksOrdered: {
+				water,
+				cola,
+				colaZero,
+				beer,
+				lemonFanta,
+				orangeFanta
+			},
+			currentStep: 1,
+			showCheckOut: true // Order review and checkout screen
+		});
+	};
+	addDrinksAndContinue = (e) => {};
 	showCheckOut = () => {
 		let { showCheckOut } = this.state;
 
@@ -165,7 +261,12 @@ class MenuForm extends React.Component {
 			<section>
 				<form className="MenuForm" onSubmit={this.handleSubmit}>
 					<Step1 currentStep={this.state.currentStep} dayOfTheWeek={this.state.dayOfTheWeek} />
-					<Step2 currentStep={this.state.currentStep} handleClick={this.handleClick} />
+					<Step2
+						currentStep={this.state.currentStep}
+						handleClick={this.handleClick}
+						toDrinks={this.toDrinks}
+						_back={this._back}
+					/>
 					<Step3
 						currentStep={this.state.currentStep}
 						dayOfTheWeek={this.state.dayOfTheWeek}
@@ -174,15 +275,22 @@ class MenuForm extends React.Component {
 						_back={this._back}
 						addAnotherMenu={this.addAnotherMenu}
 						addAndPay={this.addAndPay}
-						addDrinks={this.addDrinks}
+					/>
+					<OrderDrinks
+						currentStep={this.state.currentStep}
+						_back={this._back}
+						addDrinksAndPay={this.addDrinksAndPay}
 					/>
 					{this.orderButton()} {/*Only shows if step is 1 */}
-					<CheckOut
+					<OrderBasket
 						showHide={this.showCheckOut}
 						showCheckOut={this.state.showCheckOut}
 						menus={this.state.menus}
 						cashRegister={this.state.cashRegister}
+						drinksOrdered={this.state.drinksOrdered}
 						toPayment={this.toPayment}
+						toDrinks={this.toDrinks}
+						_back={this._back}
 					/>
 					<ChangeDate
 						currentStep={this.state.currentStep}

@@ -1,4 +1,4 @@
-#checkout {
+#toOrderBasket {
     position: fixed;
     top: 5px;
     right: 5px;
@@ -10,7 +10,7 @@
     background-size: cover;
 }
 
-#your-order {
+#OrderBasket {
     position: fixed;
     top: 60px;
     margin-left: auto;

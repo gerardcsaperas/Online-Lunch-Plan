@@ -28,7 +28,7 @@ export default function ChangeDate(props) {
 					Dim {week[1]}
 				</button>
 				<button className="day" onClick={props.selectDate}>
-					Dim {week[2]}
+					Dix {week[2]}
 				</button>
 				<button className="day" onClick={props.selectDate}>
 					Dij {week[3]}
