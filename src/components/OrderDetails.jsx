@@ -12,11 +12,11 @@ const stripePromise = loadStripe(
 );
 
 function OrderDetails(props) {
-	const handleClick = async (event) => {
+	const stripePayment = async (event) => {
 		// When the customer clicks on the button, redirect them to Checkout.
 		const stripe = await stripePromise;
 
-		// Add items
+		// Add Food
 		const lineItems = [];
 
 		if (primerSegonCount > 0) {
@@ -29,6 +29,52 @@ function OrderDetails(props) {
 
 		if (platPostresCount > 0) {
 			lineItems.push({ price: 'price_1GxvqUAhsXSRq7ctYSgw51Jk', quantity: platPostresCount });
+		}
+
+		// Add Drinks
+		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = props.drinksOrdered;
+
+		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
+
+		let softDrinksCount = 0;
+		let beerCount = 0;
+		let waterCount = 0;
+
+		for (const [ key, value ] of Object.entries(drinksOrdered)) {
+			if (value > 0) {
+				switch (key) {
+					case 'water':
+						waterCount += value;
+						break;
+					case 'cola':
+						softDrinksCount += value;
+						break;
+					case 'colaZero':
+						softDrinksCount += value;
+						break;
+					case 'beer':
+						beerCount += value;
+						break;
+					case 'lemonFanta':
+						softDrinksCount += value;
+						break;
+					case 'orangeFanta':
+						softDrinksCount += value;
+						break;
+				}
+			}
+		}
+
+		if (softDrinksCount > 0) {
+			lineItems.push({ price: 'price_1GykpAAhsXSRq7ctVNSkQMWv', quantity: softDrinksCount });
+		}
+
+		if (beerCount > 0) {
+			lineItems.push({ price: 'price_1GykptAhsXSRq7ctyAeWh0XK', quantity: beerCount });
+		}
+
+		if (waterCount > 0) {
+			lineItems.push({ price: 'price_1GykpZAhsXSRq7ctz7mgukJu', quantity: waterCount });
 		}
 
 		const { error } = await stripe.redirectToCheckout({
@@ -154,7 +200,6 @@ function OrderDetails(props) {
 			orangeFanta: 'Fanta Taronja'
 		};
 		let drinksArray = [];
-		console.log(drinksOrdered);
 
 		for (const [ key, value ] of Object.entries(drinksOrdered)) {
 			if (value > 0) {
@@ -244,7 +289,7 @@ function OrderDetails(props) {
 					</p>
 				</Col>
 			</Row>
-			<button role="link" onClick={handleClick}>
+			<button role="link" onClick={stripePayment}>
 				Pagar
 			</button>
 			<button id="orderDrinks" type="button" className="customerNeeds" onClick={props.toDrinks}>
