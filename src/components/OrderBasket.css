@@ -5,6 +5,8 @@
     height: 50px;
     width: 50px;
     border: 0;
+    margin: 0;
+    padding: 0;
     background: transparent;
     background-image: url('../assets/iconmonstr-checkout-8-240.png');
     background-size: cover;

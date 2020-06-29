@@ -1,6 +1,9 @@
 import React from 'react';
 import './ChangeDate.css';
 
+// Bootstrap
+import { Row, Button } from 'react-bootstrap';
+
 export default function ChangeDate(props) {
 	let curr = new Date();
 	const week = [];
@@ -12,11 +15,7 @@ export default function ChangeDate(props) {
 	}
 
 	if (props.currentStep === 1) {
-		return (
-			<button id="changeDate" type="button" onClick={props.changeDate}>
-				Canviar Dia
-			</button>
-		);
+		return null;
 	} else if (props.currentStep === 'changeDate') {
 		return (
 			<div id="dateSelector">

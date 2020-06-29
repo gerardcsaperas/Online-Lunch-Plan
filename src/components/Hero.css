@@ -1,0 +1,70 @@
+#HeroContainer {
+    padding: 0;
+    margin: 0;
+}
+
+#Hero {
+    height: 100vh;
+}
+
+#services,
+#about,
+#formCol {
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+}
+
+.display-4 {
+    margin-bottom: 3vh;
+}
+
+#footer {
+    overflow: hidden;
+    margin-top: 5vh;
+}
+
+#legal {
+    padding-top: 1vh;
+}
+
+.madeWithLove {
+    padding-top: 1vh;
+    font-size: 0.7rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+#hero-logo {
+    height: 230px;
+    width: 300px;
+    background: transparent;
+    background-image: url('../assets/logo-catering-roser-color.jpg');
+    background-size: cover;
+}
+
+#hero-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+}
+
+.p {
+    line-height: 1.5rem;
+}
+
+#facebook,
+#instagram {
+    border: 0;
+    margin-right: 2.5vw;
+    height: 35px;
+    width: 35px;
+    background: transparent;
+    background-size: cover;
+}
+
+#facebook {
+    background-image: url("../assets/iconmonstr-facebook-3-240.png");
+}
+
+#instagram {
+    background-image: url("../assets/iconmonstr-instagram-13-240.png");
+}

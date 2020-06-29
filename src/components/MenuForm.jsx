@@ -6,7 +6,7 @@ import Step3 from './Step3';
 import OrderDrinks from './OrderDrinks';
 import ChangeDate from './ChangeDate';
 import OrderBasket from './OrderBasket';
-import { Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class MenuForm extends React.Component {
 	constructor(props) {
@@ -31,18 +31,6 @@ class MenuForm extends React.Component {
 			}
 		};
 	}
-	orderButton = () => {
-		let { currentStep } = this.state;
-		if (currentStep === 1) {
-			return (
-				<Button id="Demanar" type="button" onClick={this.handleClick}>
-					Demanar
-				</Button>
-			);
-		} else {
-			return null;
-		}
-	};
 	handleSubmit = (e) => {
 		e.preventDefault();
 	};
@@ -71,7 +59,7 @@ class MenuForm extends React.Component {
 			showCheckOut: false
 		});
 	};
-	changeDate = (e) => {
+	changeDate = () => {
 		this.setState({
 			currentStep: 'changeDate'
 		});
@@ -258,47 +246,56 @@ class MenuForm extends React.Component {
 	};
 	render() {
 		return (
-			<section>
-				<form className="MenuForm" onSubmit={this.handleSubmit}>
-					<Step1 currentStep={this.state.currentStep} dayOfTheWeek={this.state.dayOfTheWeek} />
-					<Step2
-						currentStep={this.state.currentStep}
-						handleClick={this.handleClick}
-						toDrinks={this.toDrinks}
-						_back={this._back}
-					/>
-					<Step3
-						currentStep={this.state.currentStep}
-						dayOfTheWeek={this.state.dayOfTheWeek}
-						handleChange={this.handleChange}
-						menuType={this.state.menuType}
-						_back={this._back}
-						addAnotherMenu={this.addAnotherMenu}
-						addAndPay={this.addAndPay}
-					/>
-					<OrderDrinks
-						currentStep={this.state.currentStep}
-						_back={this._back}
-						addDrinksAndPay={this.addDrinksAndPay}
-					/>
-					{this.orderButton()} {/*Only shows if step is 1 */}
-					<OrderBasket
-						showHide={this.showCheckOut}
-						showCheckOut={this.state.showCheckOut}
-						menus={this.state.menus}
-						cashRegister={this.state.cashRegister}
-						drinksOrdered={this.state.drinksOrdered}
-						toPayment={this.toPayment}
-						toDrinks={this.toDrinks}
-						_back={this._back}
-					/>
-					<ChangeDate
-						currentStep={this.state.currentStep}
-						changeDate={this.changeDate}
-						selectDate={this.selectDate}
-					/>
-				</form>
-			</section>
+			<Container id="contentContainer">
+				<Row>
+					<Col xs={12} md={6}>
+						{/*<form className="MenuForm" onSubmit={this.handleSubmit}>*/}
+						<Step1
+							currentStep={this.state.currentStep}
+							dayOfTheWeek={this.state.dayOfTheWeek}
+							currDate={this.state.currDate}
+							handleClick={this.handleClick}
+							changeDate={this.changeDate}
+						/>
+						<Step2
+							currentStep={this.state.currentStep}
+							handleClick={this.handleClick}
+							toDrinks={this.toDrinks}
+							_back={this._back}
+						/>
+						<Step3
+							currentStep={this.state.currentStep}
+							dayOfTheWeek={this.state.dayOfTheWeek}
+							handleChange={this.handleChange}
+							menuType={this.state.menuType}
+							_back={this._back}
+							addAnotherMenu={this.addAnotherMenu}
+							addAndPay={this.addAndPay}
+						/>
+						<OrderDrinks
+							currentStep={this.state.currentStep}
+							_back={this._back}
+							addDrinksAndPay={this.addDrinksAndPay}
+						/>
+						<OrderBasket
+							showHide={this.showCheckOut}
+							showCheckOut={this.state.showCheckOut}
+							menus={this.state.menus}
+							cashRegister={this.state.cashRegister}
+							drinksOrdered={this.state.drinksOrdered}
+							toPayment={this.toPayment}
+							toDrinks={this.toDrinks}
+							_back={this._back}
+						/>
+						<ChangeDate
+							currentStep={this.state.currentStep}
+							changeDate={this.changeDate}
+							selectDate={this.selectDate}
+						/>
+						{/*</form>*/}
+					</Col>
+				</Row>
+			</Container>
 		);
 	}
 }

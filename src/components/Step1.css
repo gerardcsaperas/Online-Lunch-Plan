@@ -1,8 +1,22 @@
-p {
-    padding-left: 1rem;
-    line-height: 0.5;
+.Step1 {
+    background: whitesmoke;
+    border-radius: 10px;
 }
 
+h1,
 h2 {
-    margin-bottom: 0;
+    font-family: 'Dancing Script', cursive;
+}
+
+p {
+    line-height: 0.5;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#menuTitle {
+    padding-top: 1rem;
+}
+
+#changeDate {
+    margin-top: 1vh;
 }

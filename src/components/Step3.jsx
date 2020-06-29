@@ -1,8 +1,11 @@
 import React from 'react';
 import './Step3.css';
 
-//Import menu data from a separate file in order to automatically update UI according to date
+// Import menu data from a separate file in order to automatically update UI according to date
 import menuOf from './menuData';
+
+// Bootstrap
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 class Step3 extends React.Component {
 	constructor(props) {
@@ -30,67 +33,43 @@ class Step3 extends React.Component {
 				break;
 			case 'primerSegon':
 				if (course === 'primer') {
-					this.setState(
-						{
-							primer: dish
-						},
-						this.consoleLogCallback
-					);
+					this.setState({
+						primer: dish
+					});
 				} else if (course === 'segon') {
-					this.setState(
-						{
-							segon: dish
-						},
-						this.consoleLogCallback
-					);
+					this.setState({
+						segon: dish
+					});
 				} else if (course === 'postres') {
-					this.setState(
-						{
-							postres: dish
-						},
-						this.consoleLogCallback
-					);
+					this.setState({
+						postres: dish
+					});
 				}
 				break;
 			case 'dosPrimers':
 				if (course === 'primerA') {
-					this.setState(
-						{
-							primerA: dish
-						},
-						this.consoleLogCallback
-					);
+					this.setState({
+						primerA: dish
+					});
 				} else if (course === 'primerB') {
-					this.setState(
-						{
-							primerB: dish
-						},
-						this.consoleLogCallback
-					);
+					this.setState({
+						primerB: dish
+					});
 				} else if (course === 'postres') {
-					this.setState(
-						{
-							postres: dish
-						},
-						this.consoleLogCallback
-					);
+					this.setState({
+						postres: dish
+					});
 				}
 				break;
 			case 'platPostres':
 				if (course === 'platUnic') {
-					this.setState(
-						{
-							platUnic: dish
-						},
-						this.consoleLogCallback
-					);
+					this.setState({
+						platUnic: dish
+					});
 				} else if (course === 'postres') {
-					this.setState(
-						{
-							postres: dish
-						},
-						this.consoleLogCallback
-					);
+					this.setState({
+						postres: dish
+					});
 				}
 				break;
 		}
@@ -233,11 +212,13 @@ class Step3 extends React.Component {
 				default:
 					return null;
 				case 'primerSegon':
-					if (dayOfTheWeek === 6 || dayOfTheWeek === 1) {
+					if (dayOfTheWeek === 6 || dayOfTheWeek === 0) {
 						// Case for weekends, return next Monday
 						return (
-							<div className="Step3">
-								<h1 className="menuType">Escull els plats</h1>
+							<Container className="Step3">
+								<Row className="text-center">
+									<h1 className="menuType">Escull els plats</h1>
+								</Row>
 								<hr />
 								<h2>Primers</h2>
 								<input
@@ -314,78 +295,113 @@ class Step3 extends React.Component {
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
 								<br />
-								<button id="pay" onClick={this.addAndPay}>
+								<Button id="pay" onClick={this.addAndPay}>
 									Afegeix i paga
-								</button>
-								<button id="add-more" onClick={this.addAnotherMenu}>
+								</Button>
+								<Button id="add-more" onClick={this.addAnotherMenu}>
 									Afegeix i segueix comprant
-								</button>
-								<button id="back" onClick={this.props._back}>
+								</Button>
+								<Button id="back" onClick={this.props._back}>
 									Enrrere
-								</button>
-							</div>
+								</Button>
+							</Container>
 						);
 					} else {
 						return (
-							<div className="Step3">
-								<h1 className="menuType">Escull els plats</h1>
+							<Container className="Step3">
+								<Row className="text-center">
+									<h1 className="menuType">Escull els plats</h1>
+								</Row>
 								<hr />
-								<h2>Primers</h2>
-								<input
-									type="radio"
-									id="primer-1"
-									name="primer"
-									value="primer-1"
-									onChange={this.handleSelection}
-								/>
-								<label htmlFor="primer-1">{menuOf[dayOfTheWeek].primers[0]}</label>
-								<br />
-								<input
-									type="radio"
-									id="primer-2"
-									name="primer"
-									value="primer-2"
-									onChange={this.handleSelection}
-								/>
-								<label htmlFor="primer-2">{menuOf[dayOfTheWeek].primers[1]}</label>
-								<br />
-								<input
-									type="radio"
-									id="primer-3"
-									name="primer"
-									value="primer-3"
-									onChange={this.handleSelection}
-								/>
-								<label htmlFor="primer-3">{menuOf[dayOfTheWeek].primers[2]}</label>
-								<br />
-								<h2>Segons</h2>
-								<input
-									type="radio"
-									id="segon-1"
-									name="segon"
-									value="segon-1"
-									onChange={this.handleSelection}
-								/>
-								<label htmlFor="segon-1">{menuOf[dayOfTheWeek].segons[0]}</label>
-								<br />
-								<input
-									type="radio"
-									id="segon-2"
-									name="segon"
-									value="segon-2"
-									onChange={this.handleSelection}
-								/>
-								<label htmlFor="segon-2">{menuOf[dayOfTheWeek].segons[1]}</label>
-								<br />
-								<input
-									type="radio"
-									id="segon-3"
-									name="segon"
-									value="segon-3"
-									onChange={this.handleSelection}
-								/>
-								<label htmlFor="segon-3">{menuOf[dayOfTheWeek].segons[2]}</label>
-								<br />
+								<Row>
+									<h2>Primers</h2>
+								</Row>
+								<Row>
+									<Col xs={1}>
+										<input
+											type="radio"
+											id="primer-1"
+											name="primer"
+											value="primer-1"
+											onChange={this.handleSelection}
+										/>
+									</Col>
+									<Col>
+										<label htmlFor="primer-1">{menuOf[dayOfTheWeek].primers[0]}</label>
+									</Col>
+								</Row>
+								<Row>
+									<Col xs={1}>
+										<input
+											type="radio"
+											id="primer-2"
+											name="primer"
+											value="primer-2"
+											onChange={this.handleSelection}
+										/>
+									</Col>
+									<Col>
+										<label htmlFor="primer-2">{menuOf[dayOfTheWeek].primers[1]}</label>
+									</Col>
+								</Row>
+								<Row>
+									<Col xs={1}>
+										<input
+											type="radio"
+											id="primer-3"
+											name="primer"
+											value="primer-3"
+											onChange={this.handleSelection}
+										/>
+									</Col>
+									<Col>
+										<label htmlFor="primer-3">{menuOf[dayOfTheWeek].primers[2]}</label>
+									</Col>
+								</Row>
+
+								<Row>
+									<h2>Segons</h2>
+								</Row>
+								<Col>
+									<input
+										type="radio"
+										id="segon-1"
+										name="segon"
+										value="segon-1"
+										onChange={this.handleSelection}
+									/>
+								</Col>
+								<Col>
+									<label htmlFor="segon-1">{menuOf[dayOfTheWeek].segons[0]}</label>
+								</Col>
+								<Row>
+									<Col>
+										<input
+											type="radio"
+											id="segon-2"
+											name="segon"
+											value="segon-2"
+											onChange={this.handleSelection}
+										/>
+									</Col>
+									<Col>
+										<label htmlFor="segon-2">{menuOf[dayOfTheWeek].segons[1]}</label>
+									</Col>
+								</Row>
+								<Row>
+									<Col>
+										<input
+											type="radio"
+											id="segon-3"
+											name="segon"
+											value="segon-3"
+											onChange={this.handleSelection}
+										/>
+									</Col>
+									<Col>
+										<label htmlFor="segon-3">{menuOf[dayOfTheWeek].segons[2]}</label>
+									</Col>
+								</Row>
 								<h2>Postres</h2>
 								<input
 									type="radio"
@@ -405,24 +421,24 @@ class Step3 extends React.Component {
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
 								<br />
-								<button id="pay" onClick={this.addAndPay}>
+								<Button id="pay" onClick={this.addAndPay}>
 									Afegeix i paga
-								</button>
-								<button id="add-more" onClick={this.addAnotherMenu}>
+								</Button>
+								<Button id="add-more" onClick={this.addAnotherMenu}>
 									Afegeix i segueix comprant
-								</button>
-								<button id="back" onClick={this.props._back}>
+								</Button>
+								<Button id="back" onClick={this.props._back}>
 									Enrrere
-								</button>
-							</div>
+								</Button>
+							</Container>
 						);
 					}
 
 				case 'dosPrimers':
-					if (dayOfTheWeek === 6 || dayOfTheWeek === 1) {
+					if (dayOfTheWeek === 6 || dayOfTheWeek === 0) {
 						// Case for weekends, return next Monday
 						return (
-							<div className="Step3">
+							<Container className="Step3">
 								<h1 className="menuType">Escull els plats</h1>
 								<hr />
 								<h2>Primer 1</h2>
@@ -499,20 +515,20 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
-								<button id="pay" onClick={this.addAndPay}>
+								<Button id="pay" onClick={this.addAndPay}>
 									Afegeix i paga
-								</button>
-								<button id="add-more" onClick={this.addAnotherMenu}>
+								</Button>
+								<Button id="add-more" onClick={this.addAnotherMenu}>
 									Afegeix i segueix comprant
-								</button>
-								<button id="back" onClick={this.props._back}>
+								</Button>
+								<Button id="back" onClick={this.props._back}>
 									Enrrere
-								</button>
-							</div>
+								</Button>
+							</Container>
 						);
 					} else {
 						return (
-							<div className="Step3">
+							<Container className="Step3">
 								<h1 className="menuType">Escull els plats</h1>
 								<hr />
 								<h2>Primer 1</h2>
@@ -589,22 +605,22 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
-								<button id="pay" onClick={this.addAndPay}>
+								<Button id="pay" onClick={this.addAndPay}>
 									Afegeix i paga
-								</button>
-								<button id="add-more" onClick={this.addAnotherMenu}>
+								</Button>
+								<Button id="add-more" onClick={this.addAnotherMenu}>
 									Afegeix i segueix comprant
-								</button>
-								<button id="back" onClick={this.props._back}>
+								</Button>
+								<Button id="back" onClick={this.props._back}>
 									Enrrere
-								</button>
-							</div>
+								</Button>
+							</Container>
 						);
 					}
 				case 'platPostres':
-					if (dayOfTheWeek === 6 || dayOfTheWeek === 1) {
+					if (dayOfTheWeek === 6 || dayOfTheWeek === 0) {
 						return (
-							<div className="Step3">
+							<Container className="Step3">
 								<h1 className="menuType">Escull els plats</h1>
 								<hr />
 								<h2>Plat Únic</h2>
@@ -680,20 +696,20 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
-								<button id="pay" onClick={this.addAndPay}>
+								<Button id="pay" onClick={this.addAndPay}>
 									Afegeix i paga
-								</button>
-								<button id="add-more" onClick={this.addAnotherMenu}>
+								</Button>
+								<Button id="add-more" onClick={this.addAnotherMenu}>
 									Afegeix i segueix comprant
-								</button>
-								<button id="back" onClick={this.props._back}>
+								</Button>
+								<Button id="back" onClick={this.props._back}>
 									Enrrere
-								</button>
-							</div>
+								</Button>
+							</Container>
 						);
 					} else {
 						return (
-							<div className="Step3">
+							<Container className="Step3">
 								<h1 className="menuType">Escull els plats</h1>
 								<hr />
 								<h2>Plat Únic</h2>
@@ -769,16 +785,16 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
-								<button id="pay" onClick={this.addAndPay}>
+								<Button id="pay" onClick={this.addAndPay}>
 									Afegeix i paga
-								</button>
-								<button id="add-more" onClick={this.addAnotherMenu}>
+								</Button>
+								<Button id="add-more" onClick={this.addAnotherMenu}>
 									Afegeix i segueix comprant
-								</button>
-								<button id="back" onClick={this.props._back}>
+								</Button>
+								<Button id="back" onClick={this.props._back}>
 									Enrrere
-								</button>
-							</div>
+								</Button>
+							</Container>
 						);
 					}
 			}
