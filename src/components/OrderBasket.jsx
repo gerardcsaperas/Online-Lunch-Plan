@@ -9,24 +9,21 @@ export class OrderBasket extends Component {
 	render() {
 		if (this.props.showCheckOut) {
 			return (
-				<Container>
-					<Button id="toOrderBasket" onClick={this.props.showHide} />
-					<Container id="OrderBasket">
-						<h1>La teva comanda</h1>
-						<hr />
-						<OrderDetails
-							menus={this.props.menus}
-							cashRegister={this.props.cashRegister}
-							drinksOrdered={this.props.drinksOrdered}
-							toPayment={this.props.toPayment}
-							toDrinks={this.props.toDrinks}
-							_back={this.props._back}
-						/>
-					</Container>
+				<Container id="OrderBasket">
+					<h1>La teva comanda</h1>
+					<hr />
+					<OrderDetails
+						menus={this.props.menus}
+						cashRegister={this.props.cashRegister}
+						drinksOrdered={this.props.drinksOrdered}
+						toPayment={this.props.toPayment}
+						toDrinks={this.props.toDrinks}
+						_back={this.props._back}
+					/>
 				</Container>
 			);
 		} else {
-			return <button id="toOrderBasket" onClick={this.props.showHide} />;
+			return null;
 		}
 	}
 }

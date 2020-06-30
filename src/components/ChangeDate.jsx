@@ -23,37 +23,54 @@ export default function ChangeDate(props) {
 		return `${day}/${month}/${year}`;
 	};
 
+	const buttonElementForDate = () => {
+		const buttonElements = [];
+		const day = [ 'Dill', 'Dim', 'Dmx', 'Dij', 'Div' ];
+
+		// Checks if date is in the past and returns button disabled/enabled accordingly
+		for (let i in [ 0, 1, 2, 3, 4 ]) {
+			let now = new Date();
+
+			// If the date is today, but it's past 11...
+			if (now.getDay() === new Date(week[i]).getDay() && now.getHours() > 10) {
+				buttonElements.push(
+					<Row>
+						<Button variant="secondary" className="day" onClick={props.selectDate} disabled>
+							{day[i]} {dateFormatter(week[i])}
+						</Button>
+					</Row>
+				);
+				// If the date is today (still not 11) or in the future...
+			} else if (now.getDay() <= new Date(week[i]).getDay()) {
+				buttonElements.push(
+					<Row>
+						<Button variant="secondary" className="day" onClick={props.selectDate}>
+							{day[i]} {dateFormatter(week[i])}
+						</Button>
+					</Row>
+				);
+				// If the date is in the past...
+			} else {
+				buttonElements.push(
+					<Row>
+						<Button variant="secondary" className="day" onClick={props.selectDate} disabled>
+							{day[i]} {dateFormatter(week[i])}
+						</Button>
+					</Row>
+				);
+			}
+		}
+
+		return buttonElements;
+	};
+
 	if (props.currentStep === 1) {
 		return null;
 	} else if (props.currentStep === 'changeDate') {
 		return (
 			<Container id="dateSelector">
 				<h1>Tria un dia</h1>
-				<Row>
-					<Button variant="secondary" className="day" onClick={props.selectDate}>
-						Dill {dateFormatter(week[0])}
-					</Button>
-				</Row>
-				<Row>
-					<Button variant="secondary" className="day" onClick={props.selectDate}>
-						Dim {dateFormatter(week[1])}
-					</Button>
-				</Row>
-				<Row>
-					<Button variant="secondary" className="day" onClick={props.selectDate}>
-						Dix {dateFormatter(week[2])}
-					</Button>
-				</Row>
-				<Row>
-					<Button variant="secondary" className="day" onClick={props.selectDate}>
-						Dij {dateFormatter(week[3])}
-					</Button>
-				</Row>
-				<Row>
-					<Button variant="secondary" className="day" onClick={props.selectDate}>
-						Div {dateFormatter(week[4])}
-					</Button>
-				</Row>
+				{buttonElementForDate()}
 			</Container>
 		);
 	} else {

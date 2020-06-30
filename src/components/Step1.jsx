@@ -115,12 +115,12 @@ const Step1 = (props) => {
 				<p>{menuOf[dayOfTheWeek].postres[1]}</p>
 			</Row>
 			<Col className="text-center">
-				<Button id="Demanar" type="button" onClick={props.handleClick}>
+				<Button className="btn" id="Demanar" type="button" onClick={props.handleClick}>
 					Demanar
 				</Button>
 			</Col>
 			<Col className="text-center">
-				<Button id="changeDate" type="button" onClick={props.changeDate} className="text-center mb-2">
+				<Button id="changeDate" className="btn" type="button" onClick={props.changeDate}>
 					Canviar Dia
 				</Button>
 			</Col>

@@ -207,7 +207,7 @@ function OrderDetails(props) {
 		for (const [ key, value ] of Object.entries(drinksOrdered)) {
 			if (value > 0) {
 				drinksArray.push(
-					<Row id="checkout-elements-row">
+					<Row key={key} id="checkout-elements-row">
 						<Col className="d-flex">
 							<p>{drinksDisplayNames[key]}</p>
 						</Col>
@@ -293,12 +293,12 @@ function OrderDetails(props) {
 				</Col>
 			</Row>
 			<Row>
-				<Button role="link" onClick={stripePayment}>
+				<Button role="link" variant="success" onClick={stripePayment}>
 					Pagar
 				</Button>
 			</Row>
 			<Row>
-				<Button id="orderDrinks" onClick={props.toDrinks}>
+				<Button id="orderDrinks" variant="info" onClick={props.toDrinks}>
 					Begudes
 				</Button>
 			</Row>

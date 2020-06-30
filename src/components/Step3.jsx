@@ -5,7 +5,7 @@ import './Step3.css';
 import menuOf from './menuData';
 
 // Bootstrap
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
 
 class Step3 extends React.Component {
 	constructor(props) {
@@ -302,10 +302,10 @@ class Step3 extends React.Component {
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
 								<br />
 								<Row className="d-flex flex-column">
-									<Button id="pay" onClick={this.addAndPay}>
+									<Button id="pay" variant="success" onClick={this.addAndPay}>
 										Afegeix i paga
 									</Button>
-									<Button id="add-more" onClick={this.addAnotherMenu}>
+									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
 									<Button id="back" onClick={this.props._back}>
@@ -402,10 +402,10 @@ class Step3 extends React.Component {
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
 								<Row className="d-flex flex-column">
-									<Button className="btn" id="pay" onClick={this.addAndPay}>
+									<Button className="btn" variant="success" id="pay" onClick={this.addAndPay}>
 										Afegeix i paga
 									</Button>
-									<Button className="btn" id="add-more" onClick={this.addAnotherMenu}>
+									<Button className="btn" variant="info" id="add-more" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
 									<Button className="btn" id="back" onClick={this.props._back}>
@@ -506,10 +506,10 @@ class Step3 extends React.Component {
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
 								<Row className="d-flex flex-column">
-									<Button id="pay" onClick={this.addAndPay}>
+									<Button id="pay" variant="success" onClick={this.addAndPay}>
 										Afegeix i paga
 									</Button>
-									<Button id="add-more" onClick={this.addAnotherMenu}>
+									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
 									<Button id="back" onClick={this.props._back}>
@@ -606,10 +606,10 @@ class Step3 extends React.Component {
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
 								<Row className="d-flex flex-column">
-									<Button id="pay" onClick={this.addAndPay}>
+									<Button id="pay" variant="success" onClick={this.addAndPay}>
 										Afegeix i paga
 									</Button>
-									<Button id="add-more" onClick={this.addAnotherMenu}>
+									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
 									<Button id="back" onClick={this.props._back}>
@@ -707,10 +707,10 @@ class Step3 extends React.Component {
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
 								<Row className="d-flex flex-column">
-									<Button id="pay" onClick={this.addAndPay}>
+									<Button id="pay" variant="success" onClick={this.addAndPay}>
 										Afegeix i paga
 									</Button>
-									<Button id="add-more" onClick={this.addAnotherMenu}>
+									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
 									<Button id="back" onClick={this.props._back}>
@@ -806,10 +806,10 @@ class Step3 extends React.Component {
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
 								<Row className="d-flex flex-column">
-									<Button id="pay" onClick={this.addAndPay}>
+									<Button id="pay" variant="success" onClick={this.addAndPay}>
 										Afegeix i paga
 									</Button>
-									<Button id="add-more" onClick={this.addAnotherMenu}>
+									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
 									<Button id="back" onClick={this.props._back}>

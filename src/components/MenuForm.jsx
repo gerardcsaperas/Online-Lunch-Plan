@@ -6,7 +6,7 @@ import Step3 from './Step3';
 import OrderDrinks from './OrderDrinks';
 import ChangeDate from './ChangeDate';
 import OrderBasket from './OrderBasket';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 class MenuForm extends React.Component {
 	constructor(props) {
@@ -37,19 +37,28 @@ class MenuForm extends React.Component {
 	handleChange = (e) => {
 		console.log(e.target);
 	};
+	toPrimerSegonOrder = () => {
+		this.setState({
+			menuType: 'primerSegon',
+			currentStep: 3
+		});
+	};
+	toDosPrimersOrder = () => {
+		this.setState({
+			menuType: 'dosPrimers',
+			currentStep: 3
+		});
+	};
+	toPlatPostresOrder = () => {
+		this.setState({
+			menuType: 'platPostres',
+			currentStep: 3
+		});
+	};
 	handleClick = (e) => {
-		let buttonId = e.target.id;
-
-		console.log(buttonId);
-
 		if (this.state.currentStep === 1) {
 			this.setState({
 				currentStep: 2
-			});
-		} else if (this.state.currentStep === 2) {
-			this.setState({
-				menuType: buttonId,
-				currentStep: 3
 			});
 		}
 	};
@@ -65,11 +74,19 @@ class MenuForm extends React.Component {
 		});
 	};
 	selectDate = (e) => {
-		let date = new Date(e.target.innerHTML.split(' ')[1]);
+		// Format date back to readable by JavaScript
+		let date = e.target.innerHTML.split(' ')[1];
+		console.log(date);
+		let day = date.split('/')[0];
+		let month = date.split('/')[1];
+		let year = date.split('/')[2];
+		let dateOk = new Date(`${month}/${day}/${year}`);
+		console.log(dateOk);
+
 		this.setState({
 			currentStep: 1,
-			currDate: date,
-			dayOfTheWeek: date.getDay()
+			currDate: dateOk,
+			dayOfTheWeek: dateOk.getDay()
 		});
 	};
 	_back = (e) => {
@@ -85,17 +102,18 @@ class MenuForm extends React.Component {
 			this.setState({
 				showCheckOut: false
 			});
+		} else if (this.state.showCheckOut === true) {
+			this.setState({
+				showCheckOut: false,
+				currentStep: 2
+			});
 		} else {
 			this.setState({
 				currentStep: this.state.currentStep - 1
 			});
 		}
 	};
-	// Console log things asyncronously
-	asyncConLog = () => {
-		console.log(this.state.menus);
-		console.log(this.state.cashRegister);
-	};
+
 	addAnotherMenu = (e) => {
 		let { menuType } = e;
 		// We update the state according to the menu ordered (to avoid clotting component's state)
@@ -249,7 +267,7 @@ class MenuForm extends React.Component {
 			<Container id="contentContainer">
 				<Row>
 					<Col xs={12} md={6}>
-						{/*<form className="MenuForm" onSubmit={this.handleSubmit}>*/}
+						<Button id="toOrderBasket" onClick={this.showCheckOut} />
 						<Step1
 							currentStep={this.state.currentStep}
 							dayOfTheWeek={this.state.dayOfTheWeek}
@@ -260,6 +278,9 @@ class MenuForm extends React.Component {
 						<Step2
 							currentStep={this.state.currentStep}
 							handleClick={this.handleClick}
+							toPrimerSegonOrder={this.toPrimerSegonOrder}
+							toDosPrimersOrder={this.toDosPrimersOrder}
+							toPlatPostresOrder={this.toPlatPostresOrder}
 							toDrinks={this.toDrinks}
 							_back={this._back}
 						/>
@@ -277,8 +298,14 @@ class MenuForm extends React.Component {
 							_back={this._back}
 							addDrinksAndPay={this.addDrinksAndPay}
 						/>
+						<ChangeDate
+							currentStep={this.state.currentStep}
+							changeDate={this.changeDate}
+							selectDate={this.selectDate}
+						/>
+					</Col>
+					<Col xs={12}>
 						<OrderBasket
-							showHide={this.showCheckOut}
 							showCheckOut={this.state.showCheckOut}
 							menus={this.state.menus}
 							cashRegister={this.state.cashRegister}
@@ -287,12 +314,6 @@ class MenuForm extends React.Component {
 							toDrinks={this.toDrinks}
 							_back={this._back}
 						/>
-						<ChangeDate
-							currentStep={this.state.currentStep}
-							changeDate={this.changeDate}
-							selectDate={this.selectDate}
-						/>
-						{/*</form>*/}
 					</Col>
 				</Row>
 			</Container>

@@ -1,6 +1,42 @@
-#contentContainer {
-    width: 90vw;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    background: whitesmoke;
+@media only screen and (min-width: 701px) {
+    #contentContainer {
+        width: 90vw;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+        background: whitesmoke;
+    }
+    #toOrderBasket {
+        position: absolute;
+        top: 5px;
+        right: 25px;
+        height: 50px;
+        width: 50px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        background-image: url('../assets/iconmonstr-checkout-8-240.png');
+        background-size: cover;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #contentContainer {
+        width: 90vw;
+        margin-top: 0vh;
+        margin-bottom: 5vh;
+    }
+    #toOrderBasket {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 50px;
+        width: 50px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        background-image: url('../assets/iconmonstr-checkout-8-240.png');
+        background-size: cover;
+    }
 }

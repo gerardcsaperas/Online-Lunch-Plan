@@ -24,7 +24,7 @@ export default class Step2 extends Component {
 							id="primerSegon"
 							type="button"
 							className="customerNeeds"
-							onClick={this.props.handleClick}
+							onClick={this.props.toPrimerSegonOrder}
 						>
 							<b>
 								Primer, Segon i Postre<br />8,95 €
@@ -37,7 +37,7 @@ export default class Step2 extends Component {
 							id="dosPrimers"
 							type="button"
 							className="customerNeeds"
-							onClick={this.props.handleClick}
+							onClick={this.props.toDosPrimersOrder}
 						>
 							<b>
 								2 Primers i Postre<br />7,95 €
@@ -50,7 +50,7 @@ export default class Step2 extends Component {
 							id="platPostres"
 							type="button"
 							className="customerNeeds"
-							onClick={this.props.handleClick}
+							onClick={this.props.toPlatPostresOrder}
 						>
 							<b>
 								1 Plat i Postre
