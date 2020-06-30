@@ -12,7 +12,7 @@ function Hero(props) {
 				<Row className="align-self-center mb-4 display-4" id="hero-text">
 					Menjar per emportar
 				</Row>
-				<Button className="align-self-center" onClick={props.goToApp}>
+				<Button className="align-self-center" id="hero-btn" onClick={props.goToApp}>
 					Menú Diari
 				</Button>
 			</Container>
@@ -36,10 +36,8 @@ function Hero(props) {
 									/>
 									<Card.Body>
 										<Card.Title>Menú Diari</Card.Title>
-										<Card.Text>
-											<p className="p">
-												De dilluns a divendres. <br />Recollida a tenda o a domicili.
-											</p>
+										<Card.Text className="p">
+											De dilluns a divendres. <br />Recollida a tenda o a domicili.
 										</Card.Text>
 										<Button variant="primary">Veure Més</Button>
 									</Card.Body>
@@ -53,11 +51,9 @@ function Hero(props) {
 									/>
 									<Card.Body>
 										<Card.Title>Càtering Empreses</Card.Title>
-										<Card.Text>
-											<p className="p">
-												Escull entre la nostra selecció de tapes i plats els que més s'ajustin
-												al teu esdeveniment.
-											</p>
+										<Card.Text className="p">
+											Escull entre la nostra selecció de tapes i plats els que més s'ajustin al
+											teu esdeveniment.
 										</Card.Text>
 										<Button variant="primary">Veure Més</Button>
 									</Card.Body>
@@ -71,11 +67,9 @@ function Hero(props) {
 									/>
 									<Card.Body>
 										<Card.Title>Càtering Esdeveniments</Card.Title>
-										<Card.Text>
-											<p className="p">
-												Servei integral de menjar i beguda per a les teves festes, reunions,
-												casaments, comunions...
-											</p>
+										<Card.Text className="p">
+											Servei integral de menjar i beguda per a les teves festes, reunions,
+											casaments, comunions...
 										</Card.Text>
 										<Button variant="primary">Veure Més</Button>
 									</Card.Body>
@@ -102,24 +96,21 @@ function Hero(props) {
 								src={require('../assets/background-carousel/brooke-lark-HlNcigvUi4Q-unsplash.jpg')}
 							/>
 							<Card.Body>
-								<Card.Text>
-									<p className="p">
-										Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam minus impedit
-										temporibus eligendi, explicabo quaerat facilis quibusdam eos dolores quas
-										veritatis cumque nobis minima! Laboriosam, atque fugiat! Quasi labore eveniet
-										porro ex sint accusantium numquam magnam, architecto doloremque perspiciatis
-										illum exercitationem incidunt? Totam deserunt obcaecati facilis repellendus
-										officiis veniam, illum minima voluptatem autem numquam quas dolorum, quae
-										laborum? Maxime error nulla, quaerat accusamus soluta nemo consequatur saepe vel
-										autem veniam eius aperiam similique voluptatum accusantium minus aliquam et
-										repudiandae nisi excepturi. Nam odit veniam excepturi cumque. Nam, minima
-										veritatis, odio quo porro pariatur alias deleniti assumenda praesentium dicta
-										dolore facere animi consequuntur eos! Quisquam maiores voluptatum asperiores
-										iste vero excepturi. Eveniet nesciunt in incidunt voluptate provident, maiores
-										quaerat dolorum minus, minima deleniti earum laudantium eum, molestiae harum
-										nulla doloribus ad? Ipsum aliquam inventore harum unde eligendi odio autem
-										dolores veniam eius atque? Ad alias saepe doloremque, ea aperiam eos nostrum.
-									</p>
+								<Card.Text className="p">
+									Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam minus impedit
+									temporibus eligendi, explicabo quaerat facilis quibusdam eos dolores quas veritatis
+									cumque nobis minima! Laboriosam, atque fugiat! Quasi labore eveniet porro ex sint
+									accusantium numquam magnam, architecto doloremque perspiciatis illum exercitationem
+									incidunt? Totam deserunt obcaecati facilis repellendus officiis veniam, illum minima
+									voluptatem autem numquam quas dolorum, quae laborum? Maxime error nulla, quaerat
+									accusamus soluta nemo consequatur saepe vel autem veniam eius aperiam similique
+									voluptatum accusantium minus aliquam et repudiandae nisi excepturi. Nam odit veniam
+									excepturi cumque. Nam, minima veritatis, odio quo porro pariatur alias deleniti
+									assumenda praesentium dicta dolore facere animi consequuntur eos! Quisquam maiores
+									voluptatum asperiores iste vero excepturi. Eveniet nesciunt in incidunt voluptate
+									provident, maiores quaerat dolorum minus, minima deleniti earum laudantium eum,
+									molestiae harum nulla doloribus ad? Ipsum aliquam inventore harum unde eligendi odio
+									autem dolores veniam eius atque? Ad alias saepe doloremque, ea aperiam eos nostrum.
 								</Card.Text>
 							</Card.Body>
 						</Card>
@@ -147,15 +138,15 @@ function Hero(props) {
 											No compartirem el teu correu amb ningú.
 										</Form.Text>
 									</Form.Group>
-									<Form.Group controlId="formBasicPassword">
+									<Form.Group controlId="nomCognoms">
 										<Form.Label>Nom i Cognoms</Form.Label>
 										<Form.Control type="text" placeholder="Nom Exemple" />
 									</Form.Group>
-									<Form.Group controlId="formBasicPassword">
+									<Form.Group controlId="telefon">
 										<Form.Label>Teléfon</Form.Label>
 										<Form.Control type="text" placeholder="666777888" />
 									</Form.Group>
-									<Form.Group controlId="formBasicPassword">
+									<Form.Group controlId="comentaris">
 										<Form.Label>Comentaris</Form.Label>
 										<Form.Control type="text" placeholder="Escriu els teus comentaris..." />
 									</Form.Group>

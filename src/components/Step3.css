@@ -2,8 +2,27 @@
     background: rgba(255, 255, 255, 0.8);
 }
 
-button {
-    width: 200px;
-    height: 50px;
-    margin: 0.5rem;
+.radio {
+    margin-right: 1rem;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+@media only screen and (min-width: 701px) {
+    .btn {
+        margin-bottom: 1rem;
+        width: 50%;
+        align-self: center;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .btn {
+        margin-bottom: 1rem;
+        width: 90%;
+        align-self: center;
+    }
 }

@@ -123,7 +123,7 @@ export class OrderDrinks extends Component {
 	render() {
 		if (this.props.currentStep === 'orderDrinks') {
 			return (
-				<Container>
+				<Container className="OrderDrinks">
 					<h1>Begudes</h1>
 					<Row className="drinks-row">
 						<Col xs={6}>
@@ -251,12 +251,16 @@ export class OrderDrinks extends Component {
 							<button className="lessDrinks" onClick={this.lessDrinks} name="orangeFanta" />
 						</Col>
 					</Row>
-					<button id="back" onClick={this.props._back}>
-						Enrrere
-					</button>
-					<Button variant="success" onClick={this.addDrinksAndPay}>
-						Afegeix Begudes i Paga
-					</Button>
+					<Row>
+						<Button id="addAndPay" variant="success" onClick={this.addDrinksAndPay}>
+							Afegeix Begudes i Paga
+						</Button>
+					</Row>
+					<Row>
+						<Button id="back" onClick={this.props._back}>
+							Enrrere
+						</Button>
+					</Row>
 				</Container>
 			);
 		} else {

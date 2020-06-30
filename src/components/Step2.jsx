@@ -26,7 +26,9 @@ export default class Step2 extends Component {
 							className="customerNeeds"
 							onClick={this.props.handleClick}
 						>
-							Primer, Segon i Postre<br />8,95 €
+							<b>
+								Primer, Segon i Postre<br />8,95 €
+							</b>
 						</Button>
 					</Col>
 					<Col xs={12} className="d-flex justify-content-center">
@@ -37,7 +39,9 @@ export default class Step2 extends Component {
 							className="customerNeeds"
 							onClick={this.props.handleClick}
 						>
-							2 Primers i Postre<br />7,95 €
+							<b>
+								2 Primers i Postre<br />7,95 €
+							</b>
 						</Button>
 					</Col>
 					<Col xs={12} className="d-flex justify-content-center">
@@ -48,8 +52,10 @@ export default class Step2 extends Component {
 							className="customerNeeds"
 							onClick={this.props.handleClick}
 						>
-							1 Plat i Postre
-							<br />6,95 €
+							<b>
+								1 Plat i Postre
+								<br />6,95 €
+							</b>
 						</Button>
 					</Col>
 					<Col xs={12} className="d-flex justify-content-center">
@@ -60,7 +66,7 @@ export default class Step2 extends Component {
 							className="customerNeeds"
 							onClick={this.props.toDrinks}
 						>
-							Begudes
+							<b>Begudes</b>
 						</Button>
 					</Col>
 				</Row>

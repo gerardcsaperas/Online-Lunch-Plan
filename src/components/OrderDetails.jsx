@@ -13,7 +13,7 @@ const stripePromise = loadStripe(
 
 function OrderDetails(props) {
 	const stripePayment = async (event) => {
-		// When the customer clicks on the button, redirect them to Checkout.
+		// When the customer clicks on the Button, redirect them to Checkout.
 		const stripe = await stripePromise;
 
 		// Add Food
@@ -43,6 +43,9 @@ function OrderDetails(props) {
 		for (const [ key, value ] of Object.entries(drinksOrdered)) {
 			if (value > 0) {
 				switch (key) {
+					default:
+						console.log('look at your code at line 47 - OrderDetails.jsx');
+						break;
 					case 'water':
 						waterCount += value;
 						break;
@@ -289,15 +292,21 @@ function OrderDetails(props) {
 					</p>
 				</Col>
 			</Row>
-			<button role="link" onClick={stripePayment}>
-				Pagar
-			</button>
-			<button id="orderDrinks" type="button" className="customerNeeds" onClick={props.toDrinks}>
-				Begudes
-			</button>
-			<button id="back" onClick={props._back}>
-				Enrrere
-			</button>
+			<Row>
+				<Button role="link" onClick={stripePayment}>
+					Pagar
+				</Button>
+			</Row>
+			<Row>
+				<Button id="orderDrinks" onClick={props.toDrinks}>
+					Begudes
+				</Button>
+			</Row>
+			<Row>
+				<Button id="back" onClick={props._back}>
+					Enrrere
+				</Button>
+			</Row>
 			<hr />
 			<h1>Detalls</h1>
 			<DishesDetails menus={props.menus} />

@@ -216,12 +216,11 @@ class Step3 extends React.Component {
 						// Case for weekends, return next Monday
 						return (
 							<Container className="Step3">
-								<Row className="text-center">
-									<h1 className="menuType">Escull els plats</h1>
-								</Row>
+								<h1 className="menuType">Escull els plats</h1>
 								<hr />
 								<h2>Primers</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="primer-1"
 									name="primer"
@@ -231,6 +230,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primer-1">{menuOf[1].primers[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primer-2"
 									name="primer"
@@ -240,6 +240,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primer-2">{menuOf[1].primers[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primer-3"
 									name="primer"
@@ -250,6 +251,7 @@ class Step3 extends React.Component {
 								<br />
 								<h2>Segons</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="segon-1"
 									name="segon"
@@ -259,6 +261,7 @@ class Step3 extends React.Component {
 								<label htmlFor="segon-1">{menuOf[1].segons[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="segon-2"
 									name="segon"
@@ -268,6 +271,7 @@ class Step3 extends React.Component {
 								<label htmlFor="segon-2">{menuOf[1].segons[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="segon-3"
 									name="segon"
@@ -278,6 +282,7 @@ class Step3 extends React.Component {
 								<br />
 								<h2>Postres</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="postre-1"
 									name="postres"
@@ -287,6 +292,7 @@ class Step3 extends React.Component {
 								<label htmlFor="postre-1">{menuOf[1].postres[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="postre-2"
 									name="postres"
@@ -295,115 +301,89 @@ class Step3 extends React.Component {
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
 								<br />
-								<Button id="pay" onClick={this.addAndPay}>
-									Afegeix i paga
-								</Button>
-								<Button id="add-more" onClick={this.addAnotherMenu}>
-									Afegeix i segueix comprant
-								</Button>
-								<Button id="back" onClick={this.props._back}>
-									Enrrere
-								</Button>
+								<Row className="d-flex flex-column">
+									<Button id="pay" onClick={this.addAndPay}>
+										Afegeix i paga
+									</Button>
+									<Button id="add-more" onClick={this.addAnotherMenu}>
+										Afegeix i segueix comprant
+									</Button>
+									<Button id="back" onClick={this.props._back}>
+										Enrrere
+									</Button>
+								</Row>
 							</Container>
 						);
 					} else {
 						return (
 							<Container className="Step3">
-								<Row className="text-center">
-									<h1 className="menuType">Escull els plats</h1>
-								</Row>
+								<h1 className="menuType">Escull els plats</h1>
 								<hr />
-								<Row>
-									<h2>Primers</h2>
-								</Row>
-								<Row>
-									<Col xs={1}>
-										<input
-											type="radio"
-											id="primer-1"
-											name="primer"
-											value="primer-1"
-											onChange={this.handleSelection}
-										/>
-									</Col>
-									<Col>
-										<label htmlFor="primer-1">{menuOf[dayOfTheWeek].primers[0]}</label>
-									</Col>
-								</Row>
-								<Row>
-									<Col xs={1}>
-										<input
-											type="radio"
-											id="primer-2"
-											name="primer"
-											value="primer-2"
-											onChange={this.handleSelection}
-										/>
-									</Col>
-									<Col>
-										<label htmlFor="primer-2">{menuOf[dayOfTheWeek].primers[1]}</label>
-									</Col>
-								</Row>
-								<Row>
-									<Col xs={1}>
-										<input
-											type="radio"
-											id="primer-3"
-											name="primer"
-											value="primer-3"
-											onChange={this.handleSelection}
-										/>
-									</Col>
-									<Col>
-										<label htmlFor="primer-3">{menuOf[dayOfTheWeek].primers[2]}</label>
-									</Col>
-								</Row>
-
-								<Row>
-									<h2>Segons</h2>
-								</Row>
-								<Col>
-									<input
-										type="radio"
-										id="segon-1"
-										name="segon"
-										value="segon-1"
-										onChange={this.handleSelection}
-									/>
-								</Col>
-								<Col>
-									<label htmlFor="segon-1">{menuOf[dayOfTheWeek].segons[0]}</label>
-								</Col>
-								<Row>
-									<Col>
-										<input
-											type="radio"
-											id="segon-2"
-											name="segon"
-											value="segon-2"
-											onChange={this.handleSelection}
-										/>
-									</Col>
-									<Col>
-										<label htmlFor="segon-2">{menuOf[dayOfTheWeek].segons[1]}</label>
-									</Col>
-								</Row>
-								<Row>
-									<Col>
-										<input
-											type="radio"
-											id="segon-3"
-											name="segon"
-											value="segon-3"
-											onChange={this.handleSelection}
-										/>
-									</Col>
-									<Col>
-										<label htmlFor="segon-3">{menuOf[dayOfTheWeek].segons[2]}</label>
-									</Col>
-								</Row>
+								<h2>Primers</h2>
+								<input
+									className="radio"
+									type="radio"
+									id="primer-1"
+									name="primer"
+									value="primer-1"
+									onChange={this.handleSelection}
+								/>
+								<label htmlFor="primer-1">{menuOf[dayOfTheWeek].primers[0]}</label>
+								<br />
+								<input
+									className="radio"
+									type="radio"
+									id="primer-2"
+									name="primer"
+									value="primer-2"
+									onChange={this.handleSelection}
+								/>
+								<label htmlFor="primer-2">{menuOf[dayOfTheWeek].primers[1]}</label>
+								<br />
+								<input
+									className="radio"
+									type="radio"
+									id="primer-3"
+									name="primer"
+									value="primer-3"
+									onChange={this.handleSelection}
+								/>
+								<label htmlFor="primer-3">{menuOf[dayOfTheWeek].primers[2]}</label>
+								<br />
+								<h2>Segons</h2>
+								<input
+									className="radio"
+									type="radio"
+									id="segon-1"
+									name="segon"
+									value="segon-1"
+									onChange={this.handleSelection}
+								/>
+								<label htmlFor="segon-1">{menuOf[dayOfTheWeek].segons[0]}</label>
+								<br />
+								<input
+									className="radio"
+									type="radio"
+									id="segon-2"
+									name="segon"
+									value="segon-2"
+									onChange={this.handleSelection}
+								/>
+								<label htmlFor="segon-2">{menuOf[dayOfTheWeek].segons[1]}</label>
+								<br />
+								<input
+									className="radio"
+									type="radio"
+									id="segon-3"
+									name="segon"
+									value="segon-3"
+									onChange={this.handleSelection}
+								/>
+								<label htmlFor="segon-3">{menuOf[dayOfTheWeek].segons[2]}</label>
+								<br />
 								<h2>Postres</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="postre-1"
 									name="postres"
@@ -413,6 +393,7 @@ class Step3 extends React.Component {
 								<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="postre-2"
 									name="postres"
@@ -420,16 +401,17 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
-								<br />
-								<Button id="pay" onClick={this.addAndPay}>
-									Afegeix i paga
-								</Button>
-								<Button id="add-more" onClick={this.addAnotherMenu}>
-									Afegeix i segueix comprant
-								</Button>
-								<Button id="back" onClick={this.props._back}>
-									Enrrere
-								</Button>
+								<Row className="d-flex flex-column">
+									<Button className="btn" id="pay" onClick={this.addAndPay}>
+										Afegeix i paga
+									</Button>
+									<Button className="btn" id="add-more" onClick={this.addAnotherMenu}>
+										Afegeix i segueix comprant
+									</Button>
+									<Button className="btn" id="back" onClick={this.props._back}>
+										Enrrere
+									</Button>
+								</Row>
 							</Container>
 						);
 					}
@@ -443,6 +425,7 @@ class Step3 extends React.Component {
 								<hr />
 								<h2>Primer 1</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="primerA-1"
 									name="primerA"
@@ -452,6 +435,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primerA-1">{menuOf[1].primers[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primerA-2"
 									name="primerA"
@@ -461,6 +445,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primerA-2">{menuOf[1].primers[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primerA-3"
 									name="primerA"
@@ -471,6 +456,7 @@ class Step3 extends React.Component {
 								<br />
 								<h2>Primer 2</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="primerB-1"
 									name="primerB"
@@ -480,6 +466,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primerB-1">{menuOf[1].primers[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primerB-2"
 									name="primerB"
@@ -489,6 +476,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primerB-2">{menuOf[1].primers[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primerB-3"
 									name="primerB"
@@ -499,6 +487,7 @@ class Step3 extends React.Component {
 								<br />
 								<h2>Postres</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="postre-1"
 									name="postres"
@@ -508,6 +497,7 @@ class Step3 extends React.Component {
 								<label htmlFor="postre-1">{menuOf[1].postres[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="postre-2"
 									name="postres"
@@ -515,15 +505,17 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
-								<Button id="pay" onClick={this.addAndPay}>
-									Afegeix i paga
-								</Button>
-								<Button id="add-more" onClick={this.addAnotherMenu}>
-									Afegeix i segueix comprant
-								</Button>
-								<Button id="back" onClick={this.props._back}>
-									Enrrere
-								</Button>
+								<Row className="d-flex flex-column">
+									<Button id="pay" onClick={this.addAndPay}>
+										Afegeix i paga
+									</Button>
+									<Button id="add-more" onClick={this.addAnotherMenu}>
+										Afegeix i segueix comprant
+									</Button>
+									<Button id="back" onClick={this.props._back}>
+										Enrrere
+									</Button>
+								</Row>
 							</Container>
 						);
 					} else {
@@ -533,6 +525,7 @@ class Step3 extends React.Component {
 								<hr />
 								<h2>Primer 1</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="primerA-1"
 									name="primerA"
@@ -542,6 +535,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primerA-1">{menuOf[dayOfTheWeek].primers[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primerA-2"
 									name="primerA"
@@ -551,6 +545,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primerA-2">{menuOf[dayOfTheWeek].primers[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primerA-3"
 									name="primerA"
@@ -561,6 +556,7 @@ class Step3 extends React.Component {
 								<br />
 								<h2>Primer 2</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="primerB-1"
 									name="primerB"
@@ -570,6 +566,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primerB-1">{menuOf[dayOfTheWeek].primers[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primerB-2"
 									name="primerB"
@@ -579,6 +576,7 @@ class Step3 extends React.Component {
 								<label htmlFor="primerB-2">{menuOf[dayOfTheWeek].primers[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="primerB-3"
 									name="primerB"
@@ -589,6 +587,7 @@ class Step3 extends React.Component {
 								<br />
 								<h2>Postres</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="postre-1"
 									name="postres"
@@ -598,6 +597,7 @@ class Step3 extends React.Component {
 								<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="postre-2"
 									name="postres"
@@ -605,15 +605,17 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
-								<Button id="pay" onClick={this.addAndPay}>
-									Afegeix i paga
-								</Button>
-								<Button id="add-more" onClick={this.addAnotherMenu}>
-									Afegeix i segueix comprant
-								</Button>
-								<Button id="back" onClick={this.props._back}>
-									Enrrere
-								</Button>
+								<Row className="d-flex flex-column">
+									<Button id="pay" onClick={this.addAndPay}>
+										Afegeix i paga
+									</Button>
+									<Button id="add-more" onClick={this.addAnotherMenu}>
+										Afegeix i segueix comprant
+									</Button>
+									<Button id="back" onClick={this.props._back}>
+										Enrrere
+									</Button>
+								</Row>
 							</Container>
 						);
 					}
@@ -625,6 +627,7 @@ class Step3 extends React.Component {
 								<hr />
 								<h2>Plat Únic</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-1"
 									name="platUnic"
@@ -634,6 +637,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-1">{menuOf[1].primers[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-2"
 									name="platUnic"
@@ -643,6 +647,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-2">{menuOf[1].primers[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-3"
 									name="platUnic"
@@ -652,6 +657,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-3">{menuOf[1].primers[2]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-4"
 									name="platUnic"
@@ -661,6 +667,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-4">{menuOf[1].segons[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-5"
 									name="platUnic"
@@ -670,6 +677,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-5">{menuOf[1].segons[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-6"
 									name="platUnic"
@@ -680,6 +688,7 @@ class Step3 extends React.Component {
 								<br />
 								<h2>Postres</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="postre-1"
 									name="postres"
@@ -689,6 +698,7 @@ class Step3 extends React.Component {
 								<label htmlFor="postre-1">{menuOf[1].postres[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="postre-2"
 									name="postres"
@@ -696,15 +706,17 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
-								<Button id="pay" onClick={this.addAndPay}>
-									Afegeix i paga
-								</Button>
-								<Button id="add-more" onClick={this.addAnotherMenu}>
-									Afegeix i segueix comprant
-								</Button>
-								<Button id="back" onClick={this.props._back}>
-									Enrrere
-								</Button>
+								<Row className="d-flex flex-column">
+									<Button id="pay" onClick={this.addAndPay}>
+										Afegeix i paga
+									</Button>
+									<Button id="add-more" onClick={this.addAnotherMenu}>
+										Afegeix i segueix comprant
+									</Button>
+									<Button id="back" onClick={this.props._back}>
+										Enrrere
+									</Button>
+								</Row>
 							</Container>
 						);
 					} else {
@@ -714,6 +726,7 @@ class Step3 extends React.Component {
 								<hr />
 								<h2>Plat Únic</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-1"
 									name="platUnic"
@@ -723,6 +736,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-1">{menuOf[dayOfTheWeek].primers[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-2"
 									name="platUnic"
@@ -732,6 +746,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-2">{menuOf[dayOfTheWeek].primers[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-3"
 									name="platUnic"
@@ -741,6 +756,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-3">{menuOf[dayOfTheWeek].primers[2]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-4"
 									name="platUnic"
@@ -750,6 +766,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-4">{menuOf[dayOfTheWeek].segons[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-5"
 									name="platUnic"
@@ -759,6 +776,7 @@ class Step3 extends React.Component {
 								<label htmlFor="platUnic-5">{menuOf[dayOfTheWeek].segons[1]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="platUnic-6"
 									name="platUnic"
@@ -769,6 +787,7 @@ class Step3 extends React.Component {
 								<br />
 								<h2>Postres</h2>
 								<input
+									className="radio"
 									type="radio"
 									id="postre-1"
 									name="postres"
@@ -778,6 +797,7 @@ class Step3 extends React.Component {
 								<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
 								<br />
 								<input
+									className="radio"
 									type="radio"
 									id="postre-2"
 									name="postres"
@@ -785,15 +805,17 @@ class Step3 extends React.Component {
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
-								<Button id="pay" onClick={this.addAndPay}>
-									Afegeix i paga
-								</Button>
-								<Button id="add-more" onClick={this.addAnotherMenu}>
-									Afegeix i segueix comprant
-								</Button>
-								<Button id="back" onClick={this.props._back}>
-									Enrrere
-								</Button>
+								<Row className="d-flex flex-column">
+									<Button id="pay" onClick={this.addAndPay}>
+										Afegeix i paga
+									</Button>
+									<Button id="add-more" onClick={this.addAnotherMenu}>
+										Afegeix i segueix comprant
+									</Button>
+									<Button id="back" onClick={this.props._back}>
+										Enrrere
+									</Button>
+								</Row>
 							</Container>
 						);
 					}

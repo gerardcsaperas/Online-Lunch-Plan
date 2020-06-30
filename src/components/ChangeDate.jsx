@@ -2,7 +2,7 @@ import React from 'react';
 import './ChangeDate.css';
 
 // Bootstrap
-import { Row, Button } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
 
 export default function ChangeDate(props) {
 	let curr = new Date();
@@ -14,28 +14,47 @@ export default function ChangeDate(props) {
 		week.push(day);
 	}
 
+	// Format date to Spanish format day/month/year
+	const dateFormatter = (dateString) => {
+		let day = dateString.split('/')[1];
+		let month = dateString.split('/')[0];
+		let year = dateString.split('/')[2];
+
+		return `${day}/${month}/${year}`;
+	};
+
 	if (props.currentStep === 1) {
 		return null;
 	} else if (props.currentStep === 'changeDate') {
 		return (
-			<div id="dateSelector">
+			<Container id="dateSelector">
 				<h1>Tria un dia</h1>
-				<button className="day" onClick={props.selectDate}>
-					Dill {week[0]}
-				</button>
-				<button className="day" onClick={props.selectDate}>
-					Dim {week[1]}
-				</button>
-				<button className="day" onClick={props.selectDate}>
-					Dix {week[2]}
-				</button>
-				<button className="day" onClick={props.selectDate}>
-					Dij {week[3]}
-				</button>
-				<button className="day" onClick={props.selectDate}>
-					Div {week[4]}
-				</button>
-			</div>
+				<Row>
+					<Button variant="secondary" className="day" onClick={props.selectDate}>
+						Dill {dateFormatter(week[0])}
+					</Button>
+				</Row>
+				<Row>
+					<Button variant="secondary" className="day" onClick={props.selectDate}>
+						Dim {dateFormatter(week[1])}
+					</Button>
+				</Row>
+				<Row>
+					<Button variant="secondary" className="day" onClick={props.selectDate}>
+						Dix {dateFormatter(week[2])}
+					</Button>
+				</Row>
+				<Row>
+					<Button variant="secondary" className="day" onClick={props.selectDate}>
+						Dij {dateFormatter(week[3])}
+					</Button>
+				</Row>
+				<Row>
+					<Button variant="secondary" className="day" onClick={props.selectDate}>
+						Div {dateFormatter(week[4])}
+					</Button>
+				</Row>
+			</Container>
 		);
 	} else {
 		return null;

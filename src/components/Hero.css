@@ -7,6 +7,10 @@
     height: 100vh;
 }
 
+#hero-btn {
+    width: auto;
+}
+
 #services,
 #about,
 #formCol {

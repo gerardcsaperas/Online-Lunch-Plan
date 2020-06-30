@@ -1,3 +1,7 @@
+.OrderDrinks {
+    background: rgba(255, 255, 255, 0.8)
+}
+
 .drinks-row {
     display: flex;
     flex-direction: row;
@@ -32,4 +36,20 @@
     background: transparent;
     background-image: url('../assets/iconmonstr-minus-6-240.png');
     background-size: cover;
+}
+
+@media only screen and (min-width: 701px) {
+    #addAndPay,
+    #back {
+        margin-bottom: 1rem;
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #addAndPay,
+    #back {
+        margin-bottom: 1rem;
+        width: 90%;
+    }
 }

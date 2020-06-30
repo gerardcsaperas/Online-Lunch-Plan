@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import './OrderBasket.css';
 import OrderDetails from './OrderDetails';
 
+// Bootstrap
+import { Container, Row, Col, Button } from 'react-bootstrap';
+
 export class OrderBasket extends Component {
 	render() {
 		if (this.props.showCheckOut) {
 			return (
-				<div>
-					<button id="toOrderBasket" onClick={this.props.showHide} />
-					<div id="OrderBasket">
+				<Container>
+					<Button id="toOrderBasket" onClick={this.props.showHide} />
+					<Container id="OrderBasket">
 						<h1>La teva comanda</h1>
 						<hr />
 						<OrderDetails
@@ -19,8 +22,8 @@ export class OrderBasket extends Component {
 							toDrinks={this.props.toDrinks}
 							_back={this.props._back}
 						/>
-					</div>
-				</div>
+					</Container>
+				</Container>
 			);
 		} else {
 			return <button id="toOrderBasket" onClick={this.props.showHide} />;
