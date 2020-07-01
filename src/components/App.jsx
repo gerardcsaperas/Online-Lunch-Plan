@@ -14,6 +14,11 @@ class App extends React.Component {
 			hero: true
 		};
 	}
+	_backToMain = () => {
+		this.setState({
+			hero: true
+		});
+	};
 	goToApp = () => {
 		this.setState({
 			hero: false
@@ -31,7 +36,7 @@ class App extends React.Component {
 				<div id="App">
 					<div id="backgroundWrap" />
 					<div id="menuForm">
-						<MenuForm />
+						<MenuForm _backToMain={this._backToMain} />
 					</div>
 				</div>
 			);

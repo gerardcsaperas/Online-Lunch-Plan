@@ -10,7 +10,9 @@ function DishesDetails(props) {
 				return (
 					<div key={i} className="dishes-details-row">
 						<hr />
-						<p> Menú Complet </p>
+						<p>
+							<b>Menú Complet</b>
+						</p>
 						<p> {menu.primer} </p>
 						<p> {menu.segon} </p>
 						<p> {menu.postres} </p>
@@ -20,7 +22,9 @@ function DishesDetails(props) {
 				return (
 					<div key={i} className="dishes-details-row">
 						<hr />
-						<p> Menú 2 Primers </p>
+						<p>
+							<b>Menú 2 Primers</b>
+						</p>
 						<p> {menu.primerA} </p>
 						<p> {menu.primerB} </p>
 						<p> {menu.postres} </p>
@@ -30,7 +34,9 @@ function DishesDetails(props) {
 				return (
 					<div key={i} className="dishes-details-row">
 						<hr />
-						<p> Mig Menú </p>
+						<p>
+							<b>Mig Menú</b>
+						</p>
 						<p> {menu.platUnic} </p>
 						<p> {menu.postres} </p>
 					</div>

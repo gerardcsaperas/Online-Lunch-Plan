@@ -3,9 +3,15 @@ import './OrderBasket.css';
 import OrderDetails from './OrderDetails';
 
 // Bootstrap
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 export class OrderBasket extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			showAddressValidation: false
+		};
+	}
 	render() {
 		if (this.props.showCheckOut) {
 			return (
@@ -16,6 +22,7 @@ export class OrderBasket extends Component {
 						menus={this.props.menus}
 						cashRegister={this.props.cashRegister}
 						drinksOrdered={this.props.drinksOrdered}
+						validateAddress={this.props.validateAddress}
 						toPayment={this.props.toPayment}
 						toDrinks={this.props.toDrinks}
 						_back={this.props._back}

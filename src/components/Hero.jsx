@@ -168,26 +168,26 @@ function Hero(props) {
 										<h2 className="display-4">Ubicacions</h2>
 									</Col>
 									<Row>
-										<Col className="text-center">
+										<Col xs={12} md={4} className="text-center">
 											<p>
 												<b>Vilassar de Mar</b>
 											</p>
 											<p>Mercat Municipal</p>
 											<p>Parada 3</p>
 										</Col>
-										<Col className="text-center">
+										<Col xs={12} md={4} className="text-center">
 											<p>
 												<b>Cabrera de Mar</b>
 											</p>
 											<p>L'Obrador</p>
 											<p>Av. Pare Jaume Català, 30-36 3</p>
 										</Col>
-										<Col className="text-center">
+										<Col xs={12} md={4} className="text-center">
 											<p>
 												<b>Cabrils</b>
 											</p>
-											<p>El Racó de Montcabrer</p>
-											<p>Can Roldós, 8</p>
+											<p>Tenis Sant Crist</p>
+											<p>Passatge de les piscines s/n</p>
 										</Col>
 									</Row>
 								</Row>
@@ -214,7 +214,7 @@ function Hero(props) {
 					<Col xs={12} md={4}>
 						<Row className="madeWithLove d-flex flex-column text-center align-content-center">
 							<p>© Catering Roser</p>
-							<p>Made with love by Gerard C. Saperas</p>
+							<p>Made with ❤ by Gerard C. Saperas</p>
 						</Row>
 					</Col>
 					<Col xs={12} md={4} className="d-flex justify-content-center">

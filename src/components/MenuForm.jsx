@@ -6,6 +6,9 @@ import Step3 from './Step3';
 import OrderDrinks from './OrderDrinks';
 import ChangeDate from './ChangeDate';
 import OrderBasket from './OrderBasket';
+import AddressValidation from './AddressValidation';
+
+// Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 class MenuForm extends React.Component {
@@ -113,7 +116,6 @@ class MenuForm extends React.Component {
 			});
 		}
 	};
-
 	addAnotherMenu = (e) => {
 		let { menuType } = e;
 		// We update the state according to the menu ordered (to avoid clotting component's state)
@@ -248,7 +250,6 @@ class MenuForm extends React.Component {
 			showCheckOut: true // Order review and checkout screen
 		});
 	};
-	addDrinksAndContinue = (e) => {};
 	showCheckOut = () => {
 		let { showCheckOut } = this.state;
 
@@ -262,6 +263,12 @@ class MenuForm extends React.Component {
 			});
 		}
 	};
+	validateAddress = () => {
+		this.setState({
+			currentStep: 'addressValidation',
+			showCheckOut: false
+		});
+	};
 	render() {
 		return (
 			<Container id="contentContainer">
@@ -274,6 +281,7 @@ class MenuForm extends React.Component {
 							currDate={this.state.currDate}
 							handleClick={this.handleClick}
 							changeDate={this.changeDate}
+							_backToMain={this.props._backToMain}
 						/>
 						<Step2
 							currentStep={this.state.currentStep}
@@ -311,6 +319,7 @@ class MenuForm extends React.Component {
 							cashRegister={this.state.cashRegister}
 							drinksOrdered={this.state.drinksOrdered}
 							toPayment={this.toPayment}
+							validateAddress={this.validateAddress}
 							toDrinks={this.toDrinks}
 							_back={this._back}
 						/>

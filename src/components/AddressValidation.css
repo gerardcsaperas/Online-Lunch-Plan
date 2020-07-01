@@ -1,0 +1,24 @@
+@media only screen and (min-width: 701px) {
+    #AddressValidation {
+        position: fixed;
+        top: 1vh;
+        height: 98vh;
+        width: 100vw;
+        border-radius: 10px;
+        background: whitesmoke;
+        overflow: scroll;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    #AddressValidation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        border-radius: 10px;
+        background: whitesmoke;
+        overflow: scroll;
+    }
+}

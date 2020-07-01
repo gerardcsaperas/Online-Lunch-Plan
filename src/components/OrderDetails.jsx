@@ -1,5 +1,6 @@
 import React from 'react';
 import DishesDetails from './DishesDetails';
+import AddressValidation from './AddressValidation';
 import './OrderDetails.css';
 
 // Bootstrap modules
@@ -11,28 +12,219 @@ const stripePromise = loadStripe(
 	'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
 );
 
-function OrderDetails(props) {
-	const stripePayment = async (event) => {
+class OrderDetails extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			primerSegonCount: 0,
+			dosPrimersCount: 0,
+			platPostresCount: 0,
+			menuData: [
+				{
+					menuType: 'Menú Complet',
+					price: 8.95
+				},
+				{
+					menuType: 'Menú 2 Primers',
+					price: 7.95
+				},
+				{
+					menuType: 'Mig Menú',
+					price: 6.95
+				}
+			],
+			showAddressValidation: false,
+			entrega: {
+				nomReserva: '',
+				entrega: '',
+				address: '',
+				tel: '',
+				comentaris: ''
+			}
+		};
+	}
+	_backToCheckoutDetails = () => {
+		this.setState({
+			showAddressValidation: false
+		});
+	};
+	foodRow = () => {
+		let primerSegonCount = 0;
+		let dosPrimersCount = 0;
+		let platPostresCount = 0;
+
+		for (let i of this.props.cashRegister) {
+			switch (i.menuType) {
+				default:
+					console.log('You got a problem @line 26, CheckOutChildren.js');
+					break;
+				case 'primerSegon':
+					primerSegonCount++;
+					break;
+				case 'dosPrimers':
+					dosPrimersCount++;
+					break;
+				case 'platPostres':
+					platPostresCount++;
+					break;
+			}
+		}
+
+		let foodArray = [];
+		const { menuData } = this.state;
+
+		if (primerSegonCount > 0) {
+			foodArray.push(
+				<Row key="primerSegon" id="checkout-elements-row">
+					<Col>
+						<p>{menuData[0].menuType}</p>
+					</Col>
+					<Col className="d-flex align-items-center justify-content-center">
+						<p>{primerSegonCount}</p>
+					</Col>
+					<Col className="d-flex align-items-center justify-content-center">
+						<p>{`${(primerSegonCount * menuData[0].price).toFixed(2)} €`}</p>
+					</Col>
+				</Row>
+			);
+		}
+
+		if (dosPrimersCount > 0) {
+			foodArray.push(
+				<Row key="dosPrimers" id="checkout-elements-row">
+					<Col>
+						<p>{menuData[1].menuType}</p>
+					</Col>
+					<Col className="d-flex align-items-center justify-content-center">
+						<p>{dosPrimersCount}</p>
+					</Col>
+					<Col className="d-flex align-items-center justify-content-center">
+						<p>{`${(dosPrimersCount * menuData[1].price).toFixed(2)} €`}</p>
+					</Col>
+				</Row>
+			);
+		}
+
+		if (platPostresCount > 0) {
+			foodArray.push(
+				<Row key="platPostres" id="checkout-elements-row">
+					<Col>
+						<p>{menuData[2].menuType}</p>
+					</Col>
+					<Col className="d-flex align-items-center justify-content-center">
+						<p>{platPostresCount}</p>
+					</Col>
+					<Col className="d-flex align-items-center justify-content-center">
+						<p>{`${(platPostresCount * menuData[2].price).toFixed(2)} €`}</p>
+					</Col>
+				</Row>
+			);
+		}
+		return foodArray;
+	};
+	drinksRow = () => {
+		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = this.props.drinksOrdered;
+
+		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
+		let drinksPrices = {
+			water: 1.0,
+			cola: 1.3,
+			colaZero: 1.3,
+			beer: 1.5,
+			lemonFanta: 1.3,
+			orangeFanta: 1.3
+		};
+		let drinksDisplayNames = {
+			water: 'Aigua',
+			cola: 'Coca-Cola',
+			colaZero: 'Coca-Cola Zero',
+			beer: 'Estrella Damm',
+			lemonFanta: 'Fanta Llimona',
+			orangeFanta: 'Fanta Taronja'
+		};
+		let drinksArray = [];
+
+		for (const [ key, value ] of Object.entries(drinksOrdered)) {
+			if (value > 0) {
+				drinksArray.push(
+					<Row key={key} id="checkout-elements-row">
+						<Col className="d-flex">
+							<p>{drinksDisplayNames[key]}</p>
+						</Col>
+						<Col className="d-flex align-items-center justify-content-center">
+							<p>{value}</p>
+						</Col>
+						<Col className="d-flex align-items-center justify-content-center">
+							<p>{`${(drinksPrices[key] * value).toFixed(2)} €`}</p>
+						</Col>
+					</Row>
+				);
+			}
+		}
+		return drinksArray;
+	};
+	calculateTotalDebit = (ele) => {
+		// Food
+		const primerSegonTotalDebit = ele[0].price * this.state.primerSegonCount;
+		const dosPrimersTotalDebit = ele[1].price * this.state.dosPrimersCount;
+		const platPostresTotalDebit = ele[2].price * this.state.platPostresCount;
+
+		// Drinks
+		const { water, cola, colaZero, beer, lemonFanta, orangeFanta } = this.props.drinksOrdered;
+		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
+		let drinksPrices = {
+			water: 1.0,
+			cola: 1.3,
+			colaZero: 1.3,
+			beer: 1.5,
+			lemonFanta: 1.3,
+			orangeFanta: 1.3
+		};
+
+		let drinksTotalAmmount = 0;
+
+		for (const [ key, value ] of Object.entries(drinksOrdered)) {
+			if (value > 0) {
+				drinksTotalAmmount += value * drinksPrices[key];
+			}
+		}
+
+		const grandTotal = primerSegonTotalDebit + dosPrimersTotalDebit + platPostresTotalDebit + drinksTotalAmmount;
+
+		return grandTotal.toFixed(2);
+	};
+	setDeliveryAddressAndPay = async (data) => {
+		await this.setState({
+			entrega: {
+				nomReserva: data.nomReserva,
+				tenda: data.tenda,
+				municipi: data.municipi,
+				address: data.address,
+				tel: data.tel,
+				comentaris: data.comments
+			}
+		});
+
 		// When the customer clicks on the Button, redirect them to Checkout.
 		const stripe = await stripePromise;
 
 		// Add Food
 		const lineItems = [];
 
-		if (primerSegonCount > 0) {
-			lineItems.push({ price: 'price_1GxvoPAhsXSRq7ctlanuX0rn', quantity: primerSegonCount });
+		if (this.state.primerSegonCount > 0) {
+			lineItems.push({ price: 'price_1GxvoPAhsXSRq7ctlanuX0rn', quantity: this.state.primerSegonCount });
 		}
 
-		if (dosPrimersCount > 0) {
-			lineItems.push({ price: 'price_1GxvpKAhsXSRq7ctoKSmajN0', quantity: dosPrimersCount });
+		if (this.state.dosPrimersCount > 0) {
+			lineItems.push({ price: 'price_1GxvpKAhsXSRq7ctoKSmajN0', quantity: this.state.dosPrimersCount });
 		}
 
-		if (platPostresCount > 0) {
-			lineItems.push({ price: 'price_1GxvqUAhsXSRq7ctYSgw51Jk', quantity: platPostresCount });
+		if (this.state.platPostresCount > 0) {
+			lineItems.push({ price: 'price_1GxvqUAhsXSRq7ctYSgw51Jk', quantity: this.state.platPostresCount });
 		}
 
 		// Add Drinks
-		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = props.drinksOrdered;
+		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = this.props.drinksOrdered;
 
 		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
 
@@ -91,227 +283,112 @@ function OrderDetails(props) {
 		// using `error.message`.
 		if (error) console.log(error.message);
 	};
+	validateAddress = () => {
+		this.setState({
+			showOrderDetails: false,
+			showAddressValidation: true
+		});
+	};
+	componentDidMount() {
+		let primerSegonCount = 0;
+		let dosPrimersCount = 0;
+		let platPostresCount = 0;
 
-	let primerSegonCount = 0;
-	let dosPrimersCount = 0;
-	let platPostresCount = 0;
-
-	const menuData = [
-		{
-			menuType: 'Menú Complet',
-			price: 8.95
-		},
-		{
-			menuType: 'Menú 2 Primers',
-			price: 7.95
-		},
-		{
-			menuType: 'Mig Menú',
-			price: 6.95
+		for (let i of this.props.cashRegister) {
+			switch (i.menuType) {
+				default:
+					console.log('You got a problem @line 26, CheckOutChildren.js');
+					break;
+				case 'primerSegon':
+					primerSegonCount++;
+					break;
+				case 'dosPrimers':
+					dosPrimersCount++;
+					break;
+				case 'platPostres':
+					platPostresCount++;
+					break;
+			}
 		}
-	];
 
-	for (let i of props.cashRegister) {
-		switch (i.menuType) {
-			default:
-				console.log('You got a problem @line 26, CheckOutChildren.js');
-				break;
-			case 'primerSegon':
-				primerSegonCount++;
-				break;
-			case 'dosPrimers':
-				dosPrimersCount++;
-				break;
-			case 'platPostres':
-				platPostresCount++;
-				break;
-		}
+		this.setState({
+			primerSegonCount: primerSegonCount,
+			dosPrimersCount: dosPrimersCount,
+			platPostresCount: platPostresCount
+		});
 	}
-
-	const primerSegonRow = (ele) => {
-		if (primerSegonCount > 0) {
+	render() {
+		if (this.state.showAddressValidation === false) {
 			return (
-				<Row id="checkout-elements-row">
-					<Col>
-						<p>{ele.menuType}</p>
-					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
-						<p>{primerSegonCount}</p>
-					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
-						<p>{`${(primerSegonCount * ele.price).toFixed(2)} €`}</p>
-					</Col>
-				</Row>
-			);
-		}
-	};
-
-	const dosPrimersRow = (ele) => {
-		if (dosPrimersCount > 0) {
-			return (
-				<Row id="checkout-elements-row">
-					<Col>
-						<p>{ele.menuType}</p>
-					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
-						<p>{dosPrimersCount}</p>
-					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
-						<p>{`${(dosPrimersCount * ele.price).toFixed(2)} €`}</p>
-					</Col>
-				</Row>
-			);
-		}
-	};
-
-	const platPostresRow = (ele) => {
-		if (platPostresCount > 0) {
-			return (
-				<Row id="checkout-elements-row">
-					<Col>
-						<p>{ele.menuType}</p>
-					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
-						<p>{platPostresCount}</p>
-					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
-						<p>{`${(platPostresCount * ele.price).toFixed(2)} €`}</p>
-					</Col>
-				</Row>
-			);
-		}
-	};
-
-	const drinksRow = () => {
-		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = props.drinksOrdered;
-
-		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
-		let drinksPrices = {
-			water: 1.0,
-			cola: 1.3,
-			colaZero: 1.3,
-			beer: 1.5,
-			lemonFanta: 1.3,
-			orangeFanta: 1.3
-		};
-		let drinksDisplayNames = {
-			water: 'Aigua',
-			cola: 'Coca-Cola',
-			colaZero: 'Coca-Cola Zero',
-			beer: 'Estrella Damm',
-			lemonFanta: 'Fanta Llimona',
-			orangeFanta: 'Fanta Taronja'
-		};
-		let drinksArray = [];
-
-		for (const [ key, value ] of Object.entries(drinksOrdered)) {
-			if (value > 0) {
-				drinksArray.push(
-					<Row key={key} id="checkout-elements-row">
-						<Col className="d-flex">
-							<p>{drinksDisplayNames[key]}</p>
+				<Container id="checkout-row">
+					<Row id="description-row">
+						<Col>
+							<p>
+								<b>Desc.</b>
+							</p>
 						</Col>
-						<Col className="d-flex align-items-center justify-content-center">
-							<p>{value}</p>
+						<Col className="d-flex justify-content-center">
+							<p>
+								<b>Quant.</b>
+							</p>
 						</Col>
-						<Col className="d-flex align-items-center justify-content-center">
-							<p>{`${(drinksPrices[key] * value).toFixed(2)} €`}</p>
+						<Col className="d-flex justify-content-center">
+							<p>
+								<b>Total</b>
+							</p>
 						</Col>
 					</Row>
-				);
-			}
+					<hr />
+					{this.foodRow()}
+					{this.drinksRow()}
+					<Row id="grandTotal">
+						<Col>
+							<p>
+								<b>Total</b>
+							</p>
+						</Col>
+						<Col />
+						<Col className="d-flex justify-content-center">
+							<p>
+								<b>{` ${this.calculateTotalDebit(this.state.menuData)} €`}</b>
+							</p>
+						</Col>
+					</Row>
+					<Row>
+						{/* <Button role="link" variant="success" onClick={stripePayment}>
+							Pagar
+						</Button> */}
+						<Button variant="success" onClick={this.validateAddress}>
+							Pagar
+						</Button>
+					</Row>
+					<Row>
+						<Button id="orderDrinks" variant="info" onClick={this.props.toDrinks}>
+							Begudes
+						</Button>
+					</Row>
+					<Row>
+						<Button id="back" onClick={this.props._back}>
+							Enrrere
+						</Button>
+					</Row>
+					<hr />
+					<h1>Detalls</h1>
+					<DishesDetails menus={this.props.menus} />
+				</Container>
+			);
+		} else {
+			return (
+				<Container id="checkout-row">
+					<AddressValidation
+						showAddressValidation={this.state.showAddressValidation}
+						setDeliveryAddressAndPay={this.setDeliveryAddressAndPay}
+						_backToCheckoutDetails={this._backToCheckoutDetails}
+					/>
+				</Container>
+			);
 		}
-		return drinksArray;
-	};
-
-	const calculateTotalDebit = (ele) => {
-		// Food
-		const primerSegonTotalDebit = ele[0].price * primerSegonCount;
-		const dosPrimersTotalDebit = ele[1].price * dosPrimersCount;
-		const platPostresTotalDebit = ele[2].price * platPostresCount;
-
-		// Drinks
-		const { water, cola, colaZero, beer, lemonFanta, orangeFanta } = props.drinksOrdered;
-		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
-		let drinksPrices = {
-			water: 1.0,
-			cola: 1.3,
-			colaZero: 1.3,
-			beer: 1.5,
-			lemonFanta: 1.3,
-			orangeFanta: 1.3
-		};
-
-		let drinksTotalAmmount = 0;
-
-		for (const [ key, value ] of Object.entries(drinksOrdered)) {
-			if (value > 0) {
-				drinksTotalAmmount += value * drinksPrices[key];
-			}
-		}
-
-		const grandTotal = primerSegonTotalDebit + dosPrimersTotalDebit + platPostresTotalDebit + drinksTotalAmmount;
-
-		return grandTotal.toFixed(2);
-	};
-
-	return (
-		<Container id="checkout-row">
-			<Row id="description-row">
-				<Col>
-					<p>
-						<b>Desc.</b>
-					</p>
-				</Col>
-				<Col className="d-flex justify-content-center">
-					<p>
-						<b>Quant.</b>
-					</p>
-				</Col>
-				<Col className="d-flex justify-content-center">
-					<p>
-						<b>Total</b>
-					</p>
-				</Col>
-			</Row>
-			<hr />
-			{primerSegonRow(menuData[0])}
-			{dosPrimersRow(menuData[1])}
-			{platPostresRow(menuData[2])}
-			{drinksRow()}
-			<Row id="grandTotal">
-				<Col>
-					<p>
-						<b>Total</b>
-					</p>
-				</Col>
-				<Col />
-				<Col className="d-flex justify-content-center">
-					<p>
-						<b>{` ${calculateTotalDebit(menuData)} €`}</b>
-					</p>
-				</Col>
-			</Row>
-			<Row>
-				<Button role="link" variant="success" onClick={stripePayment}>
-					Pagar
-				</Button>
-			</Row>
-			<Row>
-				<Button id="orderDrinks" variant="info" onClick={props.toDrinks}>
-					Begudes
-				</Button>
-			</Row>
-			<Row>
-				<Button id="back" onClick={props._back}>
-					Enrrere
-				</Button>
-			</Row>
-			<hr />
-			<h1>Detalls</h1>
-			<DishesDetails menus={props.menus} />
-		</Container>
-	);
+	}
 }
 
 export default OrderDetails;

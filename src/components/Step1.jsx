@@ -67,6 +67,11 @@ const Step1 = (props) => {
 						Canviar Dia
 					</Button>
 				</Col>
+				<Col className="text-center">
+					<Button id="backtoMain" type="button" onClick={props._backToMain} className="text-center mb-2">
+						Enrrere
+					</Button>
+				</Col>
 			</Container>
 		);
 	}
@@ -122,6 +127,11 @@ const Step1 = (props) => {
 			<Col className="text-center">
 				<Button id="changeDate" className="btn" type="button" onClick={props.changeDate}>
 					Canviar Dia
+				</Button>
+			</Col>
+			<Col className="text-center">
+				<Button id="backtoMain" type="button" onClick={props._backToMain} className="text-center mb-2">
+					Enrrere
 				</Button>
 			</Col>
 		</Container>

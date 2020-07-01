@@ -26,6 +26,7 @@ class Step3 extends React.Component {
 	handleSelection = (e) => {
 		let course = e.target.name;
 		let dish = e.target.value;
+		console.log(dish);
 
 		switch (this.props.menuType) {
 			default:
@@ -224,7 +225,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primer-1"
 									name="primer"
-									value="primer-1"
+									value={menuOf[1].primers[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primer-1">{menuOf[1].primers[0]}</label>
@@ -234,7 +235,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primer-2"
 									name="primer"
-									value="primer-2"
+									value={menuOf[1].primers[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primer-2">{menuOf[1].primers[1]}</label>
@@ -244,7 +245,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primer-3"
 									name="primer"
-									value="primer-3"
+									value={menuOf[1].primers[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primer-3">{menuOf[1].primers[2]}</label>
@@ -255,7 +256,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="segon-1"
 									name="segon"
-									value="segon-1"
+									value={menuOf[1].segons[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="segon-1">{menuOf[1].segons[0]}</label>
@@ -265,7 +266,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="segon-2"
 									name="segon"
-									value="segon-2"
+									value={menuOf[1].segons[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="segon-2">{menuOf[1].segons[1]}</label>
@@ -275,7 +276,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="segon-3"
 									name="segon"
-									value="segon-3"
+									value={menuOf[1].segons[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="segon-3">{menuOf[1].segons[2]}</label>
@@ -286,7 +287,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-1"
 									name="postres"
-									value="postre-1"
+									value={menuOf[1].postres[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-1">{menuOf[1].postres[0]}</label>
@@ -296,7 +297,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-2"
 									name="postres"
-									value="postre-2"
+									value={menuOf[1].postres[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
@@ -325,7 +326,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primer-1"
 									name="primer"
-									value="primer-1"
+									value={menuOf[dayOfTheWeek].primers[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primer-1">{menuOf[dayOfTheWeek].primers[0]}</label>
@@ -335,7 +336,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primer-2"
 									name="primer"
-									value="primer-2"
+									value={menuOf[dayOfTheWeek].primers[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primer-2">{menuOf[dayOfTheWeek].primers[1]}</label>
@@ -345,7 +346,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primer-3"
 									name="primer"
-									value="primer-3"
+									value={menuOf[dayOfTheWeek].primers[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primer-3">{menuOf[dayOfTheWeek].primers[2]}</label>
@@ -356,7 +357,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="segon-1"
 									name="segon"
-									value="segon-1"
+									value={menuOf[dayOfTheWeek].segons[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="segon-1">{menuOf[dayOfTheWeek].segons[0]}</label>
@@ -366,7 +367,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="segon-2"
 									name="segon"
-									value="segon-2"
+									value={menuOf[dayOfTheWeek].segons[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="segon-2">{menuOf[dayOfTheWeek].segons[1]}</label>
@@ -376,7 +377,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="segon-3"
 									name="segon"
-									value="segon-3"
+									value={menuOf[dayOfTheWeek].segons[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="segon-3">{menuOf[dayOfTheWeek].segons[2]}</label>
@@ -387,7 +388,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-1"
 									name="postres"
-									value="postre-1"
+									value={menuOf[dayOfTheWeek].postres[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
@@ -397,7 +398,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-2"
 									name="postres"
-									value="postre-2"
+									value={menuOf[dayOfTheWeek].postres[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
@@ -429,7 +430,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerA-1"
 									name="primerA"
-									value="primer-1"
+									value={menuOf[1].primers[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerA-1">{menuOf[1].primers[0]}</label>
@@ -439,7 +440,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerA-2"
 									name="primerA"
-									value="primer-2"
+									value={menuOf[1].primers[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerA-2">{menuOf[1].primers[1]}</label>
@@ -449,7 +450,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerA-3"
 									name="primerA"
-									value="primer-3"
+									value={menuOf[1].primers[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerA-3">{menuOf[1].primers[2]}</label>
@@ -460,7 +461,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerB-1"
 									name="primerB"
-									value="primer-1"
+									value={menuOf[1].primers[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerB-1">{menuOf[1].primers[0]}</label>
@@ -470,7 +471,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerB-2"
 									name="primerB"
-									value="primer-2"
+									value={menuOf[1].primers[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerB-2">{menuOf[1].primers[1]}</label>
@@ -480,7 +481,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerB-3"
 									name="primerB"
-									value="primer-3"
+									value={menuOf[1].primers[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerB-3">{menuOf[1].primers[2]}</label>
@@ -491,7 +492,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-1"
 									name="postres"
-									value="postre-1"
+									value={menuOf[1].postres[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-1">{menuOf[1].postres[0]}</label>
@@ -501,7 +502,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-2"
 									name="postres"
-									value="postre-2"
+									value={menuOf[1].postres[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
@@ -529,7 +530,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerA-1"
 									name="primerA"
-									value="primer-1"
+									value={menuOf[dayOfTheWeek].primers[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerA-1">{menuOf[dayOfTheWeek].primers[0]}</label>
@@ -539,7 +540,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerA-2"
 									name="primerA"
-									value="primer-2"
+									value={menuOf[dayOfTheWeek].primers[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerA-2">{menuOf[dayOfTheWeek].primers[1]}</label>
@@ -549,7 +550,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerA-3"
 									name="primerA"
-									value="primer-3"
+									value={menuOf[dayOfTheWeek].primers[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerA-3">{menuOf[dayOfTheWeek].primers[2]}</label>
@@ -560,7 +561,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerB-1"
 									name="primerB"
-									value="primer-1"
+									value={menuOf[dayOfTheWeek].primers[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerB-1">{menuOf[dayOfTheWeek].primers[0]}</label>
@@ -570,7 +571,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerB-2"
 									name="primerB"
-									value="primer-2"
+									value={menuOf[dayOfTheWeek].primers[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerB-2">{menuOf[dayOfTheWeek].primers[1]}</label>
@@ -580,7 +581,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="primerB-3"
 									name="primerB"
-									value="primer-3"
+									value={menuOf[dayOfTheWeek].primers[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="primerB-3">{menuOf[dayOfTheWeek].primers[2]}</label>
@@ -591,7 +592,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-1"
 									name="postres"
-									value="postre-1"
+									value={menuOf[dayOfTheWeek].postres[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
@@ -601,7 +602,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-2"
 									name="postres"
-									value="postre-2"
+									value={menuOf[dayOfTheWeek].postres[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
@@ -631,7 +632,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-1"
 									name="platUnic"
-									value="primer-1"
+									value={menuOf[1].primers[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-1">{menuOf[1].primers[0]}</label>
@@ -641,7 +642,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-2"
 									name="platUnic"
-									value="primer-2"
+									value={menuOf[1].primers[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-2">{menuOf[1].primers[1]}</label>
@@ -651,7 +652,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-3"
 									name="platUnic"
-									value="primer-3"
+									value={menuOf[1].primers[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-3">{menuOf[1].primers[2]}</label>
@@ -661,7 +662,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-4"
 									name="platUnic"
-									value="segon-1"
+									value={menuOf[1].segons[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-4">{menuOf[1].segons[0]}</label>
@@ -671,7 +672,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-5"
 									name="platUnic"
-									value="segon-2"
+									value={menuOf[1].segons[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-5">{menuOf[1].segons[1]}</label>
@@ -681,7 +682,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-6"
 									name="platUnic"
-									value="segon-3"
+									value={menuOf[1].segons[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-6">{menuOf[1].segons[2]}</label>
@@ -692,7 +693,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-1"
 									name="postres"
-									value="postre-1"
+									value={menuOf[1].postres[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-1">{menuOf[1].postres[0]}</label>
@@ -702,7 +703,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-2"
 									name="postres"
-									value="postre-2"
+									value={menuOf[1].postres[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[1].postres[1]}</label>
@@ -730,7 +731,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-1"
 									name="platUnic"
-									value="primer-1"
+									value={menuOf[dayOfTheWeek].primers[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-1">{menuOf[dayOfTheWeek].primers[0]}</label>
@@ -740,7 +741,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-2"
 									name="platUnic"
-									value="primer-2"
+									value={menuOf[dayOfTheWeek].primers[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-2">{menuOf[dayOfTheWeek].primers[1]}</label>
@@ -750,7 +751,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-3"
 									name="platUnic"
-									value="primer-3"
+									value={menuOf[dayOfTheWeek].primers[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-3">{menuOf[dayOfTheWeek].primers[2]}</label>
@@ -760,7 +761,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-4"
 									name="platUnic"
-									value="segon-1"
+									value={menuOf[dayOfTheWeek].segons[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-4">{menuOf[dayOfTheWeek].segons[0]}</label>
@@ -770,7 +771,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-5"
 									name="platUnic"
-									value="segon-2"
+									value={menuOf[dayOfTheWeek].segons[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-5">{menuOf[dayOfTheWeek].segons[1]}</label>
@@ -780,7 +781,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="platUnic-6"
 									name="platUnic"
-									value="segon-3"
+									value={menuOf[dayOfTheWeek].segons[2]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="platUnic-6">{menuOf[dayOfTheWeek].segons[2]}</label>
@@ -791,7 +792,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-1"
 									name="postres"
-									value="postre-1"
+									value={menuOf[dayOfTheWeek].postres[0]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-1">{menuOf[dayOfTheWeek].postres[0]}</label>
@@ -801,7 +802,7 @@ class Step3 extends React.Component {
 									type="radio"
 									id="postre-2"
 									name="postres"
-									value="postre-2"
+									value={menuOf[dayOfTheWeek].postres[1]}
 									onChange={this.handleSelection}
 								/>
 								<label htmlFor="postre-2">{menuOf[dayOfTheWeek].postres[1]}</label>
