@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+// Bootstrap
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+
 export default function CheckoutForm(props) {
 	const [ succeeded, setSucceeded ] = useState(false);
 	const [ error, setError ] = useState(null);
-	const [ processing, setProcessing ] = useState('');
+	const [ processing, setProcessing ] = useState(false);
 	const [ disabled, setDisabled ] = useState(true);
 	const [ clientSecret, setClientSecret ] = useState('');
 	const stripe = useStripe();
@@ -69,6 +73,7 @@ export default function CheckoutForm(props) {
 				}
 			}
 		});
+		console.log(payload);
 		if (payload.error) {
 			setError(`Payment failed ${payload.error.message}`);
 			setProcessing(false);
@@ -79,23 +84,21 @@ export default function CheckoutForm(props) {
 		}
 	};
 	return (
-		<form id="payment-form" onSubmit={handleSubmit}>
-			<CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-			<button disabled={processing || disabled || succeeded} id="submit">
-				<span id="button-text">{processing ? <div className="spinner" id="spinner" /> : 'Pay'}</span>
-			</button>
-			{/* Show any error that happens when processing the payment */}
-			{error && (
-				<div className="card-error" role="alert">
-					{error}
-				</div>
-			)}
-			{/* Show a success message upon completion */}
-			<p className={succeeded ? 'result-message' : 'result-message hidden'}>
-				Payment succeeded, see the result in your
-				<a href={`https://dashboard.stripe.com/test/payments`}> Stripe dashboard.</a> Refresh the page to pay
-				again.
-			</p>
-		</form>
+		<Container>
+			<Row>
+				<Col xs={12} md={12}>
+					<Form id="payment-form" onSubmit={handleSubmit}>
+						<CardElement id="card-element" onChange={handleChange} />
+						{processing || disabled || succeeded ? (
+							<Button disabled>Pagar</Button>
+						) : (
+							<Button id="submit">Pagar</Button>
+						)}
+						{succeeded ? <p>Payment Successful</p> : null}
+						{error ? <p>There was an error</p> : null}
+					</Form>
+				</Col>
+			</Row>
+		</Container>
 	);
 }
