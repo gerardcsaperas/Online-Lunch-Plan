@@ -26,6 +26,7 @@ export class OrderBasket extends Component {
 						toPayment={this.props.toPayment}
 						toDrinks={this.props.toDrinks}
 						_back={this.props._back}
+						currDate={this.props.currDate}
 					/>
 				</Container>
 			);

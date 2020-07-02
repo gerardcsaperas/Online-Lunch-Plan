@@ -2,18 +2,19 @@ import React from 'react';
 import './AddressValidation.css';
 
 // Bootstrap
-import { Container, Form, Row, Col, Button } from 'react-bootstrap';
+import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
 
 class AddressValidation extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			nomReserva: '',
-			tenda: 'tenda-cabrera',
+			tenda: '',
 			municipi: '',
 			address: '',
 			tel: '',
-			comments: ''
+			comments: '',
+			payButtonPressed: false
 		};
 	}
 	_back = () => {
@@ -34,10 +35,12 @@ class AddressValidation extends React.Component {
 
 		if (tendes.includes(location)) {
 			this.setState({
-				tenda: location
+				tenda: location,
+				municipi: ''
 			});
-		} else {
+		} else if (municipis.includes(location)) {
 			this.setState({
+				tenda: '',
 				municipi: location
 			});
 		}
@@ -63,7 +66,7 @@ class AddressValidation extends React.Component {
 			comments: comments
 		});
 	};
-	passToParentAndPay = () => {
+	passToParentAndPay = async () => {
 		const { nomReserva, tenda, municipi, address, tel, comments } = this.state;
 
 		if (nomReserva === '') {
@@ -81,6 +84,10 @@ class AddressValidation extends React.Component {
 		if (tel === '') {
 			return alert('És obligatori deixar un número de telèfon');
 		}
+
+		await this.setState({
+			payButtonPressed: true
+		});
 
 		this.props.setDeliveryAddressAndPay(this.state);
 	};
@@ -115,6 +122,7 @@ class AddressValidation extends React.Component {
 											Municipi
 										</Form.Label>
 										<Form.Control as="select" id="municipi" onChange={this.setMunicipi}>
+											<option value="">Recollir/Enviar a...</option>
 											<option value="tenda-cabrera">Recollida a tenda - Cabrera de Mar</option>
 											<option value="tenda-tenis">Recollida a tenda - Cabrils (Tenis)</option>
 											<option value="tenda-vdm">Recollida a tenda - Vilassar de Mar</option>
@@ -163,12 +171,18 @@ class AddressValidation extends React.Component {
 										</Form.Text>
 									</Col>
 									<Col xs={12} md={8} className="d-flex justify-content-center">
-										<Button variant="success" onClick={this.passToParentAndPay}>
-											Pagar
-										</Button>
+										{this.state.payButtonPressed ? (
+											<Spinner animation="border" variant="success" className="mb-2" />
+										) : (
+											<Button variant="success" onClick={this.passToParentAndPay}>
+												Pagar
+											</Button>
+										)}
 									</Col>
 									<Col xs={12} md={8} className="d-flex justify-content-center">
-										<Button onClick={this._back}>Enrrere</Button>
+										{this.state.payButtonPressed ? null : (
+											<Button onClick={this._back}>Enrrere</Button>
+										)}
 									</Col>
 								</Form.Row>
 							</Form>

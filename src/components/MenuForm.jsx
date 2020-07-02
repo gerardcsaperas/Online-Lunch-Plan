@@ -6,7 +6,6 @@ import Step3 from './Step3';
 import OrderDrinks from './OrderDrinks';
 import ChangeDate from './ChangeDate';
 import OrderBasket from './OrderBasket';
-import AddressValidation from './AddressValidation';
 
 // Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -19,7 +18,7 @@ class MenuForm extends React.Component {
 			currentStep: 1,
 			currDate: new Date(),
 			//Monday is 1, Friday is 5
-			dayOfTheWeek: new Date().getDay(),
+			dayOfTheWeek: new Date().getHours() >= 10 ? new Date().getDay() + 1 : new Date().getDay(),
 			menuType: '',
 			menus: [],
 			cashRegister: [],
@@ -322,6 +321,7 @@ class MenuForm extends React.Component {
 							validateAddress={this.validateAddress}
 							toDrinks={this.toDrinks}
 							_back={this._back}
+							currDate={this.state.currDate}
 						/>
 					</Col>
 				</Row>

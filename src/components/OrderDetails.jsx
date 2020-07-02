@@ -3,6 +3,9 @@ import DishesDetails from './DishesDetails';
 import AddressValidation from './AddressValidation';
 import './OrderDetails.css';
 
+// Send info to eMail
+import emailjs from 'emailjs-com';
+
 // Bootstrap modules
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
@@ -197,6 +200,7 @@ class OrderDetails extends React.Component {
 		await this.setState({
 			entrega: {
 				nomReserva: data.nomReserva,
+				data: this.props.currDate,
 				tenda: data.tenda,
 				municipi: data.municipi,
 				address: data.address,
@@ -272,6 +276,73 @@ class OrderDetails extends React.Component {
 			lineItems.push({ price: 'price_1GykpZAhsXSRq7ctz7mgukJu', quantity: waterCount });
 		}
 
+		// Send e-mail with details
+		emailjs.init('user_CLV17QcqSK8FF0oD6nMWg');
+
+		const { nomReserva, tenda, municipi, address, tel, comentaris } = this.state.entrega;
+		const menusDetallats = [];
+		this.props.menus.map((menu, i) => {
+			switch (menu.menuType) {
+				default:
+					console.log('There has been a problem around line 291 - OrderDetails.jsx');
+					break;
+				case 'primerSegon':
+					menusDetallats.push(`${i + 1}. Menú Complet: ${menu.primer} + ${menu.segon} + ${menu.postres}<br>`);
+					break;
+				case 'dosPrimers':
+					menusDetallats.push(
+						`${i + 1}. Menú 2 Primers: ${menu.primerA} + ${menu.primerB} + ${menu.postres}<br>`
+					);
+					break;
+				case 'platPostres':
+					menusDetallats.push(`${i + 1}. Mig Menú: ${menu.platUnic} + ${menu.postres}<br>`);
+					break;
+			}
+		});
+		const begudesDetallades = [];
+		for (const [ key, value ] of Object.entries(drinksOrdered)) {
+			if (value > 0) {
+				switch (key) {
+					case 'water':
+						begudesDetallades.push(`Aigua: ${value} u.<br>`);
+						break;
+					case 'cola':
+						begudesDetallades.push(`Coca-Cola: ${value} u.<br>`);
+						break;
+					case 'colaZero':
+						begudesDetallades.push(`Coca-Cola Zero: ${value} u.<br>`);
+						break;
+					case 'beer':
+						begudesDetallades.push(`Estrella Damm: ${value} u.<br>`);
+						break;
+					case 'lemonFanta':
+						begudesDetallades.push(`Fanta Llimona: ${value} u.<br>`);
+						break;
+					case 'orangeFanta':
+						begudesDetallades.push(`Fanta Taronja: ${value} u.<br>`);
+						break;
+				}
+			}
+		}
+
+		const templateParams = {
+			data: this.props.currDate.toDateString(),
+			comanda: menusDetallats.join(),
+			begudes: begudesDetallades.join(),
+			totalPrice: this.calculateTotalDebit(this.state.menuData),
+			nomReserva: nomReserva,
+			tenda: tenda,
+			municipi: municipi,
+			address: address,
+			tel: tel,
+			comentaris: comentaris
+		};
+
+		const serviceId = 'default_service';
+		const templateId = 'template_vprh5Y0S';
+		await emailjs.send(serviceId, templateId, templateParams);
+
+		// Stripe checkout
 		const { error } = await stripe.redirectToCheckout({
 			lineItems: lineItems,
 			mode: 'payment',
