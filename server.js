@@ -35,4 +35,5 @@ app.post("/create-payment-intent", async(req, res) => {
         clientSecret: paymentIntent.client_secret
     });
 });
-app.listen(process.env.PORT || 4242, () => console.log('Node server listening on port 4242!'));
+const PORT = (process.env.PORT || 5000);
+app.listen(PORT, () => console.log('Node server listening on port ' + PORT));

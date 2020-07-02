@@ -16,7 +16,6 @@
         "dotenv": "^8.2.0",
         "emailjs-com": "^2.4.1",
         "express": "^4.17.1",
-        "node": "^12.16.3",
         "node-sass": "^4.14.1",
         "nodemon": "^2.0.4",
         "react": "^16.13.1",
@@ -52,6 +51,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "proxy": "http://localhost:4242"
+    }
 }
