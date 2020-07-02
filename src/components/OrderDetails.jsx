@@ -1,6 +1,9 @@
 import React from 'react';
 import DishesDetails from './DishesDetails';
 import AddressValidation from './AddressValidation';
+import CheckoutForm from './CheckoutForm';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import './OrderDetails.css';
 
 // Send info to eMail
@@ -10,8 +13,7 @@ import emailjs from 'emailjs-com';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 // Handle payments with Stripe
-import { loadStripe } from '@stripe/stripe-js';
-const stripePromise = loadStripe(
+const promise = loadStripe(
 	'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
 );
 
@@ -37,13 +39,15 @@ class OrderDetails extends React.Component {
 				}
 			],
 			showAddressValidation: false,
+			showCheckoutForm: false,
 			entrega: {
 				nomReserva: '',
 				entrega: '',
 				address: '',
 				tel: '',
 				comentaris: ''
-			}
+			},
+			grandTotal: 0
 		};
 	}
 	_backToCheckoutDetails = () => {
@@ -193,7 +197,6 @@ class OrderDetails extends React.Component {
 		}
 
 		const grandTotal = primerSegonTotalDebit + dosPrimersTotalDebit + platPostresTotalDebit + drinksTotalAmmount;
-
 		return grandTotal.toFixed(2);
 	};
 	setDeliveryAddressAndPay = async (data) => {
@@ -206,75 +209,11 @@ class OrderDetails extends React.Component {
 				address: data.address,
 				tel: data.tel,
 				comentaris: data.comments
-			}
+			},
+			showAddressValidation: false,
+			showCheckoutForm: true,
+			grandTotal: this.calculateTotalDebit(this.state.menuData)
 		});
-
-		// When the customer clicks on the Button, redirect them to Checkout.
-		const stripe = await stripePromise;
-
-		// Add Food
-		const lineItems = [];
-
-		if (this.state.primerSegonCount > 0) {
-			lineItems.push({ price: 'price_1GxvoPAhsXSRq7ctlanuX0rn', quantity: this.state.primerSegonCount });
-		}
-
-		if (this.state.dosPrimersCount > 0) {
-			lineItems.push({ price: 'price_1GxvpKAhsXSRq7ctoKSmajN0', quantity: this.state.dosPrimersCount });
-		}
-
-		if (this.state.platPostresCount > 0) {
-			lineItems.push({ price: 'price_1GxvqUAhsXSRq7ctYSgw51Jk', quantity: this.state.platPostresCount });
-		}
-
-		// Add Drinks
-		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = this.props.drinksOrdered;
-
-		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
-
-		let softDrinksCount = 0;
-		let beerCount = 0;
-		let waterCount = 0;
-
-		for (const [ key, value ] of Object.entries(drinksOrdered)) {
-			if (value > 0) {
-				switch (key) {
-					default:
-						console.log('look at your code at line 47 - OrderDetails.jsx');
-						break;
-					case 'water':
-						waterCount += value;
-						break;
-					case 'cola':
-						softDrinksCount += value;
-						break;
-					case 'colaZero':
-						softDrinksCount += value;
-						break;
-					case 'beer':
-						beerCount += value;
-						break;
-					case 'lemonFanta':
-						softDrinksCount += value;
-						break;
-					case 'orangeFanta':
-						softDrinksCount += value;
-						break;
-				}
-			}
-		}
-
-		if (softDrinksCount > 0) {
-			lineItems.push({ price: 'price_1GykpAAhsXSRq7ctVNSkQMWv', quantity: softDrinksCount });
-		}
-
-		if (beerCount > 0) {
-			lineItems.push({ price: 'price_1GykptAhsXSRq7ctyAeWh0XK', quantity: beerCount });
-		}
-
-		if (waterCount > 0) {
-			lineItems.push({ price: 'price_1GykpZAhsXSRq7ctz7mgukJu', quantity: waterCount });
-		}
 
 		// Send e-mail with details
 		emailjs.init('user_CLV17QcqSK8FF0oD6nMWg');
@@ -299,6 +238,11 @@ class OrderDetails extends React.Component {
 					break;
 			}
 		});
+
+		// Add Drinks
+		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = this.props.drinksOrdered;
+
+		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
 		const begudesDetallades = [];
 		for (const [ key, value ] of Object.entries(drinksOrdered)) {
 			if (value > 0) {
@@ -341,18 +285,6 @@ class OrderDetails extends React.Component {
 		const serviceId = 'default_service';
 		const templateId = 'template_vprh5Y0S';
 		await emailjs.send(serviceId, templateId, templateParams);
-
-		// Stripe checkout
-		const { error } = await stripe.redirectToCheckout({
-			lineItems: lineItems,
-			mode: 'payment',
-			successUrl: 'https://example.com/success',
-			cancelUrl: 'https://example.com/cancel'
-		});
-		// If `redirectToCheckout` fails due to a browser or network
-		// error, display the localized error message to your customer
-		// using `error.message`.
-		if (error) console.log(error.message);
 	};
 	validateAddress = () => {
 		this.setState({
@@ -389,7 +321,7 @@ class OrderDetails extends React.Component {
 		});
 	}
 	render() {
-		if (this.state.showAddressValidation === false) {
+		if (this.state.showAddressValidation === false && this.state.showCheckoutForm === false) {
 			return (
 				<Container id="checkout-row">
 					<Row id="description-row">
@@ -448,7 +380,7 @@ class OrderDetails extends React.Component {
 					<DishesDetails menus={this.props.menus} />
 				</Container>
 			);
-		} else {
+		} else if (this.state.showAddressValidation === true) {
 			return (
 				<Container id="checkout-row">
 					<AddressValidation
@@ -456,6 +388,20 @@ class OrderDetails extends React.Component {
 						setDeliveryAddressAndPay={this.setDeliveryAddressAndPay}
 						_backToCheckoutDetails={this._backToCheckoutDetails}
 					/>
+				</Container>
+			);
+		} else if (this.state.showCheckoutForm === true) {
+			return (
+				<Container id="checkout-row">
+					<Elements stripe={promise}>
+						<CheckoutForm
+							drinksOrdered={this.props.drinksOrdered}
+							primerSegonCount={this.state.primerSegonCount}
+							dosPrimersCount={this.state.dosPrimersCount}
+							platPostresCount={this.state.platPostresCount}
+							grandTotal={this.state.grandTotal}
+						/>
+					</Elements>
 				</Container>
 			);
 		}
