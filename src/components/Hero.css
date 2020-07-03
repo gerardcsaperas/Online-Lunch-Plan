@@ -1,6 +1,7 @@
 #HeroContainer {
     padding: 0;
     margin: 0;
+    overflow-y: scroll;
 }
 
 #Hero {
@@ -16,6 +17,10 @@
 #formCol {
     margin-top: 2vh;
     margin-bottom: 5vh;
+}
+
+#contacte {
+    scroll-behavior: smooth;
 }
 
 .display-4 {
@@ -55,10 +60,16 @@
     line-height: 1.5rem;
 }
 
+#aboutText p {
+    line-height: 1.7rem;
+    font-size: 1.2rem;
+}
+
 #facebook,
 #instagram {
     border: 0;
     margin-right: 2.5vw;
+    margin-bottom: 1vh;
     height: 35px;
     width: 35px;
     background: transparent;
@@ -71,4 +82,15 @@
 
 #instagram {
     background-image: url("../assets/iconmonstr-instagram-13-240.png");
+}
+
+@media only screen and (min-width: 700px) {
+    #facebook {
+        position: absolute;
+        right: 0vw;
+    }
+    #instagram {
+        position: absolute;
+        right: 50px;
+    }
 }

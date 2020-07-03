@@ -55,6 +55,12 @@ class OrderDetails extends React.Component {
 			showAddressValidation: false
 		});
 	};
+	_backToAddressValidation = () => {
+		this.setState({
+			showAddressValidation: true,
+			showCheckoutForm: false
+		});
+	};
 	foodRow = () => {
 		let primerSegonCount = 0;
 		let dosPrimersCount = 0;
@@ -89,7 +95,7 @@ class OrderDetails extends React.Component {
 					<Col className="d-flex align-items-center justify-content-center">
 						<p>{primerSegonCount}</p>
 					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
+					<Col className="d-flex align-items-center justify-content-end">
 						<p>{`${(primerSegonCount * menuData[0].price).toFixed(2)} €`}</p>
 					</Col>
 				</Row>
@@ -105,7 +111,7 @@ class OrderDetails extends React.Component {
 					<Col className="d-flex align-items-center justify-content-center">
 						<p>{dosPrimersCount}</p>
 					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
+					<Col className="d-flex align-items-center justify-content-end">
 						<p>{`${(dosPrimersCount * menuData[1].price).toFixed(2)} €`}</p>
 					</Col>
 				</Row>
@@ -121,7 +127,7 @@ class OrderDetails extends React.Component {
 					<Col className="d-flex align-items-center justify-content-center">
 						<p>{platPostresCount}</p>
 					</Col>
-					<Col className="d-flex align-items-center justify-content-center">
+					<Col className="d-flex align-items-center justify-content-end">
 						<p>{`${(platPostresCount * menuData[2].price).toFixed(2)} €`}</p>
 					</Col>
 				</Row>
@@ -161,7 +167,7 @@ class OrderDetails extends React.Component {
 						<Col className="d-flex align-items-center justify-content-center">
 							<p>{value}</p>
 						</Col>
-						<Col className="d-flex align-items-center justify-content-center">
+						<Col className="d-flex align-items-center justify-content-end">
 							<p>{`${(drinksPrices[key] * value).toFixed(2)} €`}</p>
 						</Col>
 					</Row>
@@ -199,23 +205,7 @@ class OrderDetails extends React.Component {
 		const grandTotal = primerSegonTotalDebit + dosPrimersTotalDebit + platPostresTotalDebit + drinksTotalAmmount;
 		return grandTotal.toFixed(2);
 	};
-	setDeliveryAddressAndPay = async (data) => {
-		await this.setState({
-			entrega: {
-				nomReserva: data.nomReserva,
-				data: this.props.currDate,
-				tenda: data.tenda,
-				municipi: data.municipi,
-				address: data.address,
-				tel: data.tel,
-				comentaris: data.comments
-			},
-			showAddressValidation: false,
-			showCheckoutForm: true,
-			grandTotal: this.calculateTotalDebit(this.state.menuData)
-		});
-
-		// Send e-mail with details
+	sendEmail = () => {
 		emailjs.init('user_CLV17QcqSK8FF0oD6nMWg');
 
 		const { nomReserva, tenda, municipi, address, tel, comentaris } = this.state.entrega;
@@ -284,9 +274,33 @@ class OrderDetails extends React.Component {
 
 		const serviceId = 'default_service';
 		const templateId = 'template_vprh5Y0S';
-		await emailjs.send(serviceId, templateId, templateParams);
+		emailjs.send(serviceId, templateId, templateParams);
+	};
+	setDeliveryAddressAndPay = async (data) => {
+		await this.setState({
+			entrega: {
+				nomReserva: data.nomReserva,
+				data: this.props.currDate,
+				tenda: data.tenda,
+				municipi: data.municipi,
+				address: data.address,
+				tel: data.tel,
+				comentaris: data.comments
+			},
+			showAddressValidation: false,
+			showCheckoutForm: true,
+			grandTotal: this.calculateTotalDebit(this.state.menuData)
+		});
 	};
 	validateAddress = () => {
+		if (
+			this.state.platPostresCount === 0 &&
+			this.state.dosPrimersCount === 0 &&
+			this.state.primerSegonCount === 0
+		) {
+			return alert('Ha de seleccionar algún menú per procedir al pagament.');
+		}
+
 		this.setState({
 			showOrderDetails: false,
 			showAddressValidation: true
@@ -324,6 +338,12 @@ class OrderDetails extends React.Component {
 		if (this.state.showAddressValidation === false && this.state.showCheckoutForm === false) {
 			return (
 				<Container id="checkout-row">
+					<Col xs={12}>
+						<h1>La teva comanda</h1>
+					</Col>
+					<Col xs={12}>
+						<hr />
+					</Col>
 					<Row id="description-row">
 						<Col>
 							<p>
@@ -335,7 +355,7 @@ class OrderDetails extends React.Component {
 								<b>Quant.</b>
 							</p>
 						</Col>
-						<Col className="d-flex justify-content-center">
+						<Col className="d-flex justify-content-end">
 							<p>
 								<b>Total</b>
 							</p>
@@ -345,13 +365,13 @@ class OrderDetails extends React.Component {
 					{this.foodRow()}
 					{this.drinksRow()}
 					<Row id="grandTotal">
-						<Col>
+						<Col className="d-flex justify-content-start">
 							<p>
 								<b>Total</b>
 							</p>
 						</Col>
 						<Col />
-						<Col className="d-flex justify-content-center">
+						<Col className="d-flex justify-content-end">
 							<p>
 								<b>{` ${this.calculateTotalDebit(this.state.menuData)} €`}</b>
 							</p>
@@ -400,6 +420,8 @@ class OrderDetails extends React.Component {
 							dosPrimersCount={this.state.dosPrimersCount}
 							platPostresCount={this.state.platPostresCount}
 							grandTotal={this.state.grandTotal}
+							sendEmail={this.sendEmail}
+							_backToAddressValidation={this._backToAddressValidation}
 						/>
 					</Elements>
 				</Container>

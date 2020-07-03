@@ -71,6 +71,7 @@ export default function ChangeDate(props) {
 			<Container id="dateSelector">
 				<h1>Tria un dia</h1>
 				{buttonElementForDate()}
+				<Button onClick={props._back}>Enrrere</Button>
 				<p id="tempsMaxDemanar">*Només es pot demanar fins a les 11:00 AM del mateix dia.</p>
 			</Container>
 		);

@@ -99,7 +99,7 @@ class AddressValidation extends React.Component {
 						<Col xs={12}>
 							<h1>Adreça d'entrega</h1>
 						</Col>
-						<Col xs={12}>
+						<Col xs={12} md={10}>
 							<hr />
 						</Col>
 						<Col xs={12}>
@@ -112,8 +112,9 @@ class AddressValidation extends React.Component {
 											</Form.Label>
 											<Form.Control
 												id="nomReserva"
-												placeholder="Nom i Cognoms"
+												placeholder="Nom Complet (mateix que pagament)"
 												onChange={this.setCustomerName}
+												required
 											/>
 										</Form.Text>
 									</Col>

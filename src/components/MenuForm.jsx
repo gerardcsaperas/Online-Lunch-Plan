@@ -309,6 +309,7 @@ class MenuForm extends React.Component {
 							currentStep={this.state.currentStep}
 							changeDate={this.changeDate}
 							selectDate={this.selectDate}
+							_back={this._back}
 						/>
 					</Col>
 					<Col xs={12}>

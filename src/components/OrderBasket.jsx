@@ -16,8 +16,6 @@ export class OrderBasket extends Component {
 		if (this.props.showCheckOut) {
 			return (
 				<Container id="OrderBasket">
-					<h1>La teva comanda</h1>
-					<hr />
 					<OrderDetails
 						menus={this.props.menus}
 						cashRegister={this.props.cashRegister}

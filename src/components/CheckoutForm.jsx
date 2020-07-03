@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-// Bootstrap
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+// Bootstrap & Styling
+import { Container, Row, Col, Button, Spinner, Form } from 'react-bootstrap';
 
 export default function CheckoutForm(props) {
 	const [ succeeded, setSucceeded ] = useState(false);
@@ -38,24 +38,29 @@ export default function CheckoutForm(props) {
 	}, []);
 
 	const cardStyle = {
-		style: {
-			base: {
-				color: '#32325d',
-				fontFamily: 'Arial, sans-serif',
-				fontSmoothing: 'antialiased',
-				fontSize: '16px',
-				'::placeholder': {
-					color: '#32325d'
-				}
-			},
-			invalid: {
-				color: '#fa755a',
-				iconColor: '#fa755a'
+		base: {
+			backgroundColor: 'white',
+			color: 'grey',
+			lineHeight: '2rem',
+			padding: '2px',
+			fontFamily: 'Montserrat, sans-serif',
+			fontSmoothing: 'antialiased',
+			fontSize: '16px',
+			'::placeholder': {
+				color: '#c6c6c6'
 			}
+		},
+		invalid: {
+			color: '#fa755a',
+			iconColor: '#fa755a'
+		},
+		complete: {
+			color: 'green',
+			iconColor: 'green'
 		}
 	};
 
-	const handleChange = async (event) => {
+	const handleCardChange = async (event) => {
 		// Listen for changes in the CardElement
 		// and display any errors as the customer types their card details
 		setDisabled(event.empty);
@@ -73,29 +78,75 @@ export default function CheckoutForm(props) {
 				}
 			}
 		});
-		console.log(payload);
+
+		// Handle Error
 		if (payload.error) {
 			setError(`Payment failed ${payload.error.message}`);
 			setProcessing(false);
-		} else {
-			setError(null);
-			setProcessing(false);
+		} else if (payload.paymentIntent.status === 'succeeded') {
+			// If payment succeeded, send eMail with details
+			props.sendEmail();
 			setSucceeded(true);
+			setError(null);
+			setTimeout(() => {
+				window.location.replace('http://localhost:3000');
+			}, 10000);
 		}
 	};
 	return (
 		<Container>
 			<Row>
-				<Col xs={12} md={12}>
+				<Col xs={12}>
+					<h1>Detalls Pagament</h1>
+				</Col>
+				<Col xs={12} md={10}>
+					<hr />
+				</Col>
+				<Col xs={12}>
 					<Form id="payment-form" onSubmit={handleSubmit}>
-						<CardElement id="card-element" onChange={handleChange} />
-						{processing || disabled || succeeded ? (
-							<Button disabled>Pagar</Button>
-						) : (
-							<Button id="submit">Pagar</Button>
-						)}
-						{succeeded ? <p>Payment Successful</p> : null}
-						{error ? <p>There was an error</p> : null}
+						<Form.Row className="d-flex justify-content-center">
+							<Col xs={12} md={8} className="mb-4">
+								<CardElement
+									id="cardElement"
+									onChange={handleCardChange}
+									options={{
+										hidePostalCode: true,
+										style: cardStyle
+									}}
+								/>
+							</Col>
+							<Col xs={12} md={8} className="d-flex justify-content-center">
+								{processing || disabled || succeeded ? (
+									<Button variant="success" disabled>
+										Pagar
+									</Button>
+								) : (
+									<Button variant="success" type="submit">
+										Pagar
+									</Button>
+								)}
+							</Col>
+							<Col xs={12} md={8} className="d-flex justify-content-center">
+								{processing || succeeded ? (
+									<Button disabled>Enrrere</Button>
+								) : (
+									<Button onClick={props._backToAddressValidation}>Enrrere</Button>
+								)}
+							</Col>
+							<Col xs={12} md={8} className="mb-2">
+								{succeeded ? (
+									<Row>
+										<Col xs={12} className="text-center">
+											<p>Moltes gràcies! En 10 segons serà redirigit a la pàgina d'inici.</p>
+										</Col>
+										<Col xs={12} className="d-flex justify-content-center">
+											<Spinner variant="success" animation="border" />
+										</Col>
+									</Row>
+								) : null}
+								{error ? <p>Hi ha hagut un error amb el seu pagament. Revisi les dades.</p> : null}
+							</Col>
+						</Form.Row>
 					</Form>
 				</Col>
 			</Row>

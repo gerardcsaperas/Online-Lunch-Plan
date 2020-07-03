@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Hero.css';
 
 // Bootstrap
-import { Container, Row, Col, Button, Card, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card, Form, Image } from 'react-bootstrap';
 
 function Hero(props) {
+	const [ email, setEmail ] = useState(null);
+	const [ name, setName ] = useState(null);
+	const [ tel, setTel ] = useState(null);
+	const [ comments, setComments ] = useState(null);
+	const handleChange = (e) => {
+		console.log(e.target);
+	};
+	const handleSubmit = (ev) => {
+		ev.preventDefault();
+		console.log(ev);
+	};
 	return (
 		<Container fluid id="HeroContainer">
 			<Container id="Hero" className="d-flex flex-column justify-content-center align-content-center">
@@ -39,7 +50,9 @@ function Hero(props) {
 										<Card.Text className="p">
 											De dilluns a divendres. <br />Recollida a tenda o a domicili.
 										</Card.Text>
-										<Button variant="primary">Veure Més</Button>
+										<Button variant="primary" onClick={props.goToApp}>
+											Veure Més
+										</Button>
 									</Card.Body>
 								</Card>
 							</Col>
@@ -55,7 +68,9 @@ function Hero(props) {
 											Escull entre la nostra selecció de tapes i plats els que més s'ajustin al
 											teu esdeveniment.
 										</Card.Text>
-										<Button variant="primary">Veure Més</Button>
+										<Button variant="primary" href="#contacte">
+											Contacta'ns
+										</Button>
 									</Card.Body>
 								</Card>
 							</Col>
@@ -71,7 +86,9 @@ function Hero(props) {
 											Servei integral de menjar i beguda per a les teves festes, reunions,
 											casaments, comunions...
 										</Card.Text>
-										<Button variant="primary">Veure Més</Button>
+										<Button variant="primary" href="#contacte">
+											Contacta'ns
+										</Button>
 									</Card.Body>
 								</Card>
 							</Col>
@@ -88,32 +105,25 @@ function Hero(props) {
 						<hr />
 					</Col>
 				</Row>
-				<Row>
-					<Col xs={12} md={10}>
-						<Card className="text-center">
-							<Card.Img
-								variant="top"
-								src={require('../assets/background-carousel/brooke-lark-HlNcigvUi4Q-unsplash.jpg')}
-							/>
-							<Card.Body>
-								<Card.Text className="p">
-									Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam minus impedit
-									temporibus eligendi, explicabo quaerat facilis quibusdam eos dolores quas veritatis
-									cumque nobis minima! Laboriosam, atque fugiat! Quasi labore eveniet porro ex sint
-									accusantium numquam magnam, architecto doloremque perspiciatis illum exercitationem
-									incidunt? Totam deserunt obcaecati facilis repellendus officiis veniam, illum minima
-									voluptatem autem numquam quas dolorum, quae laborum? Maxime error nulla, quaerat
-									accusamus soluta nemo consequatur saepe vel autem veniam eius aperiam similique
-									voluptatum accusantium minus aliquam et repudiandae nisi excepturi. Nam odit veniam
-									excepturi cumque. Nam, minima veritatis, odio quo porro pariatur alias deleniti
-									assumenda praesentium dicta dolore facere animi consequuntur eos! Quisquam maiores
-									voluptatum asperiores iste vero excepturi. Eveniet nesciunt in incidunt voluptate
-									provident, maiores quaerat dolorum minus, minima deleniti earum laudantium eum,
-									molestiae harum nulla doloribus ad? Ipsum aliquam inventore harum unde eligendi odio
-									autem dolores veniam eius atque? Ad alias saepe doloremque, ea aperiam eos nostrum.
-								</Card.Text>
-							</Card.Body>
-						</Card>
+				<Row className="justify-content-md-center">
+					<Col xs={12} md={5}>
+						<Image
+							src={require('../assets/background-carousel/brooke-lark-HlNcigvUi4Q-unsplash.jpg')}
+							fluid
+							rounded
+						/>
+					</Col>
+					<Col
+						xs={12}
+						md={5}
+						id="aboutText"
+						className="d-flex justify-content-center align-items-center text-justify"
+					>
+						<p>
+							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam minus impedit temporibus
+							eligendi, explicabo quaerat facilis quibusdam eos dolores quas veritatis cumque nobis
+							minima! Laboriosam, atque fugiat! Quasi labore eveniet porro ex sint...
+						</p>
 					</Col>
 				</Row>
 			</Container>
@@ -130,27 +140,32 @@ function Hero(props) {
 					<Col xs={12} md={10}>
 						<Row>
 							<Col xs={12} md={5} id="formCol">
-								<Form as={Col} xs={12} className="d-flex flex-column">
+								<Form xs={12} id="contact-form" className="d-flex flex-column" onSubmit={handleSubmit}>
 									<Form.Group controlId="formBasicEmail">
 										<Form.Label>Correu Electrònic</Form.Label>
-										<Form.Control type="email" placeholder="exemple@exemple.com" />
+										<Form.Control required type="email" placeholder="exemple@exemple.com" />
 										<Form.Text className="text-muted">
 											No compartirem el teu correu amb ningú.
 										</Form.Text>
 									</Form.Group>
 									<Form.Group controlId="nomCognoms">
 										<Form.Label>Nom i Cognoms</Form.Label>
-										<Form.Control type="text" placeholder="Nom Exemple" />
+										<Form.Control required type="text" placeholder="Nom Exemple" />
 									</Form.Group>
 									<Form.Group controlId="telefon">
-										<Form.Label>Teléfon</Form.Label>
+										<Form.Label>Telèfon</Form.Label>
 										<Form.Control type="text" placeholder="666777888" />
 									</Form.Group>
-									<Form.Group controlId="comentaris">
+									<Form.Group controlId="comentaris" onChange={handleChange}>
 										<Form.Label>Comentaris</Form.Label>
-										<Form.Control type="text" placeholder="Escriu els teus comentaris..." />
+										<Form.Control
+											required
+											onChange={handleChange}
+											type="text"
+											placeholder="Escriu els teus comentaris..."
+										/>
 									</Form.Group>
-									<Button variant="primary" type="submit" className="align-self-center">
+									<Button type="submit" className="align-self-center">
 										Submit
 									</Button>
 								</Form>
@@ -158,7 +173,7 @@ function Hero(props) {
 							<Col id="contactCol" className="d-flex flex-column justify-content-around">
 								<Row>
 									<Col className="text-center">
-										<h2 className="display-4">Teléfons</h2>
+										<h2 className="display-4">Telèfons</h2>
 										<p>608 752 922</p>
 										<p>634 963 752</p>
 									</Col>
@@ -219,8 +234,11 @@ function Hero(props) {
 					</Col>
 					<Col xs={12} md={4} className="d-flex justify-content-center">
 						<Row>
-							<button id="facebook" />
-							<button id="instagram" />
+							<Button
+								id="facebook"
+								href="https://www.facebook.com/pg/Catering-Roser-115543026513080/photos/"
+							/>
+							<Button id="instagram" href="https://www.instagram.com/cateringsroser/" />
 						</Row>
 					</Col>
 				</Row>
