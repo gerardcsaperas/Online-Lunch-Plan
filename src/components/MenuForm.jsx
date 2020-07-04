@@ -18,7 +18,7 @@ class MenuForm extends React.Component {
 			currentStep: 1,
 			currDate: new Date(),
 			//Monday is 1, Friday is 5
-			dayOfTheWeek: new Date().getHours() >= 10 ? new Date().getDay() + 1 : new Date().getDay(),
+			dayOfTheWeek: this.setDay(), //new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay(),
 			menuType: '',
 			menus: [],
 			cashRegister: [],
@@ -248,6 +248,25 @@ class MenuForm extends React.Component {
 			currentStep: 1,
 			showCheckOut: true // Order review and checkout screen
 		});
+	};
+	setDay = () => {
+		let day = new Date().getDay();
+		let tomorrow = new Date().getDay() + 1;
+		let monday = 1;
+		if (day === 6 || day === 0) {
+			// If it's Saturday or Sunday
+			return monday; // Return Monday
+		} else {
+			if (new Date().getHours() >= 11) {
+				if (tomorrow !== 6 && tomorrow + 1 !== 0) {
+					return tomorrow;
+				} else {
+					return monday;
+				}
+			} else {
+				return day;
+			}
+		}
 	};
 	showCheckOut = () => {
 		let { showCheckOut } = this.state;
