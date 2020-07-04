@@ -206,7 +206,7 @@ class OrderDetails extends React.Component {
 		return grandTotal.toFixed(2);
 	};
 	sendEmail = () => {
-		emailjs.init('user_CLV17QcqSK8FF0oD6nMWg');
+		emailjs.init(process.env.REACT_APP_EMAILJS_USER);
 
 		const { nomReserva, tenda, municipi, address, tel, comentaris } = this.state.entrega;
 		const menusDetallats = [];

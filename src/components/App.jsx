@@ -26,11 +26,7 @@ class App extends React.Component {
 	};
 	render() {
 		if (this.state.hero === true) {
-			return (
-				<Container fluid id="App">
-					<Hero goToApp={this.goToApp} />
-				</Container>
-			);
+			return <Hero goToApp={this.goToApp} />;
 		} else {
 			return (
 				<div id="App">

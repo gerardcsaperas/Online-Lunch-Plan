@@ -12,6 +12,16 @@ h2 {
     text-align: center;
 }
 
+#pay {
+    margin-top: 2vh;
+}
+
+p,
+label {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.1em;
+}
+
 @media only screen and (min-width: 701px) {
     .btn {
         margin-bottom: 1rem;

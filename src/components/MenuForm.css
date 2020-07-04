@@ -7,8 +7,8 @@
     }
     #toOrderBasket {
         position: absolute;
-        top: 5px;
-        right: 25px;
+        top: 3px;
+        right: 22px;
         height: 50px;
         width: 50px;
         border: 0;
@@ -16,6 +16,19 @@
         padding: 0;
         background: transparent;
         background-image: url('../assets/iconmonstr-checkout-8-240.png');
+        background-size: cover;
+    }
+    #toHome {
+        position: absolute;
+        top: 5px;
+        left: 25px;
+        height: 45px;
+        width: 45px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        background-image: url('../assets/iconmonstr-home-6-240.png');
         background-size: cover;
     }
 }
@@ -28,7 +41,7 @@
     }
     #toOrderBasket {
         position: absolute;
-        top: 0px;
+        top: 5px;
         right: 0px;
         height: 50px;
         width: 50px;
@@ -37,6 +50,53 @@
         padding: 0;
         background: transparent;
         background-image: url('../assets/iconmonstr-checkout-8-240.png');
+        background-size: cover;
+    }
+    #toHome {
+        position: absolute;
+        top: 5px;
+        left: 0px;
+        height: 45px;
+        width: 45px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        background-image: url('../assets/iconmonstr-home-6-240.png');
+        background-size: cover;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    #contentContainer {
+        width: 90vw;
+        margin-top: 0vh;
+        margin-bottom: 5vh;
+    }
+    #toOrderBasket {
+        position: absolute;
+        top: 10px;
+        right: 0px;
+        height: 35px;
+        width: 35px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        background-image: url('../assets/iconmonstr-checkout-8-240.png');
+        background-size: cover;
+    }
+    #toHome {
+        position: absolute;
+        top: 10px;
+        left: 0px;
+        height: 30px;
+        width: 30px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        background-image: url('../assets/iconmonstr-home-6-240.png');
         background-size: cover;
     }
 }

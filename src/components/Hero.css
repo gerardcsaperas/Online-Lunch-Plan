@@ -1,15 +1,32 @@
-#HeroContainer {
-    padding: 0;
-    margin: 0;
-    overflow-y: scroll;
-}
-
 #Hero {
     height: 100vh;
 }
 
-#hero-btn {
-    width: auto;
+#headerLogo {
+    height: 120px;
+    width: 150px;
+}
+
+@media only screen and (max-width: 700px) {
+    #hero-btn {
+        position: fixed;
+        bottom: 0;
+        margin: 0;
+        padding: 0;
+        z-index: 20;
+        width: 100vw;
+        height: 80px;
+    }
+    footer {
+        margin-bottom: 80px;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    #hero-btn {
+        width: 150px;
+        height: 60px;
+    }
 }
 
 #services,

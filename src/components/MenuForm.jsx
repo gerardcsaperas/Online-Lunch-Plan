@@ -274,6 +274,7 @@ class MenuForm extends React.Component {
 				<Row>
 					<Col xs={12} md={6}>
 						<Button id="toOrderBasket" onClick={this.showCheckOut} />
+						<Button id="toHome" onClick={this.props._backToMain} />
 						<Step1
 							currentStep={this.state.currentStep}
 							dayOfTheWeek={this.state.dayOfTheWeek}
