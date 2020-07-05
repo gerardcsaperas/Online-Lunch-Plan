@@ -1,12 +1,12 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const app = express();
 const { resolve } = require('path');
 // This is your real test secret API key.
-const stripe = require('stripe')(
-    'sk_test_51GwkS9AhsXSRq7ctp0cnsmIeKuTcUR6ofvy0PcJCgPcXN4Vri25Rdkqrp281lZmJmruIowTSQZkVBZno8ubWwXEu00CGVqfsgq'
-);
+const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET_KEY);
 app.use(express.static('.'));
+app.use(cors());
 app.use(express.json());
 const calculateOrderAmount = (items) => {
     console.log(items);
