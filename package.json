@@ -42,7 +42,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "dev": "concurrently \"npm run-script start-dev\" \"npm run-script start\""
+        "dev": "concurrently \"npm run-script start-dev\" \"npm run-script start\"",
+        "heroku-postbuild": "npm install && npm run build"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -50,5 +51,6 @@
     "browserslist": {
         "production": [">0.2%", "not dead", "not op_mini all"],
         "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
-    }
+    },
+    "homepage": "."
 }
