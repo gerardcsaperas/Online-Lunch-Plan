@@ -89,7 +89,7 @@ export default function CheckoutForm(props) {
 			setSucceeded(true);
 			setError(null);
 			setTimeout(() => {
-				window.location.replace('http://localhost:3000');
+				window.location.replace('https://www.cateringroser.cat');
 			}, 10000);
 		}
 	};
