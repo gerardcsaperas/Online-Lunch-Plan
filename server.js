@@ -1,13 +1,35 @@
+const { createServer } = require('https');
 const express = require('express');
+const compression = require('compression');
+const morgan = require('morgan');
 const path = require('path');
-const cors = require('cors');
+
+const normalizePort = (port) => parseInt(port, 10);
+const PORT = normalizePort(process.env.PORT || 5000);
+
 const app = express();
+const dev = app.get('env') !== 'production';
+
+if (!dev) {
+    app.disable('x-powered-by');
+    app.use(compression()); // "Will handle a few things for us... (?)"
+    app.use(morgan('common'));
+
+    app.use(express.static(path.resolve(__dirname, 'build')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+    });
+}
+
+const server = createServer(app);
+
 const { resolve } = require('path');
-// This is your real test secret API key.
+
 const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET_KEY);
-app.use(express.static('.'));
-app.use(cors());
+
 app.use(express.json());
+
 const calculateOrderAmount = (items) => {
     console.log(items);
     let drinksTotal = 0;
@@ -27,6 +49,7 @@ const calculateOrderAmount = (items) => {
 
     return grandTotal;
 };
+
 app.post('/create-payment-intent', async(req, res) => {
     const { items } = req.body;
     console.log(items);
@@ -40,11 +63,12 @@ app.post('/create-payment-intent', async(req, res) => {
     });
 });
 
-app.use(express.static(path.join(__dirname, 'build')));
-
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const PORT = process.env.PORT || 9000;
-app.listen(PORT, () => console.log('Node server listening on port ' + PORT));
+server.listen(PORT, (err) => {
+    if (err) throw err;
+
+    console.log('Server started on port ' + PORT);
+});
