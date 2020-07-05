@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-// Bootstrap & Styling
+// Bootstrap
 import { Container, Row, Col, Button, Spinner, Form } from 'react-bootstrap';
 
 export default function CheckoutForm(props) {
@@ -12,8 +12,8 @@ export default function CheckoutForm(props) {
 	const [ clientSecret, setClientSecret ] = useState('');
 	const stripe = useStripe();
 	const elements = useElements();
+
 	useEffect(() => {
-		console.log('inside use Effect');
 		// Create PaymentIntent as soon as the page loads
 		window
 			.fetch('/create-payment-intent', {
@@ -22,21 +22,20 @@ export default function CheckoutForm(props) {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					items: {
-						drinks: props.drinksOrdered,
-						primerSegonCount: props.primerSegonCount,
-						dosPrimersCount: props.dosPrimersCount,
-						platPostresCount: props.platPostresCount
-					}
+					items: [
+						{
+							drinks: props.drinksOrdered,
+							primerSegonCount: props.primerSegonCount,
+							dosPrimersCount: props.dosPrimersCount,
+							platPostresCount: props.platPostresCount
+						}
+					]
 				})
 			})
 			.then((res) => {
-				console.log(res);
 				return res.json();
 			})
 			.then((data) => {
-				console.log(data.clientSecret);
-				console.log(data);
 				setClientSecret(data.clientSecret);
 			});
 	}, []);
@@ -45,8 +44,6 @@ export default function CheckoutForm(props) {
 		base: {
 			backgroundColor: 'white',
 			color: 'grey',
-			lineHeight: '2rem',
-			padding: '2px',
 			fontFamily: 'Montserrat, sans-serif',
 			fontSmoothing: 'antialiased',
 			fontSize: '16px',

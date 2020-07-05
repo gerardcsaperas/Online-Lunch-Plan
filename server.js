@@ -1,37 +1,19 @@
-const { createServer } = require('https');
 const express = require('express');
-const compression = require('compression');
-const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const path = require('path');
-
-const normalizePort = (port) => parseInt(port, 10);
-const PORT = normalizePort(process.env.PORT || 5000);
-
 const app = express();
-const dev = app.get('env') !== 'production';
-
-if (!dev) {
-    app.disable('x-powered-by');
-    app.use(compression()); // "Will handle a few things for us... (?)"
-    app.use(morgan('common'));
-
-    app.use(express.static(path.join(__dirname, 'build')));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-    });
-}
-
-const server = createServer(app);
 
 const { resolve } = require('path');
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(
+    'sk_test_51GwkS9AhsXSRq7ctp0cnsmIeKuTcUR6ofvy0PcJCgPcXN4Vri25Rdkqrp281lZmJmruIowTSQZkVBZno8ubWwXEu00CGVqfsgq'
+);
 
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 
+// app.use(express.json());
 const calculateOrderAmount = (items) => {
-    console.log(items);
     let drinksTotal = 0;
     const { water, cola, colaZero, beer, lemonFanta, orangeFanta } = items.drinks;
     drinksTotal += water * 100;
@@ -52,23 +34,23 @@ const calculateOrderAmount = (items) => {
 
 app.post('/create-payment-intent', async(req, res) => {
     const { items } = req.body;
-    console.log(items);
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
         amount: calculateOrderAmount(items),
         currency: 'eur'
     });
+    console.log(`paymentIntent: ${paymentIntent}`);
     res.send({
-        clientSecret: '123_secret_123' //paymentIntent.client_secret
+        clientSecret: paymentIntent.client_secret
     });
+});
+
+app.get('/ping', function(req, res) {
+    return res.send('pong');
 });
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-server.listen(PORT, (err) => {
-    if (err) throw err;
-
-    console.log('Server started on port ' + PORT);
-});
+app.listen(process.env.PORT || 8080);
