@@ -15,7 +15,7 @@ if (!dev) {
     app.use(compression()); // "Will handle a few things for us... (?)"
     app.use(morgan('common'));
 
-    app.use(express.static(path.resolve(__dirname, 'build')));
+    app.use(express.static(path.join(__dirname, 'build')));
 
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
@@ -26,7 +26,7 @@ const server = createServer(app);
 
 const { resolve } = require('path');
 
-const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 app.use(express.json());
 
@@ -59,7 +59,7 @@ app.post('/create-payment-intent', async(req, res) => {
         currency: 'eur'
     });
     res.send({
-        clientSecret: paymentIntent.client_secret
+        clientSecret: '123_secret_123' //paymentIntent.client_secret
     });
 });
 
