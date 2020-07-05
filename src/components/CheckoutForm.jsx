@@ -13,6 +13,7 @@ export default function CheckoutForm(props) {
 	const stripe = useStripe();
 	const elements = useElements();
 	useEffect(() => {
+		console.log('inside use Effect');
 		// Create PaymentIntent as soon as the page loads
 		window
 			.fetch('/create-payment-intent', {
@@ -30,6 +31,7 @@ export default function CheckoutForm(props) {
 				})
 			})
 			.then((res) => {
+				console.log(res);
 				return res.json();
 			})
 			.then((data) => {
