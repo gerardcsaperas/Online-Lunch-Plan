@@ -1,10 +1,10 @@
 {
     "name": "my-app",
-    "version": "0.1.0",
+    "version": "1.0.0",
+    "description": "take away restaurant app",
     "private": true,
-    "engine": {
-        "node": "12.16.3",
-        "npm": "6.14.5"
+    "engines": {
+        "node": "12.x"
     },
     "dependencies": {
         "@stripe/react-stripe-js": "^1.1.2",
@@ -12,32 +12,26 @@
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.5.0",
         "@testing-library/user-event": "^7.2.1",
-        "axios": "^0.19.2",
         "boostrap": "^2.0.0",
         "bootstrap": "^4.5.0",
-        "compression": "^1.7.4",
         "concurrently": "^5.2.0",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
         "emailjs-com": "^2.4.1",
         "express": "^4.17.1",
-        "morgan": "^1.10.0",
         "node-sass": "^4.14.1",
         "nodemon": "^2.0.4",
         "react": "^16.13.1",
         "react-bootstrap": "^1.0.1",
         "react-dom": "^16.13.1",
-        "react-redux": "^7.2.0",
         "react-scripts": "3.4.1",
         "react-scroll": "^1.7.16",
         "react-stripe-checkout": "^2.6.3",
         "reactstrap": "^8.5.1",
-        "stripe": "^8.67.0",
-        "uuid": "^8.2.0",
-        "uuidv4": "^6.1.1"
+        "stripe": "^8.67.0"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "node server.js",
         "start-dev": "nodemon server.js",
         "build": "react-scripts build",
         "test": "react-scripts test",

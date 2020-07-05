@@ -39,7 +39,6 @@ app.post('/create-payment-intent', async(req, res) => {
         amount: calculateOrderAmount(items),
         currency: 'eur'
     });
-    console.log(`paymentIntent: ${paymentIntent}`);
     res.send({
         clientSecret: paymentIntent.client_secret
     });
