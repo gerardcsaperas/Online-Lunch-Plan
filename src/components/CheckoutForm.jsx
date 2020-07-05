@@ -33,6 +33,8 @@ export default function CheckoutForm(props) {
 				return res.json();
 			})
 			.then((data) => {
+				console.log(data.clientSecret);
+				console.log(data);
 				setClientSecret(data.clientSecret);
 			});
 	}, []);
