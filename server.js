@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const { resolve } = require('path');
 // This is your real test secret API key.
@@ -38,5 +39,12 @@ app.post('/create-payment-intent', async(req, res) => {
         clientSecret: paymentIntent.client_secret
     });
 });
-const PORT = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => console.log('Node server listening on port ' + PORT));
