@@ -13,11 +13,13 @@ import emailjs from 'emailjs-com';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 // Handle payments with Stripe
-const promise = async () => {
+const promiseFunction = async () => {
 	await loadStripe(
 		'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
 	);
 };
+
+const promise = promiseFunction();
 
 class OrderDetails extends React.Component {
 	constructor(props) {
