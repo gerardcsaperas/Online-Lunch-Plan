@@ -3,6 +3,28 @@ const path = require('path');
 // Responsive Images
 const sharp = require('sharp');
 
+// Images
+// const originalFolder = './src/assets/original-images/';
+// const destFolder = './src/assets/images/';
+
+// sharp(`${originalFolder}logo-catering-roser-color.jpg`).resize(355, 240).toFile(`${destFolder}mobile-logo.jpg`);
+
+// sharp(`${originalFolder}abhishek-sanwa-limbu-LR559Dcst70-unsplash.jpg`)
+//     .resize(355, 240)
+//     .toFile(`${destFolder}mobile-gyoza.jpg`);
+
+// sharp(`${originalFolder}brooke-lark-HlNcigvUi4Q-unsplash.jpg`).resize(355, 240).toFile(`${destFolder}mobile-about.jpg`);
+
+// sharp(`${originalFolder}davide-cantelli-jpkfc5_d-DI-unsplash.jpg`)
+//     .resize(355, 240)
+//     .toFile(`${destFolder}mobile-menudiari.jpg`);
+
+// sharp(`${originalFolder}rachel-park-hrlvr2ZlUNk-unsplash.jpg`)
+//     .resize(355, 240)
+//     .toFile(`${destFolder}mobile-menumig.jpg`);
+
+// Images...
+
 const app = express();
 
 const { resolve } = require('path');
