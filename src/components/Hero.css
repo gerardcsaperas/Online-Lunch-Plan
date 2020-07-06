@@ -64,7 +64,7 @@
     height: 230px;
     width: 300px;
     background: transparent;
-    background-image: url('../assets/logo-catering-roser-color.jpg');
+    background-image: url('../assets/images/300x230-logo-catering-roser-color.webp');
     background-size: cover;
 }
 
@@ -94,11 +94,11 @@
 }
 
 #facebook {
-    background-image: url("../assets/iconmonstr-facebook-3-240.png");
+    background-image: url("../assets/icons/iconmonstr-facebook-3-240.png");
 }
 
 #instagram {
-    background-image: url("../assets/iconmonstr-instagram-13-240.png");
+    background-image: url("../assets/icons/iconmonstr-instagram-13-240.png");
 }
 
 @media only screen and (min-width: 700px) {

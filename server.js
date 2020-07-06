@@ -1,13 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
+
 const app = express();
 
 const { resolve } = require('path');
 
-const stripe = require('stripe')(
-    'sk_test_51GwkS9AhsXSRq7ctp0cnsmIeKuTcUR6ofvy0PcJCgPcXN4Vri25Rdkqrp281lZmJmruIowTSQZkVBZno8ubWwXEu00CGVqfsgq'
-);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
@@ -42,10 +40,6 @@ app.post('/create-payment-intent', async(req, res) => {
     res.send({
         clientSecret: paymentIntent.client_secret
     });
-});
-
-app.get('/ping', function(req, res) {
-    return res.send('pong');
 });
 
 app.get('/', function(req, res) {

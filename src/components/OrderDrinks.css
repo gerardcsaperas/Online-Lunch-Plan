@@ -1,5 +1,5 @@
 .OrderDrinks {
-    background: rgba(255, 255, 255, 0.8)
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .drinks-row {
@@ -25,7 +25,7 @@
     margin-bottom: 0.5rem;
     border: 0;
     background: transparent;
-    background-image: url('../assets/iconmonstr-plus-5-240.png');
+    background-image: url('../assets/icons/iconmonstr-plus-5-240.png');
     background-size: cover;
 }
 
@@ -34,7 +34,7 @@
     width: 20px;
     border: 0;
     background: transparent;
-    background-image: url('../assets/iconmonstr-minus-6-240.png');
+    background-image: url('../assets/icons/iconmonstr-minus-6-240.png');
     background-size: cover;
 }
 
