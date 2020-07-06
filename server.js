@@ -7,7 +7,7 @@ const sharp = require('sharp');
 // const originalFolder = './src/assets/original-images/';
 // const destFolder = './src/assets/images/';
 
-// sharp(`${originalFolder}logo-catering-roser-color.jpg`).resize(355, 240).toFile(`${destFolder}mobile-logo.jpg`);
+// sharp(`${originalFolder}logo-catering-roser-color.jpg`).resize(425, 285).toFile(`${destFolder}mobile-logo.jpg`);
 
 // sharp(`${originalFolder}abhishek-sanwa-limbu-LR559Dcst70-unsplash.jpg`)
 //     .resize(355, 240)
