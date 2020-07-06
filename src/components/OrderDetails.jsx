@@ -12,6 +12,11 @@ import emailjs from 'emailjs-com';
 // Bootstrap modules
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
+// Handle payments with Stripe
+const promise = loadStripe(
+	'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
+);
+
 class OrderDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -406,11 +411,6 @@ class OrderDetails extends React.Component {
 				</Container>
 			);
 		} else if (this.state.showCheckoutForm === true) {
-			// Handle payments with Stripe
-			const promise = loadStripe(
-				'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
-			);
-
 			return (
 				<Container id="checkout-row">
 					<Elements stripe={promise}>
