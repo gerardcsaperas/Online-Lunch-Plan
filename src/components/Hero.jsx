@@ -70,7 +70,7 @@ function Hero(props) {
 								<Card className="text-center">
 									<Card.Img
 										variant="top"
-										src={require('../assets/images/425x285-menudiari.webp')}
+										src={require('../assets/images/mobile-menudiari.jpg')}
 										srcSet={`${require('../assets/images/300x230-menudiari.webp')} 300w,
 										${require('../assets/images/425x285-menudiari.webp')} 425w,
 										${require('../assets/images/650x435-menudiari.webp')} 650w,
@@ -91,7 +91,7 @@ function Hero(props) {
 								<Card className="text-center">
 									<Card.Img
 										variant="top"
-										src={require('../assets/images/425x285-menumig.webp')}
+										src={require('../assets/images/mobile-menumig.jpg')}
 										srcSet={`${require('../assets/images/300x230-menumig.webp')} 300w,
 										${require('../assets/images/425x285-menumig.webp')} 425w,
 										${require('../assets/images/650x435-menumig.webp')} 650w,
@@ -113,7 +113,7 @@ function Hero(props) {
 								<Card className="text-center">
 									<Card.Img
 										variant="top"
-										src={require('../assets/images/425x285-gyoza.webp')}
+										src={require('../assets/images/mobile-gyoza.jpg')}
 										srcSet={`${require('../assets/images/300x230-gyoza.webp')} 300w,
 										${require('../assets/images/425x285-gyoza.webp')} 425w,
 										${require('../assets/images/650x435-gyoza.webp')} 650w,
@@ -147,7 +147,7 @@ function Hero(props) {
 				<Row className="justify-content-md-center">
 					<Col xs={12} md={5}>
 						<Image
-							src={require('../assets/images/650x435-about.webp')}
+							src={require('../assets/images/mobile-about.jpg')}
 							srcSet={`${require('../assets/images/300x230-about.webp')} 300w,
 							${require('../assets/images/425x285-about.webp')} 425w,
 							${require('../assets/images/650x435-about.webp')} 650w,
