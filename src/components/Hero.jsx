@@ -71,12 +71,10 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/425x285-menudiari.webp')}
-										srcSet={`
-										${require('../assets/images/300x230-menudiari.webp')} 300w,
+										srcSet={`${require('../assets/images/300x230-menudiari.webp')} 300w,
 										${require('../assets/images/425x285-menudiari.webp')} 425w,
-										${require('../assets/images/650x435-menudiari.webp')} 650w
-										${require('../assets/images/1500x1000-menudiari.webp')} 1500w,
-										`}
+										${require('../assets/images/650x435-menudiari.webp')} 650w,
+										${require('../assets/images/1500x1000-menudiari.webp')} 1500w`}
 									/>
 									<Card.Body>
 										<Card.Title>Menú Diari</Card.Title>
@@ -94,12 +92,10 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/425x285-menumig.webp')}
-										srcSet={`
-										${require('../assets/images/300x230-menumig.webp')} 300w,
+										srcSet={`${require('../assets/images/300x230-menumig.webp')} 300w,
 										${require('../assets/images/425x285-menumig.webp')} 425w,
 										${require('../assets/images/650x435-menumig.webp')} 650w,
-										${require('../assets/images/1500x1000-menumig.webp')} 650w
-										`}
+										${require('../assets/images/1500x1000-menumig.webp')} 1500w`}
 									/>
 									<Card.Body>
 										<Card.Title>Càtering Empreses</Card.Title>
@@ -118,12 +114,10 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/425x285-gyoza.webp')}
-										srcSet={`
-										${require('../assets/images/300x230-gyoza.webp')} 300w,
+										srcSet={`${require('../assets/images/300x230-gyoza.webp')} 300w,
 										${require('../assets/images/425x285-gyoza.webp')} 425w,
 										${require('../assets/images/650x435-gyoza.webp')} 650w,
-										${require('../assets/images/1500x1000-gyoza.webp')} 650w
-										`}
+										${require('../assets/images/1500x1000-gyoza.webp')} 1500w`}
 									/>
 									<Card.Body>
 										<Card.Title>Càtering Esdeveniments</Card.Title>
@@ -154,12 +148,10 @@ function Hero(props) {
 					<Col xs={12} md={5}>
 						<Image
 							src={require('../assets/images/650x435-about.webp')}
-							srcSet={`
-							${require('../assets/images/300x230-about.webp')} 300w,
+							srcSet={`${require('../assets/images/300x230-about.webp')} 300w,
 							${require('../assets/images/425x285-about.webp')} 425w,
 							${require('../assets/images/650x435-about.webp')} 650w,
-							${require('../assets/images/1500x1000-about.webp')} 1500w
-							`}
+							${require('../assets/images/1500x1000-about.webp')} 1500w`}
 							fluid
 							rounded
 						/>
