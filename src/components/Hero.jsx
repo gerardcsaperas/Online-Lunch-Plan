@@ -93,12 +93,12 @@ function Hero(props) {
 								<Card className="text-center">
 									<Card.Img
 										variant="top"
-										src={require('../assets/images/425x285-catering-mig.webp')}
+										src={require('../assets/images/425x285-menumig.webp')}
 										srcSet={`
-										${require('../assets/images/300x230-catering-mig.webp')} 300w,
-										${require('../assets/images/425x285-catering-mig.webp')} 425w,
-										${require('../assets/images/650x435-catering-mig.webp')} 650w,
-										${require('../assets/images/1500x1000-catering-mig.webp')} 650w
+										${require('../assets/images/300x230-menumig.webp')} 300w,
+										${require('../assets/images/425x285-menumig.webp')} 425w,
+										${require('../assets/images/650x435-menumig.webp')} 650w,
+										${require('../assets/images/1500x1000-menumig.webp')} 650w
 										`}
 									/>
 									<Card.Body>

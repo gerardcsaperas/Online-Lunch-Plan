@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+// Responsive Images
+const sharp = require('sharp');
 
 const app = express();
 
