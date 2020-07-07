@@ -12,15 +12,11 @@ import emailjs from 'emailjs-com';
 // Bootstrap modules
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
-// Handle payments with Stripe
-const promise = loadStripe(
-	'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
-);
-
 class OrderDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			promise: '',
 			primerSegonCount: 0,
 			dosPrimersCount: 0,
 			platPostresCount: 0,
@@ -292,7 +288,7 @@ class OrderDetails extends React.Component {
 			grandTotal: this.calculateTotalDebit(this.state.menuData)
 		});
 	};
-	validateAddress = () => {
+	validateAddress = async () => {
 		if (
 			this.state.platPostresCount === 0 &&
 			this.state.dosPrimersCount === 0 &&
@@ -301,9 +297,14 @@ class OrderDetails extends React.Component {
 			return alert('Ha de seleccionar algún menú per procedir al pagament.');
 		}
 
+		const promise = await loadStripe(
+			'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
+		);
+
 		this.setState({
 			showOrderDetails: false,
-			showAddressValidation: true
+			showAddressValidation: true,
+			promise: promise
 		});
 	};
 	componentDidMount() {
@@ -413,7 +414,7 @@ class OrderDetails extends React.Component {
 		} else if (this.state.showCheckoutForm === true) {
 			return (
 				<Container id="checkout-row">
-					<Elements stripe={promise}>
+					<Elements stripe={this.state.promise}>
 						<CheckoutForm
 							nomReserva={this.state.entrega.nomReserva}
 							currDate={this.props.currDate}

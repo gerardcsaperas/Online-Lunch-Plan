@@ -16,7 +16,7 @@ class Step1 extends React.Component {
 		// Check for the current step
 		if (this.props.currentStep !== 1) {
 			return null;
-		} else if (this.props.count !== 0) {
+		} else if (this.props.count >= 100) {
 			return (
 				<Container className="Step1">
 					<Row>
