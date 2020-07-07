@@ -71,10 +71,9 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/mobile-menudiari.jpg')}
-										srcSet={`${require('../assets/images/mobile-menudiari.jpg')} 355w,
-										${require('../assets/images/425x285-menudiari.webp')} 425w,
-										${require('../assets/images/650x435-menudiari.webp')} 650w,
+										srcSet={`${require('../assets/images/650x435-menudiari.webp')} 650w, 
 										${require('../assets/images/1500x1000-menudiari.webp')} 1500w`}
+										sizes="(max-width 568px) 650px, 1500px"
 									/>
 									<Card.Body>
 										<Card.Title>Menú Diari</Card.Title>
@@ -92,10 +91,9 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/mobile-menumig.jpg')}
-										srcSet={`${require('../assets/images/mobile-menumig.jpg')} 355w,
-										${require('../assets/images/425x285-menumig.webp')} 425w,
-										${require('../assets/images/650x435-menumig.webp')} 650w,
+										srcSet={`${require('../assets/images/650x435-menumig.webp')} 650w, 
 										${require('../assets/images/1500x1000-menumig.webp')} 1500w`}
+										sizes="(max-width 568px) 650px, 1500px"
 									/>
 									<Card.Body>
 										<Card.Title>Càtering Empreses</Card.Title>
@@ -114,10 +112,9 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/mobile-gyoza.jpg')}
-										srcSet={`${require('../assets/images/mobile-gyoza.jpg')} 355w,
-										${require('../assets/images/425x285-gyoza.webp')} 425w,
-										${require('../assets/images/650x435-gyoza.webp')} 650w,
+										srcSet={`${require('../assets/images/650x435-gyoza.webp')} 650w, 
 										${require('../assets/images/1500x1000-gyoza.webp')} 1500w`}
+										sizes="(max-width 568px) 650px, 1500px"
 									/>
 									<Card.Body>
 										<Card.Title>Càtering Esdeveniments</Card.Title>
@@ -148,10 +145,9 @@ function Hero(props) {
 					<Col xs={12} md={5}>
 						<Image
 							src={require('../assets/images/mobile-about.jpg')}
-							srcSet={`${require('../assets/images/mobile-about.jpg')} 355w,
-							${require('../assets/images/425x285-about.webp')} 425w,
-							${require('../assets/images/650x435-about.webp')} 650w,
+							srcSet={`${require('../assets/images/650x435-about.webp')} 650w, 
 							${require('../assets/images/1500x1000-about.webp')} 1500w`}
+							sizes="(max-width 568px) 650px, 1500px"
 							fluid
 							rounded
 						/>
