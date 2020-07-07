@@ -54,16 +54,6 @@ function Hero(props) {
 					Menú Diari
 				</Button>
 			</Container>
-			<Container>
-				<Row>
-					<img
-						src={require('../assets/images/mobile-gyoza.jpg')}
-						srcSet={`${require('../assets/images/mobile-gyoza.jpg')} 650w, 
-						${require('../assets/images/1500x1000-gyoza.webp')} 1500w`}
-						sizes="(max-width 568px) 650px, 1500px"
-					/>
-				</Row>
-			</Container>
 			<Container id="services" fluid>
 				<Row>
 					<h1 className="display-3">Serveis</h1>
