@@ -71,7 +71,7 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										id="img-menudiari"
-										src={require('../assets/images/650x435-menudiari.webp')}
+										src={require('../assets/images/mobile-menudiari.jpg')}
 									/>
 									<Card.Body>
 										<Card.Title>Menú Diari</Card.Title>
