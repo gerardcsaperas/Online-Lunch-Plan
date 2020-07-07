@@ -71,7 +71,7 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										id="img-menudiari"
-										src={require('../assets/images/mobile-menudiari.jpg')}
+										src={require('../assets/images/650x435-menudiari.jpeg')}
 									/>
 									<Card.Body>
 										<Card.Title>Menú Diari</Card.Title>
@@ -86,13 +86,7 @@ function Hero(props) {
 							</Col>
 							<Col xs={12} md={4}>
 								<Card className="text-center">
-									<Card.Img
-										variant="top"
-										src={require('../assets/images/mobile-menumig.jpg')}
-										srcSet={`${require('../assets/images/mobile-menumig.jpg')} 650w, 
-										${require('../assets/images/1500x1000-menumig.webp')} 1500w`}
-										sizes="(max-width 568px) 650px, 1500px"
-									/>
+									<Card.Img variant="top" src={require('../assets/images/650x435-menumig.jpeg')} />
 									<Card.Body>
 										<Card.Title>Càtering Empreses</Card.Title>
 										<Card.Text className="p">
@@ -107,13 +101,7 @@ function Hero(props) {
 							</Col>
 							<Col xs={12} md={4}>
 								<Card className="text-center">
-									<Card.Img
-										variant="top"
-										src={require('../assets/images/mobile-gyoza.jpg')}
-										srcSet={`${require('../assets/images/mobile-gyoza.jpg')} 650w, 
-										${require('../assets/images/1500x1000-gyoza.webp')} 1500w`}
-										sizes="(max-width 568px) 650px, 1500px"
-									/>
+									<Card.Img variant="top" src={require('../assets/images/650x435-gyoza.jpeg')} />
 									<Card.Body>
 										<Card.Title>Càtering Esdeveniments</Card.Title>
 										<Card.Text className="p">
@@ -141,14 +129,7 @@ function Hero(props) {
 				</Row>
 				<Row className="justify-content-md-center">
 					<Col xs={12} md={5}>
-						<Image
-							src={require('../assets/images/mobile-about.jpg')}
-							srcSet={`${require('../assets/images/mobile-about.jpg')} 650w, 
-							${require('../assets/images/1500x1000-about.webp')} 1500w`}
-							sizes="(max-width 568px) 650px, 1500px"
-							fluid
-							rounded
-						/>
+						<Image src={require('../assets/images/650x435-about.jpeg')} fluid rounded />
 					</Col>
 					<Col
 						xs={12}

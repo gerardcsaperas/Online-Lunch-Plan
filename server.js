@@ -4,24 +4,26 @@ const path = require('path');
 const sharp = require('sharp');
 
 // Images
-// const originalFolder = './src/assets/original-images/';
-// const destFolder = './src/assets/images/';
+const originalFolder = './src/assets/original-images/';
+const destFolder = './src/assets/images/';
 
-// sharp(`${originalFolder}logo-catering-roser-color.jpg`).resize(650, 435).toFile(`${destFolder}mobile-logo.jpg`);
+sharp(`${originalFolder}logo-catering-roser-color.jpg`).resize(1000, 767).toFile(`${destFolder}650x435-logo.jpeg`);
 
-// sharp(`${originalFolder}abhishek-sanwa-limbu-LR559Dcst70-unsplash.jpg`)
-//     .resize(650, 435)
-//     .toFile(`${destFolder}mobile-gyoza.jpg`);
+sharp(`${originalFolder}abhishek-sanwa-limbu-LR559Dcst70-unsplash.jpg`)
+    .resize(650, 435)
+    .toFile(`${destFolder}650x435-gyoza.jpeg`);
 
-// sharp(`${originalFolder}brooke-lark-HlNcigvUi4Q-unsplash.jpg`).resize(650, 435).toFile(`${destFolder}mobile-about.jpg`);
+sharp(`${originalFolder}brooke-lark-HlNcigvUi4Q-unsplash.jpg`)
+    .resize(650, 435)
+    .toFile(`${destFolder}650x435-about.jpeg`);
 
-// sharp(`${originalFolder}davide-cantelli-jpkfc5_d-DI-unsplash.jpg`)
-//     .resize(650, 435)
-//     .toFile(`${destFolder}mobile-menudiari.jpg`);
+sharp(`${originalFolder}davide-cantelli-jpkfc5_d-DI-unsplash.jpg`)
+    .resize(650, 435)
+    .toFile(`${destFolder}650x435-menudiari.jpeg`);
 
-// sharp(`${originalFolder}rachel-park-hrlvr2ZlUNk-unsplash.jpg`)
-//     .resize(650, 435)
-//     .toFile(`${destFolder}mobile-menumig.jpg`);
+sharp(`${originalFolder}rachel-park-hrlvr2ZlUNk-unsplash.jpg`)
+    .resize(650, 435)
+    .toFile(`${destFolder}650x435-menumig.jpeg`);
 
 // Images...
 
