@@ -416,6 +416,7 @@ class OrderDetails extends React.Component {
 					<Elements stripe={promise}>
 						<CheckoutForm
 							nomReserva={this.state.entrega.nomReserva}
+							currDate={this.props.currDate}
 							drinksOrdered={this.props.drinksOrdered}
 							primerSegonCount={this.state.primerSegonCount}
 							dosPrimersCount={this.state.dosPrimersCount}

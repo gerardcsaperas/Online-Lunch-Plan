@@ -40,23 +40,24 @@ export default function CheckoutForm(props) {
 
 	const updateDB = () => {
 		console.log('Updating Db...');
-		// window
-		// 	.fetch('/update-orders', {
-		// 		method: 'POST',
-		// 		headers: {
-		// 			'Content-Type': 'application/json'
-		// 		},
-		// 		body: JSON.stringify({
-		// 			items: {
-		// 				primerSegonCount: props.primerSegonCount,
-		// 				dosPrimersCount: props.dosPrimersCount,
-		// 				platPostresCount: props.platPostresCount
-		// 			}
-		// 		})
-		// 	})
-		// 	.then((res) => {
-		// 		return res.json();
-		// 	});
+		window
+			.fetch('/update-orders', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					items: {
+						currDate: props.currDate,
+						primerSegonCount: props.primerSegonCount,
+						dosPrimersCount: props.dosPrimersCount,
+						platPostresCount: props.platPostresCount
+					}
+				})
+			})
+			.then((res) => {
+				return res.json();
+			});
 	};
 
 	const cardStyle = {

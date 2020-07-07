@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Step1.css';
 
 // Bootstrap
@@ -8,11 +8,44 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import menuOf from './menuData';
 
 const Step1 = (props) => {
+	const [ count, setCount ] = useState(0);
+	useEffect(() => {
+		fetch(`/update-orders?currDate=${props.currDate}`)
+			.then((res) => res.json())
+			.then((data) => setCount(data.count));
+	});
+
 	let dayOfTheWeek = props.dayOfTheWeek;
 
 	// Check for the current step
 	if (props.currentStep !== 1) {
 		return null;
+	} else if (count > 1) {
+		return (
+			<Container className="Step1">
+				<Row>
+					<h1 id="menuTitle">El Menú</h1>
+				</Row>
+				<Row>
+					<h2 className="date">{`${props.currDate.getDate()}/${props.currDate.getMonth() +
+						1}/${props.currDate.getFullYear()}`}</h2>
+				</Row>
+				<hr />
+				<Row className="text-center m-2">
+					<p>Aquest dia estem complets. No podem acceptar més comandes. Moltes gràcies!</p>
+				</Row>
+				<Col className="text-center">
+					<Button id="changeDate" type="button" onClick={props.changeDate} className="text-center mb-2">
+						Canviar Dia
+					</Button>
+				</Col>
+				<Col className="text-center">
+					<Button id="backtoMain" type="button" onClick={props._backToMain} className="text-center mb-2">
+						Enrrere
+					</Button>
+				</Col>
+			</Container>
+		);
 	} else if (dayOfTheWeek === 6 || dayOfTheWeek === 0) {
 		return (
 			<Container className="Step1">

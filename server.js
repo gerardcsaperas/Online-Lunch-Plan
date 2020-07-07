@@ -32,10 +32,14 @@ const app = express();
 
 const { resolve } = require('path');
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(
+    process.env.STRIPE_SECRET_KEY ||
+    'sk_test_51GwkS9AhsXSRq7ctp0cnsmIeKuTcUR6ofvy0PcJCgPcXN4Vri25Rdkqrp281lZmJmruIowTSQZkVBZno8ubWwXEu00CGVqfsgq'
+);
 
 // Connect Database
 const connectDB = require('./config/db');
+const Order = require('./models/Order.js');
 connectDB();
 
 app.use(express.static(path.join(__dirname, 'build')));
@@ -75,6 +79,59 @@ app.post('/create-payment-intent', async(req, res) => {
 
 app.post('/update-orders', async(req, res) => {
     const { items } = req.body;
+    const { currDate, primerSegonCount, dosPrimersCount, platPostresCount } = items;
+    const totalComanda = primerSegonCount + dosPrimersCount + platPostresCount;
+
+    const date = new Date(currDate);
+    const dateString = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+    const queryDate = new Date(dateString);
+
+    Order.countDocuments({ date: queryDate }, async(err, count) => {
+        if (err) console.log(err);
+        if (count === 0) {
+            // Create
+            const order = new Order({
+                date: queryDate,
+                count: totalComanda
+            });
+            await order.save((err) => {
+                if (err) console.log(err);
+            });
+        } else {
+            // Update
+            const order = await Order.findOne({ date: queryDate });
+
+            const lastCount = order.count;
+            const newCount = lastCount + totalComanda;
+            order.count = newCount;
+            await order.save();
+        }
+    });
+
+    console.log(`Total Comanda: ` + totalComanda);
+    console.log(`Order Date: ${dateString}`);
+});
+
+app.get('/update-orders', async(req, res) => {
+    const { currDate } = req.query;
+
+    console.log(currDate);
+
+    const date = new Date(currDate);
+    const dateString = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+    const queryDate = new Date(dateString);
+
+    Order.countDocuments({ date: queryDate }, async(err, count) => {
+        if (err) console.log(err);
+        if (count !== 0) {
+            Order.find({ date: queryDate }, (err, data) => {
+                if (err) throw err;
+                res.send(data);
+            });
+        } else {
+            res.json({ count: 0 });
+        }
+    });
 });
 
 app.get('/', function(req, res) {
