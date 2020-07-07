@@ -37,8 +37,8 @@ const stripe = require('stripe')(
 );
 
 // Connect Database
-const connectDB = require('./config/db');
-connectDB();
+// const connectDB = require('./config/db');
+// connectDB();
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
