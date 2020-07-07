@@ -17,3 +17,7 @@ p {
 #menuTitle {
     padding-top: 1rem;
 }
+
+#complet {
+    color: red;
+}

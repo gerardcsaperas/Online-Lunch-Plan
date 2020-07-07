@@ -16,6 +16,8 @@ class MenuForm extends React.Component {
 		this.state = {
 			//State is used for storing data and user inputs
 			currentStep: 1,
+			// How many menus have been ordered for this day?
+			count: 0,
 			currDate: this.setDate(),
 			//Monday is 1, Friday is 5
 			dayOfTheWeek: new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay(), // this.setDay()
@@ -84,7 +86,7 @@ class MenuForm extends React.Component {
 			return new Date();
 		}
 	};
-	selectDate = (e) => {
+	selectDate = async (e) => {
 		// Format date back to readable by JavaScript
 		let date = e.target.innerHTML.split(' ')[1];
 		console.log(date);
@@ -94,10 +96,16 @@ class MenuForm extends React.Component {
 		let dateOk = new Date(`${month}/${day}/${year}`);
 		console.log(dateOk);
 
-		this.setState({
+		await this.setState({
 			currentStep: 1,
 			currDate: dateOk,
 			dayOfTheWeek: dateOk.getDay()
+		});
+
+		await fetch(`/update-orders?currDate=${this.state.currDate}`).then((res) => res.json()).then((data) => {
+			this.setState({
+				count: data.count
+			});
 		});
 	};
 	_back = (e) => {
@@ -298,6 +306,13 @@ class MenuForm extends React.Component {
 			showCheckOut: false
 		});
 	};
+	componentDidMount() {
+		fetch(`/update-orders?currDate=${this.state.currDate}`).then((res) => res.json()).then((data) => {
+			this.setState({
+				count: data.count
+			});
+		});
+	}
 	render() {
 		return (
 			<Container id="contentContainer">
@@ -306,6 +321,7 @@ class MenuForm extends React.Component {
 						<Button id="toOrderBasket" onClick={this.showCheckOut} />
 						<Button id="toHome" onClick={this.props._backToMain} />
 						<Step1
+							count={this.state.count}
 							currentStep={this.state.currentStep}
 							dayOfTheWeek={this.state.dayOfTheWeek}
 							currDate={this.state.currDate}
