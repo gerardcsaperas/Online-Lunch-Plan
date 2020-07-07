@@ -60,6 +60,9 @@
     margin-top: 0;
 }
 
+
+/* Start: Images */
+
 #hero-logo {
     height: 230px;
     width: 300px;
@@ -67,6 +70,25 @@
     background-image: url('../assets/images/mobile-logo.jpg');
     background-size: cover;
 }
+
+@media only screen and (max-width: 700px) {
+    #img-menudiari {
+        background: transparent;
+        background-image: url('../assets/images/mobile-menudiari.jpg');
+        background-size: cover;
+    }
+}
+
+@media only screen and (min-width: 701px) {
+    #img-menudiari {
+        background: transparent;
+        background-image: url('../assets/images/1500x1000-menudiari.webp');
+        background-size: cover;
+    }
+}
+
+
+/* End: Images */
 
 #hero-text {
     font-family: 'Dancing Script', cursive;
