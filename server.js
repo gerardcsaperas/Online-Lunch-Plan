@@ -32,13 +32,11 @@ const app = express();
 
 const { resolve } = require('path');
 
-const stripe = require('stripe')(
-    'sk_test_51GwkS9AhsXSRq7ctp0cnsmIeKuTcUR6ofvy0PcJCgPcXN4Vri25Rdkqrp281lZmJmruIowTSQZkVBZno8ubWwXEu00CGVqfsgq'
-);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Connect Database
-// const connectDB = require('./config/db');
-// connectDB();
+const connectDB = require('./config/db');
+connectDB();
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
