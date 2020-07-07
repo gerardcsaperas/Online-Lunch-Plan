@@ -71,7 +71,7 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/mobile-menudiari.jpg')}
-										srcSet={`${require('../assets/images/650x435-menudiari.webp')} 650w, 
+										srcSet={`${require('../assets/images/650x435-menudiari.jpg')} 650w, 
 										${require('../assets/images/1500x1000-menudiari.webp')} 1500w`}
 										sizes="(max-width 568px) 650px, 1500px"
 									/>
@@ -91,7 +91,7 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/mobile-menumig.jpg')}
-										srcSet={`${require('../assets/images/650x435-menumig.webp')} 650w, 
+										srcSet={`${require('../assets/images/650x435-menumig.jpg')} 650w, 
 										${require('../assets/images/1500x1000-menumig.webp')} 1500w`}
 										sizes="(max-width 568px) 650px, 1500px"
 									/>
@@ -112,7 +112,7 @@ function Hero(props) {
 									<Card.Img
 										variant="top"
 										src={require('../assets/images/mobile-gyoza.jpg')}
-										srcSet={`${require('../assets/images/650x435-gyoza.webp')} 650w, 
+										srcSet={`${require('../assets/images/650x435-gyoza.jpg')} 650w, 
 										${require('../assets/images/1500x1000-gyoza.webp')} 1500w`}
 										sizes="(max-width 568px) 650px, 1500px"
 									/>
@@ -145,7 +145,7 @@ function Hero(props) {
 					<Col xs={12} md={5}>
 						<Image
 							src={require('../assets/images/mobile-about.jpg')}
-							srcSet={`${require('../assets/images/650x435-about.webp')} 650w, 
+							srcSet={`${require('../assets/images/650x435-about.jpg')} 650w, 
 							${require('../assets/images/1500x1000-about.webp')} 1500w`}
 							sizes="(max-width 568px) 650px, 1500px"
 							fluid
