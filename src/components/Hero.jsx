@@ -90,8 +90,7 @@ function Hero(props) {
 									<Card.Body>
 										<Card.Title>Càtering Empreses</Card.Title>
 										<Card.Text className="p">
-											Escull entre la nostra selecció de tapes i plats els que més s'ajustin al
-											teu esdeveniment.
+											Escull els plats i tapes que més s'ajustin al teu esdeveniment.
 										</Card.Text>
 										<Button variant="primary" href="#contacte">
 											Contacta'ns
@@ -105,8 +104,7 @@ function Hero(props) {
 									<Card.Body>
 										<Card.Title>Càtering Esdeveniments</Card.Title>
 										<Card.Text className="p">
-											Servei integral de menjar i beguda per a les teves festes, reunions,
-											casaments, comunions...
+											Servei integral de restauració per a festes i reunions.
 										</Card.Text>
 										<Button variant="primary" href="#contacte">
 											Contacta'ns
