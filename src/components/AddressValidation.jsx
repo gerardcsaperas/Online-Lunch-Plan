@@ -112,7 +112,7 @@ class AddressValidation extends React.Component {
 											</Form.Label>
 											<Form.Control
 												id="nomReserva"
-												placeholder="Nom Complet (mateix que pagament)"
+												placeholder="Nom Complet (mateix que targeta pagament)"
 												onChange={this.setCustomerName}
 												required
 											/>

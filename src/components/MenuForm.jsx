@@ -16,9 +16,9 @@ class MenuForm extends React.Component {
 		this.state = {
 			//State is used for storing data and user inputs
 			currentStep: 1,
-			currDate: new Date(),
+			currDate: this.setDate(),
 			//Monday is 1, Friday is 5
-			dayOfTheWeek: this.setDay(), //new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay(),
+			dayOfTheWeek: new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay(), // this.setDay()
 			menuType: '',
 			menus: [],
 			cashRegister: [],
@@ -74,6 +74,15 @@ class MenuForm extends React.Component {
 		this.setState({
 			currentStep: 'changeDate'
 		});
+	};
+	setDate = () => {
+		// new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay()
+		if (new Date().getHours() >= 11) {
+			let tomorrow = new Date();
+			return new Date(tomorrow.setDate(new Date().getDate() + 1));
+		} else {
+			return new Date();
+		}
 	};
 	selectDate = (e) => {
 		// Format date back to readable by JavaScript
@@ -255,6 +264,8 @@ class MenuForm extends React.Component {
 		let monday = 1;
 		if (day === 6 || day === 0) {
 			// If it's Saturday or Sunday
+			// 1. Set date to monday
+			// 2. Set day to monday
 			return monday; // Return Monday
 		} else {
 			if (new Date().getHours() >= 11) {

@@ -24,44 +24,12 @@ const Step1 = (props) => {
 						1}/${props.currDate.getFullYear()}`}</h2>
 				</Row>
 				<hr />
-				<Row>
-					<h2>Primers</h2>
+				<Row className="text-center m-2">
+					<p>
+						Els caps de setmana no oferim menú, apreta 'Canviar Dia' per a seleccionar una nova data o
+						visita'ns a les nostres tendes!
+					</p>
 				</Row>
-				<Row>
-					<p>{menuOf[1].primers[0]}</p>
-				</Row>
-				<Row>
-					<p>{menuOf[1].primers[1]}</p>
-				</Row>
-				<Row>
-					<p>{menuOf[1].primers[2]}</p>
-				</Row>
-				<Row>
-					<h2>Segons</h2>
-				</Row>
-				<Row>
-					<p>{menuOf[1].segons[0]}</p>
-				</Row>
-				<Row>
-					<p>{menuOf[1].segons[1]}</p>
-				</Row>
-				<Row>
-					<p>{menuOf[1].segons[2]}</p>
-				</Row>
-				<Row>
-					<h2>Postres</h2>
-				</Row>
-				<Row>
-					<p>{menuOf[1].postres[0]}</p>
-				</Row>
-				<Row>
-					<p>{menuOf[1].postres[1]}</p>
-				</Row>
-				<Col className="text-center">
-					<Button id="Demanar" type="button" onClick={props.handleClick} className="text-center mb-2">
-						Demanar
-					</Button>
-				</Col>
 				<Col className="text-center">
 					<Button id="changeDate" type="button" onClick={props.changeDate} className="text-center mb-2">
 						Canviar Dia

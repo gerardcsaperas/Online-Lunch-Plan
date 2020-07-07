@@ -415,6 +415,7 @@ class OrderDetails extends React.Component {
 				<Container id="checkout-row">
 					<Elements stripe={promise}>
 						<CheckoutForm
+							nomReserva={this.state.entrega.nomReserva}
 							drinksOrdered={this.props.drinksOrdered}
 							primerSegonCount={this.state.primerSegonCount}
 							dosPrimersCount={this.state.dosPrimersCount}

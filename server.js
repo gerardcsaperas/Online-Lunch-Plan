@@ -32,7 +32,13 @@ const app = express();
 
 const { resolve } = require('path');
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(
+    'sk_test_51GwkS9AhsXSRq7ctp0cnsmIeKuTcUR6ofvy0PcJCgPcXN4Vri25Rdkqrp281lZmJmruIowTSQZkVBZno8ubWwXEu00CGVqfsgq'
+);
+
+// Connect Database
+const connectDB = require('./config/db');
+connectDB();
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
@@ -58,6 +64,7 @@ const calculateOrderAmount = (items) => {
 
 app.post('/create-payment-intent', async(req, res) => {
     const { items } = req.body;
+    console.log(items);
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
         amount: calculateOrderAmount(items),
@@ -66,6 +73,10 @@ app.post('/create-payment-intent', async(req, res) => {
     res.send({
         clientSecret: paymentIntent.client_secret
     });
+});
+
+app.post('/update-orders', async(req, res) => {
+    const { items } = req.body;
 });
 
 app.get('/', function(req, res) {

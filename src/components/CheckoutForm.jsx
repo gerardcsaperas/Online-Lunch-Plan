@@ -38,6 +38,27 @@ export default function CheckoutForm(props) {
 			});
 	}, []);
 
+	const updateDB = () => {
+		console.log('Updating Db...');
+		// window
+		// 	.fetch('/update-orders', {
+		// 		method: 'POST',
+		// 		headers: {
+		// 			'Content-Type': 'application/json'
+		// 		},
+		// 		body: JSON.stringify({
+		// 			items: {
+		// 				primerSegonCount: props.primerSegonCount,
+		// 				dosPrimersCount: props.dosPrimersCount,
+		// 				platPostresCount: props.platPostresCount
+		// 			}
+		// 		})
+		// 	})
+		// 	.then((res) => {
+		// 		return res.json();
+		// 	});
+	};
+
 	const cardStyle = {
 		base: {
 			backgroundColor: 'white',
@@ -73,7 +94,7 @@ export default function CheckoutForm(props) {
 			payment_method: {
 				card: elements.getElement(CardElement),
 				billing_details: {
-					name: ev.target.name.value
+					name: props.nomReserva
 				}
 			}
 		});
@@ -83,8 +104,11 @@ export default function CheckoutForm(props) {
 			setError(`Payment failed ${payload.error.message}`);
 			setProcessing(false);
 		} else if (payload.paymentIntent.status === 'succeeded') {
-			// If payment succeeded, send eMail with details
+			// If payment succeeded...
+			// 1. Send eMail with details
 			props.sendEmail();
+			// 2. Update database with total menus count
+			updateDB();
 			setSucceeded(true);
 			setError(null);
 			setTimeout(() => {
