@@ -71,8 +71,12 @@
     background-size: cover;
 }
 
+
+/* 
 @media only screen and (max-width: 700px) {
     #img-menudiari {
+        width: 560px;
+        height: 200px;
         background: transparent;
         background-image: url('../assets/images/mobile-menudiari.jpg');
         background-size: cover;
@@ -85,7 +89,7 @@
         background-image: url('../assets/images/1500x1000-menudiari.webp');
         background-size: cover;
     }
-}
+} */
 
 
 /* End: Images */

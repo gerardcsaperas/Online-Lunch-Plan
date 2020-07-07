@@ -68,7 +68,11 @@ function Hero(props) {
 						<Row>
 							<Col xs={12} md={4}>
 								<Card className="text-center">
-									<Card.Img variant="top" id="img-menudiari" />
+									<Card.Img
+										variant="top"
+										id="img-menudiari"
+										src={require('../assets/images/650x435-menudiari.webp')}
+									/>
 									<Card.Body>
 										<Card.Title>Menú Diari</Card.Title>
 										<Card.Text className="p">
