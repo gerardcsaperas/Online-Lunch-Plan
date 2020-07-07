@@ -22,14 +22,12 @@ export default function CheckoutForm(props) {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					items: [
-						{
-							drinks: props.drinksOrdered,
-							primerSegonCount: props.primerSegonCount,
-							dosPrimersCount: props.dosPrimersCount,
-							platPostresCount: props.platPostresCount
-						}
-					]
+					items: {
+						drinks: props.drinksOrdered,
+						primerSegonCount: props.primerSegonCount,
+						dosPrimersCount: props.dosPrimersCount,
+						platPostresCount: props.platPostresCount
+					}
 				})
 			})
 			.then((res) => {
