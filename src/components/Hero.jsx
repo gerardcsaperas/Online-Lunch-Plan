@@ -129,7 +129,7 @@ function Hero(props) {
 				</Row>
 				<Row className="justify-content-md-center">
 					<Col xs={12} md={5}>
-						<Image src={require('../assets/images/650x435-about.jpeg')} fluid rounded />
+						<Image src={require('../assets/images/1000x700-about.jpeg')} fluid rounded />
 					</Col>
 					<Col
 						xs={12}

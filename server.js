@@ -14,8 +14,8 @@ sharp(`${originalFolder}abhishek-sanwa-limbu-LR559Dcst70-unsplash.jpg`)
     .toFile(`${destFolder}650x435-gyoza.jpeg`);
 
 sharp(`${originalFolder}brooke-lark-HlNcigvUi4Q-unsplash.jpg`)
-    .resize(650, 435)
-    .toFile(`${destFolder}650x435-about.jpeg`);
+    .resize(1000, 700)
+    .toFile(`${destFolder}1000x700-about.jpeg`);
 
 sharp(`${originalFolder}davide-cantelli-jpkfc5_d-DI-unsplash.jpg`)
     .resize(650, 435)
