@@ -1,15 +1,19 @@
+html {
+    scroll-behavior: smooth;
+}
+
 #Hero {
     height: 100vh;
 }
 
-.arrow-down {
+#arrow-down {
     position: absolute;
-    bottom: 5vh;
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-top: 20px solid black;
+    bottom: 1.5vh;
+    left: 50%;
+    margin-left: -120px;
+    height: 120px;
+    width: 240px;
+    border: 0;
 }
 
 #headerLogo {

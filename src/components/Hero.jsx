@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Hero.css';
 
 // Bootstrap
@@ -43,6 +43,10 @@ function Hero(props) {
 		await emailjs.send(service_id, template_id, template_params);
 		setSent(true);
 	};
+	const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
+	// General scroll to element function
+	const myRef = useRef(null);
+	const executeScroll = () => scrollToRef(myRef);
 	return (
 		<Container fluid id="HeroContainer">
 			<Container id="Hero" className="d-flex flex-column justify-content-center align-content-center">
@@ -53,6 +57,11 @@ function Hero(props) {
 				<Button className="align-self-center" id="hero-btn" onClick={props.goToApp}>
 					Menú Diari
 				</Button>
+				<img
+					id="arrow-down"
+					src={require('../assets/images/iconmonstr-angel-down-thin-240.png')}
+					alt="arrow down pointing the user towards more info"
+				/>
 			</Container>
 			<Container id="services" fluid>
 				<Row>
@@ -92,7 +101,7 @@ function Hero(props) {
 										<Card.Text className="p">
 											Escull els plats i tapes que més s'ajustin al teu esdeveniment.
 										</Card.Text>
-										<Button variant="primary" href="#contacte">
+										<Button variant="primary" onClick={executeScroll}>
 											Contacta'ns
 										</Button>
 									</Card.Body>
@@ -106,7 +115,7 @@ function Hero(props) {
 										<Card.Text className="p">
 											Servei integral de restauració per a festes i reunions.
 										</Card.Text>
-										<Button variant="primary" href="#contacte">
+										<Button variant="primary" onClick={executeScroll}>
 											Contacta'ns
 										</Button>
 									</Card.Body>
@@ -143,7 +152,7 @@ function Hero(props) {
 					</Col>
 				</Row>
 			</Container>
-			<Container id="contacte" fluid>
+			<Container id="contacte" ref={myRef} fluid>
 				<Row>
 					<h1 className="display-3">Contacte</h1>
 				</Row>
@@ -275,7 +284,7 @@ function Hero(props) {
 					</Col>
 					<Col xs={12} md={4}>
 						<Row className="madeWithLove d-flex flex-column text-center align-content-center">
-							<p>© Catering Roser</p>
+							<p>© Càtering Roser</p>
 							<p>Made with ❤ by Gerard C. Saperas</p>
 						</Row>
 					</Col>
