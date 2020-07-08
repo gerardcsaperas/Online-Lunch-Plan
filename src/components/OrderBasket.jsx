@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './OrderBasket.css';
+import './styles/OrderBasket.css';
 import OrderDetails from './OrderDetails';
 
 // Bootstrap

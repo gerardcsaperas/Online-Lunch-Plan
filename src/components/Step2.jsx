@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Step2.css';
+import './styles/Step2.css';
 
 // Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';

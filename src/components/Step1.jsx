@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Step1.css';
+import './styles/Step1.css';
 
 // Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';

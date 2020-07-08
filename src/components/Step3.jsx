@@ -1,5 +1,5 @@
 import React from 'react';
-import './Step3.css';
+import './styles/Step3.css';
 
 // Import menu data from a separate file in order to automatically update UI according to date
 import menuOf from './menuData';
@@ -20,13 +20,9 @@ class Step3 extends React.Component {
 			postres: ''
 		};
 	}
-	consoleLogCallback = () => {
-		console.log(this.state);
-	}; //Logs the state in the console
 	handleSelection = (e) => {
 		let course = e.target.name;
 		let dish = e.target.value;
-		console.log(dish);
 
 		switch (this.props.menuType) {
 			default:

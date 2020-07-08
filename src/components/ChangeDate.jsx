@@ -1,5 +1,5 @@
 import React from 'react';
-import './ChangeDate.css';
+import './styles/ChangeDate.css';
 
 // Bootstrap
 import { Container, Row, Button } from 'react-bootstrap';

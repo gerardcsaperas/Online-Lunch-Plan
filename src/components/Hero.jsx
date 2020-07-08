@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
-import './Hero.css';
+import './styles/Hero.css';
+
+/* TODO: Break this page down to its components... */
 
 // Bootstrap
 import { Navbar, Container, Row, Col, Button, Card, Form, Image } from 'react-bootstrap';

@@ -1,5 +1,5 @@
 import React from 'react';
-import './AddressValidation.css';
+import './styles/AddressValidation.css';
 
 // Bootstrap
 import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';

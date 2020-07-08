@@ -1,5 +1,5 @@
 import React from 'react';
-import './MenuForm.css';
+import './styles/MenuForm.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -37,9 +37,6 @@ class MenuForm extends React.Component {
 	}
 	handleSubmit = (e) => {
 		e.preventDefault();
-	};
-	handleChange = (e) => {
-		console.log(e.target);
 	};
 	toPrimerSegonOrder = () => {
 		this.setState({
@@ -89,12 +86,10 @@ class MenuForm extends React.Component {
 	selectDate = async (e) => {
 		// Format date back to readable by JavaScript
 		let date = e.target.innerHTML.split(' ')[1];
-		console.log(date);
 		let day = date.split('/')[0];
 		let month = date.split('/')[1];
 		let year = date.split('/')[2];
 		let dateOk = new Date(`${month}/${day}/${year}`);
-		console.log(dateOk);
 
 		await this.setState({
 			currentStep: 1,
@@ -341,7 +336,6 @@ class MenuForm extends React.Component {
 						<Step3
 							currentStep={this.state.currentStep}
 							dayOfTheWeek={this.state.dayOfTheWeek}
-							handleChange={this.handleChange}
 							menuType={this.state.menuType}
 							_back={this._back}
 							addAnotherMenu={this.addAnotherMenu}

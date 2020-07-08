@@ -39,7 +39,6 @@ export default function CheckoutForm(props) {
 	}, []);
 
 	const updateDB = () => {
-		console.log('Updating Db...');
 		window
 			.fetch('/update-orders', {
 				method: 'POST',

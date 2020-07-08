@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './OrderDrinks.css';
+import './styles/OrderDrinks.css';
 
 // Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -112,9 +112,6 @@ export class OrderDrinks extends Component {
 				}
 				break;
 		}
-	};
-	updateDrinks = (e) => {
-		console.log(e.target);
 	};
 	addDrinksAndPay = () => {
 		// This won't clear component's state. The number of drinks will be saved.

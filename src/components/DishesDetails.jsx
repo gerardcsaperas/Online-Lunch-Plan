@@ -1,5 +1,5 @@
 import React from 'react';
-import './DishesDetails.css';
+import './styles/DishesDetails.css';
 
 function DishesDetails(props) {
 	const renderDishes = props.menus.map((menu, i) => {
