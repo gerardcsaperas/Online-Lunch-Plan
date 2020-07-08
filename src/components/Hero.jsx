@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import CookieConsent from 'react-cookie-consent';
 import './styles/Hero.css';
 
 /* TODO: Break this page down to its components... */
@@ -51,6 +52,7 @@ function Hero(props) {
 	const executeScroll = () => scrollToRef(myRef);
 	return (
 		<Container fluid id="HeroContainer">
+			<CookieConsent>Aquesta web utilitza cookies per a una millor experiencia d'usuari.</CookieConsent>
 			<Container id="Hero" className="d-flex flex-column justify-content-center align-content-center">
 				<Row id="hero-logo" className="align-self-center mb-4" />
 				<Row className="align-self-center mb-4 display-4" id="hero-text">
