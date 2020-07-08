@@ -297,9 +297,7 @@ class OrderDetails extends React.Component {
 			return alert('Ha de seleccionar algún menú per procedir al pagament.');
 		}
 
-		const promise = await loadStripe(
-			'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
-		);
+		const promise = await loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
 		this.setState({
 			showOrderDetails: false,

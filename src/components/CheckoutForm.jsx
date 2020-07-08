@@ -113,7 +113,7 @@ export default function CheckoutForm(props) {
 			setSucceeded(true);
 			setError(null);
 			setTimeout(() => {
-				window.location.replace('https://www.cateringroser.cat');
+				window.location.replace('https://stormy-forest-38471.herokuapp.com/');
 			}, 10000);
 		}
 	};

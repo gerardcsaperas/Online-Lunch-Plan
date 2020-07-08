@@ -32,10 +32,7 @@ const app = express();
 
 const { resolve } = require('path');
 
-const stripe = require('stripe')(
-    process.env.STRIPE_SECRET_KEY ||
-    'sk_test_51GwkS9AhsXSRq7ctp0cnsmIeKuTcUR6ofvy0PcJCgPcXN4Vri25Rdkqrp281lZmJmruIowTSQZkVBZno8ubWwXEu00CGVqfsgq'
-);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Connect Database
 const connectDB = require('./config/db');
