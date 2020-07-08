@@ -95,7 +95,7 @@ html {
     height: 230px;
     width: 300px;
     background: transparent;
-    background-image: url('../assets/images/650x435-logo.jpeg');
+    background-image: url('../../assets/images/650x435-logo.jpeg');
     /* It's 1000x767 */
     background-size: cover;
 }
@@ -126,11 +126,11 @@ html {
 }
 
 #facebook {
-    background-image: url("../assets/icons/iconmonstr-facebook-3-240.png");
+    background-image: url("../../assets/icons/iconmonstr-facebook-3-240.png");
 }
 
 #instagram {
-    background-image: url("../assets/icons/iconmonstr-instagram-13-240.png");
+    background-image: url("../../assets/icons/iconmonstr-instagram-13-240.png");
 }
 
 @media only screen and (min-width: 700px) {
