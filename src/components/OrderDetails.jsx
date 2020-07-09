@@ -275,22 +275,23 @@ class OrderDetails extends React.Component {
 		const emailRoger = 'template_vprh5Y0S';
 		emailjs.send(serviceId, emailRoger, rogerParams);
 
-		const emailCustomer = '';
-		emailjs.send(serviceId, emailCustomer, customerParams);
+		// Falta Email.js premium...
+		// const emailCustomer = '';
+		// emailjs.send(serviceId, emailCustomer, customerParams);
 
-		const rogerParams = {
-			email: email,
-			data: this.props.currDate.toDateString(),
-			comanda: menusDetallats.join(),
-			begudes: begudesDetallades.join(),
-			totalPrice: this.calculateTotalDebit(this.state.menuData),
-			nomReserva: nomReserva,
-			tenda: tenda,
-			municipi: municipi,
-			address: address,
-			tel: tel,
-			comentaris: comentaris
-		};
+		// const customerParams = {
+		// 	email: email,
+		// 	data: this.props.currDate.toDateString(),
+		// 	comanda: menusDetallats.join(),
+		// 	begudes: begudesDetallades.join(),
+		// 	totalPrice: this.calculateTotalDebit(this.state.menuData),
+		// 	nomReserva: nomReserva,
+		// 	tenda: tenda,
+		// 	municipi: municipi,
+		// 	address: address,
+		// 	tel: tel,
+		// 	comentaris: comentaris
+		// };
 	};
 	setDeliveryAddressAndPay = async (data) => {
 		await this.setState({
