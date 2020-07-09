@@ -38,6 +38,7 @@ class OrderDetails extends React.Component {
 			showCheckoutForm: false,
 			entrega: {
 				nomReserva: '',
+				email: '',
 				entrega: '',
 				address: '',
 				tel: '',
@@ -204,7 +205,7 @@ class OrderDetails extends React.Component {
 	sendEmail = () => {
 		emailjs.init(process.env.REACT_APP_EMAILJS_USER);
 
-		const { nomReserva, tenda, municipi, address, tel, comentaris } = this.state.entrega;
+		const { nomReserva, email, tenda, municipi, address, tel, comentaris } = this.state.entrega;
 		const menusDetallats = [];
 		this.props.menus.map((menu, i) => {
 			switch (menu.menuType) {
@@ -255,7 +256,30 @@ class OrderDetails extends React.Component {
 			}
 		}
 
-		const templateParams = {
+		const rogerParams = {
+			data: this.props.currDate.toDateString(),
+			comanda: menusDetallats.join(),
+			begudes: begudesDetallades.join(),
+			totalPrice: this.calculateTotalDebit(this.state.menuData),
+			nomReserva: nomReserva,
+			email: email,
+			tenda: tenda,
+			municipi: municipi,
+			address: address,
+			tel: tel,
+			comentaris: comentaris
+		};
+
+		const serviceId = 'default_service';
+
+		const emailRoger = 'template_vprh5Y0S';
+		emailjs.send(serviceId, emailRoger, rogerParams);
+
+		const emailCustomer = '';
+		emailjs.send(serviceId, emailCustomer, customerParams);
+
+		const rogerParams = {
+			email: email,
 			data: this.props.currDate.toDateString(),
 			comanda: menusDetallats.join(),
 			begudes: begudesDetallades.join(),
@@ -267,15 +291,12 @@ class OrderDetails extends React.Component {
 			tel: tel,
 			comentaris: comentaris
 		};
-
-		const serviceId = 'default_service';
-		const templateId = 'template_vprh5Y0S';
-		emailjs.send(serviceId, templateId, templateParams);
 	};
 	setDeliveryAddressAndPay = async (data) => {
 		await this.setState({
 			entrega: {
 				nomReserva: data.nomReserva,
+				email: data.email,
 				data: this.props.currDate,
 				tenda: data.tenda,
 				municipi: data.municipi,

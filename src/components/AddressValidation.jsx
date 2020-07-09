@@ -9,6 +9,7 @@ class AddressValidation extends React.Component {
 		super(props);
 		this.state = {
 			nomReserva: '',
+			email: '',
 			tenda: '',
 			municipi: '',
 			address: '',
@@ -25,6 +26,13 @@ class AddressValidation extends React.Component {
 
 		this.setState({
 			nomReserva: customerName
+		});
+	};
+	setEmail = (e) => {
+		let email = e.target.value;
+
+		this.setState({
+			email: email
 		});
 	};
 	setMunicipi = (e) => {
@@ -67,7 +75,7 @@ class AddressValidation extends React.Component {
 		});
 	};
 	passToParentAndPay = async () => {
-		const { nomReserva, tenda, municipi, address, tel, comments } = this.state;
+		const { nomReserva, tenda, municipi, address, tel, comments, email } = this.state;
 
 		if (nomReserva === '') {
 			return alert('És obligatori deixar un nom per a la reserva');
@@ -97,7 +105,7 @@ class AddressValidation extends React.Component {
 				<Container id="AddressValidation">
 					<Row>
 						<Col xs={12}>
-							<h1>Adreça d'entrega</h1>
+							<h1>Detalls d'entrega</h1>
 						</Col>
 						<Col xs={12} md={10}>
 							<hr />
@@ -107,9 +115,7 @@ class AddressValidation extends React.Component {
 								<Form.Row className="d-flex justify-content-center">
 									<Col xs={12} md={8} className="mb-2">
 										<Form.Text>
-											<Form.Label htmlFor="nomReserva" srOnly>
-												Nom
-											</Form.Label>
+											<Form.Label htmlFor="nomReserva">Nom Complet</Form.Label>
 											<Form.Control
 												id="nomReserva"
 												placeholder="Nom Complet (mateix que targeta pagament)"
@@ -119,9 +125,19 @@ class AddressValidation extends React.Component {
 										</Form.Text>
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
-										<Form.Label htmlFor="municipi" srOnly>
-											Municipi
-										</Form.Label>
+										<Form.Text>
+											<Form.Label htmlFor="email">Correu Electrònic</Form.Label>
+											<Form.Control
+												id="email"
+												type="email"
+												placeholder="correu@example.com"
+												onChange={this.setEmail}
+												required
+											/>
+										</Form.Text>
+									</Col>
+									<Col xs={12} md={8} className="mb-2">
+										<Form.Label htmlFor="municipi">Municipi</Form.Label>
 										<Form.Control as="select" id="municipi" onChange={this.setMunicipi}>
 											<option value="">Recollir/Enviar a...</option>
 											<option value="tenda-cabrera">Recollida a tenda - Cabrera de Mar</option>
@@ -137,9 +153,7 @@ class AddressValidation extends React.Component {
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
 										<Form.Text>
-											<Form.Label htmlFor="address" srOnly>
-												Direcció
-											</Form.Label>
+											<Form.Label htmlFor="address">Direcció</Form.Label>
 											<Form.Control
 												id="address"
 												placeholder="c/Exemple, Num, Porta..."
@@ -149,9 +163,7 @@ class AddressValidation extends React.Component {
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
 										<Form.Text>
-											<Form.Label htmlFor="tel" srOnly>
-												Telèfon
-											</Form.Label>
+											<Form.Label htmlFor="tel">Telèfon</Form.Label>
 											<Form.Control
 												id="tel"
 												placeholder="666777888"
@@ -161,12 +173,10 @@ class AddressValidation extends React.Component {
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
 										<Form.Text>
-											<Form.Label htmlFor="comments" srOnly>
-												Comentaris
-											</Form.Label>
+											<Form.Label htmlFor="comments">Comentaris</Form.Label>
 											<Form.Control
 												id="comments"
-												placeholder="Altres comentaris..."
+												placeholder="A quina hora ho voldries rebre? Altres Comentaris."
 												onChange={this.setComments}
 											/>
 										</Form.Text>
@@ -188,6 +198,12 @@ class AddressValidation extends React.Component {
 								</Form.Row>
 							</Form>
 						</Col>
+					</Row>
+					<Row>
+						<p>
+							*Les entregues s'efectuaràn de 11:00 a 15:00. L'empresa es reserva un marge de fins a 30'
+							entre l'hora d'entrega demanada per el client i l'hora real.
+						</p>
 					</Row>
 				</Container>
 			);
