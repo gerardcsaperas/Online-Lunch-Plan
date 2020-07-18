@@ -19,7 +19,7 @@ connectDB();
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 
-// eMail test
+// eMail when order made
 app.post('/email', (req, res) => {
     const {
         data,
@@ -41,11 +41,12 @@ app.post('/email', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'gcsaperas@gmail.com',
-            pass: 'faqawaqbjmtbzsbk'
+            pass: 'XXXXpasswordXXX'
         },
         tls: { rejectUnauthorized: false }
     });
 
+    // Mail for business
     const rogerMailOptions = {
         from: 'gcsaperas@gmail.com',
         to: 'gcsaperas@gmail.com',
@@ -54,6 +55,7 @@ app.post('/email', (req, res) => {
 			municipi}<br>Adreça: ${address}<br>Telèfon: ${tel}<br>Email: ${email}<br>Comentaris: ${comentaris}<br><br><b>Comanda:</b><br><b>Menús: </b>${comanda}<br><b>Begudes:</b> ${begudes}<br></br>A tope hostia!!!<br>Salut,<br>Gerard</p>`
     };
 
+    // Mail for customer
     const customerMailOptions = {
         from: 'gcsaperas@gmail.com',
         to: `${email}`,
@@ -62,6 +64,7 @@ app.post('/email', (req, res) => {
 			municipi}<br>Adreça: ${address}<br>Telèfon: ${tel}<br>Email: ${email}<br>Comentaris: ${comentaris}<br><br><b>Comanda:</b><br><b>Menús: </b>${comanda}<br><b>Begudes:</b> ${begudes}<br><br>Que vagi de gust!<br><br>Salut,<br>Càtering Roser<br><br>Per a qualsevol dubte, es pot posar en contacte amb nosaltres mitjançant els telèfons que trobarà a www.cateringroser.cat</p>`
     };
 
+    // Send the actual emails to both business and customer
     transporter.sendMail(rogerMailOptions, (error, info) => {
         if (error) {
             console.log(error);
@@ -78,6 +81,8 @@ app.post('/email', (req, res) => {
         }
     });
 });
+
+// Calculate total order amount
 
 const calculateOrderAmount = (items) => {
     let drinksTotal = 0;
@@ -98,10 +103,10 @@ const calculateOrderAmount = (items) => {
     return grandTotal;
 };
 
+// Create a PaymentIntent with the order amount and currency (Stripe)
 app.post('/create-payment-intent', async(req, res) => {
     const { items } = req.body;
-    console.log(items);
-    // Create a PaymentIntent with the order amount and currency
+
     const paymentIntent = await stripe.paymentIntents.create({
         amount: calculateOrderAmount(items),
         currency: 'eur'
@@ -111,6 +116,7 @@ app.post('/create-payment-intent', async(req, res) => {
     });
 });
 
+// Sum the orders to the order's count database (in order to never go pass 100 orders, which is business' max capacity)
 app.post('/update-orders', async(req, res) => {
     const { items } = req.body;
     const { currDate, primerSegonCount, dosPrimersCount, platPostresCount } = items;
@@ -141,15 +147,11 @@ app.post('/update-orders', async(req, res) => {
             await order.save();
         }
     });
-
-    console.log(`Total Comanda: ` + totalComanda);
-    console.log(`Order Date: ${dateString}`);
 });
 
+// Get total orders' count. If = 100, it won't let any other customer order for this day (client-side code). Customers will be able to choose other days.
 app.get('/update-orders', async(req, res) => {
     const { currDate } = req.query;
-
-    console.log(currDate);
 
     const date = new Date(currDate);
     const dateString = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
