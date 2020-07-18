@@ -114,27 +114,23 @@ class AddressValidation extends React.Component {
 							<Form>
 								<Form.Row className="d-flex justify-content-center">
 									<Col xs={12} md={8} className="mb-2">
-										<Form.Text>
-											<Form.Label htmlFor="nomReserva">Nom Complet</Form.Label>
-											<Form.Control
-												id="nomReserva"
-												placeholder="Nom Complet (mateix que targeta pagament)"
-												onChange={this.setCustomerName}
-												required
-											/>
-										</Form.Text>
+										<Form.Label htmlFor="nomReserva">Nom Complet</Form.Label>
+										<Form.Control
+											id="nomReserva"
+											placeholder="Nom Complet (mateix que targeta pagament)"
+											onChange={this.setCustomerName}
+											required
+										/>
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
-										<Form.Text>
-											<Form.Label htmlFor="email">Correu Electrònic</Form.Label>
-											<Form.Control
-												id="email"
-												type="email"
-												placeholder="correu@example.com"
-												onChange={this.setEmail}
-												required
-											/>
-										</Form.Text>
+										<Form.Label htmlFor="email">Correu Electrònic</Form.Label>
+										<Form.Control
+											id="email"
+											type="email"
+											placeholder="correu@example.com"
+											onChange={this.setEmail}
+											required
+										/>
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
 										<Form.Label htmlFor="municipi">Municipi</Form.Label>
@@ -152,34 +148,24 @@ class AddressValidation extends React.Component {
 										</Form.Control>
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
-										<Form.Text>
-											<Form.Label htmlFor="address">Direcció</Form.Label>
-											<Form.Control
-												id="address"
-												placeholder="c/Exemple, Num, Porta..."
-												onChange={this.setAddress}
-											/>
-										</Form.Text>
+										<Form.Label htmlFor="address">Direcció</Form.Label>
+										<Form.Control
+											id="address"
+											placeholder="c/Exemple, Num, Porta..."
+											onChange={this.setAddress}
+										/>
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
-										<Form.Text>
-											<Form.Label htmlFor="tel">Telèfon</Form.Label>
-											<Form.Control
-												id="tel"
-												placeholder="666777888"
-												onChange={this.setTelephone}
-											/>
-										</Form.Text>
+										<Form.Label htmlFor="tel">Telèfon</Form.Label>
+										<Form.Control id="tel" placeholder="666777888" onChange={this.setTelephone} />
 									</Col>
 									<Col xs={12} md={8} className="mb-2">
-										<Form.Text>
-											<Form.Label htmlFor="comments">Comentaris</Form.Label>
-											<Form.Control
-												id="comments"
-												placeholder="A quina hora ho voldries rebre? Altres Comentaris."
-												onChange={this.setComments}
-											/>
-										</Form.Text>
+										<Form.Label htmlFor="comments">Comentaris</Form.Label>
+										<Form.Control
+											id="comments"
+											placeholder="A quina hora ho voldries rebre? Altres Comentaris."
+											onChange={this.setComments}
+										/>
 									</Col>
 									<Col xs={12} md={8} className="d-flex justify-content-center">
 										{this.state.payButtonPressed ? (

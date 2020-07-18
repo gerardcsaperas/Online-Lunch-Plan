@@ -256,24 +256,30 @@ class OrderDetails extends React.Component {
 			}
 		}
 
-		const rogerParams = {
-			data: this.props.currDate.toDateString(),
-			comanda: menusDetallats.join(),
-			begudes: begudesDetallades.join(),
-			totalPrice: this.calculateTotalDebit(this.state.menuData),
-			nomReserva: nomReserva,
-			email: email,
-			tenda: tenda,
-			municipi: municipi,
-			address: address,
-			tel: tel,
-			comentaris: comentaris
-		};
+		fetch('/email', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				data: this.props.currDate.toDateString(),
+				comanda: menusDetallats.join(),
+				begudes: begudesDetallades.join(),
+				totalPrice: this.calculateTotalDebit(this.state.menuData),
+				nomReserva: nomReserva,
+				email: email,
+				tenda: tenda,
+				municipi: municipi,
+				address: address,
+				tel: tel,
+				comentaris: comentaris
+			})
+		});
 
-		const serviceId = 'default_service';
+		// const serviceId = 'default_service';
 
-		const emailRoger = 'template_vprh5Y0S';
-		emailjs.send(serviceId, emailRoger, rogerParams);
+		// const emailRoger = 'template_vprh5Y0S';
+		// emailjs.send(serviceId, emailRoger, rogerParams);
 
 		// Falta Email.js premium...
 		// const emailCustomer = '';

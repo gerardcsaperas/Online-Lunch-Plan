@@ -1,38 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-// Responsive Images
-const sharp = require('sharp');
-
-// Images
-// const originalFolder = './src/assets/original-images/';
-// const destFolder = './src/assets/images/';
-
-// sharp(`${originalFolder}logo-catering-roser-color.jpg`).resize(1000, 767).toFile(`${destFolder}650x435-logo.jpeg`);
-
-// sharp(`${originalFolder}abhishek-sanwa-limbu-LR559Dcst70-unsplash.jpg`)
-//     .resize(650, 435)
-//     .toFile(`${destFolder}650x435-gyoza.jpeg`);
-
-// sharp(`${originalFolder}brooke-lark-HlNcigvUi4Q-unsplash.jpg`)
-//     .resize(1000, 700)
-//     .toFile(`${destFolder}1000x700-about.jpeg`);
-
-// sharp(`${originalFolder}davide-cantelli-jpkfc5_d-DI-unsplash.jpg`)
-//     .resize(650, 435)
-//     .toFile(`${destFolder}650x435-menudiari.jpeg`);
-
-// sharp(`${originalFolder}rachel-park-hrlvr2ZlUNk-unsplash.jpg`)
-//     .resize(650, 435)
-//     .toFile(`${destFolder}650x435-menumig.jpeg`);
-
-// Images...
 
 const app = express();
 
 const { resolve } = require('path');
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+// eMail
+const nodemailer = require('nodemailer');
 
 // Connect Database
 const connectDB = require('./config/db');
@@ -41,6 +18,66 @@ connectDB();
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
+
+// eMail test
+app.post('/email', (req, res) => {
+    const {
+        data,
+        comanda,
+        begudes,
+        totalPrice,
+        nomReserva,
+        email,
+        tenda,
+        municipi,
+        address,
+        tel,
+        comentaris
+    } = req.body;
+
+    console.log(req.body);
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'gcsaperas@gmail.com',
+            pass: 'faqawaqbjmtbzsbk'
+        },
+        tls: { rejectUnauthorized: false }
+    });
+
+    const rogerMailOptions = {
+        from: 'gcsaperas@gmail.com',
+        to: 'gcsaperas@gmail.com',
+        subject: 'Càtering Roser - Nova Comanda',
+        html: `<p>Hola Roger!<br><br>Tens una nova comanda, amb un valor total de ${totalPrice} €.<br><br><b>Detalls d'entrega:</b><br>Dia: ${data}<br>Nom Reserva: ${nomReserva}<br>Tenda o Municipi: ${tenda +
+			municipi}<br>Adreça: ${address}<br>Telèfon: ${tel}<br>Email: ${email}<br>Comentaris: ${comentaris}<br><br><b>Comanda:</b><br><b>Menús: </b>${comanda}<br><b>Begudes:</b> ${begudes}<br></br>A tope hostia!!!<br>Salut,<br>Gerard</p>`
+    };
+
+    const customerMailOptions = {
+        from: 'gcsaperas@gmail.com',
+        to: `${email}`,
+        subject: 'Càtering Roser - Nova Comanda',
+        html: `<p>Hola ${nomReserva},<br><br>Hem rebut la seva comanda correctament.<br><br><b>Detalls d'entrega:</b><br>Dia: ${data}<br>Nom Reserva: ${nomReserva}<br>Tenda o Municipi: ${tenda +
+			municipi}<br>Adreça: ${address}<br>Telèfon: ${tel}<br>Email: ${email}<br>Comentaris: ${comentaris}<br><br><b>Comanda:</b><br><b>Menús: </b>${comanda}<br><b>Begudes:</b> ${begudes}<br><br>Que vagi de gust!<br><br>Salut,<br>Càtering Roser<br><br>Per a qualsevol dubte, es pot posar en contacte amb nosaltres mitjançant els telèfons que trobarà a www.cateringroser.cat</p>`
+    };
+
+    transporter.sendMail(rogerMailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+
+    transporter.sendMail(customerMailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+});
 
 const calculateOrderAmount = (items) => {
     let drinksTotal = 0;
