@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -16,7 +17,7 @@ const connectDB = require('./config/db');
 const Order = require('./models/Order.js');
 connectDB();
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 // eMail when order made
@@ -41,7 +42,7 @@ app.post('/email', (req, res) => {
         service: 'gmail',
         auth: {
             user: 'gcsaperas@gmail.com',
-            pass: 'XXXXpasswordXXX'
+            pass: process.env.GMAIL_PASS
         },
         tls: { rejectUnauthorized: false }
     });
@@ -117,7 +118,7 @@ app.post('/create-payment-intent', async(req, res) => {
 });
 
 // Sum the orders to the order's count database (in order to never go pass 100 orders, which is business' max capacity)
-app.post('/update-orders', async(req, res) => {
+app.post('/orders', async(req, res) => {
     const { items } = req.body;
     const { currDate, primerSegonCount, dosPrimersCount, platPostresCount } = items;
     const totalComanda = primerSegonCount + dosPrimersCount + platPostresCount;
@@ -149,29 +150,10 @@ app.post('/update-orders', async(req, res) => {
     });
 });
 
-// Get total orders' count. If = 100, it won't let any other customer order for this day (client-side code). Customers will be able to choose other days.
-app.get('/update-orders', async(req, res) => {
-    const { currDate } = req.query;
-
-    const date = new Date(currDate);
-    const dateString = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-    const queryDate = new Date(dateString);
-
-    Order.countDocuments({ date: queryDate }, async(err, count) => {
-        if (err) console.log(err);
-        if (count !== 0) {
-            Order.find({ date: queryDate }, (err, data) => {
-                if (err) throw err;
-                res.send(data);
-            });
-        } else {
-            res.json({ count: 0 });
-        }
-    });
-});
+app.use('/api/orders', require('./routes/api/orders'));
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 5000);

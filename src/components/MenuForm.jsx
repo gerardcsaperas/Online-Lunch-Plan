@@ -18,9 +18,9 @@ class MenuForm extends React.Component {
 			currentStep: 1,
 			// How many menus have been ordered for this day?
 			count: 0,
-			currDate: this.setDate(),
+			currDate: new Date('03/08/2020'), //this.setDate(),
 			//Monday is 1, Friday is 5
-			dayOfTheWeek: new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay(), // this.setDay()
+			dayOfTheWeek: 1, //new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay(), // this.setDay()
 			menuType: '',
 			menus: [],
 			cashRegister: [],

@@ -1,3 +1,3 @@
 {
-    "mongoURI": "mongodb+srv://user:passord@cluster0.px0gu.mongodb.net/XXX?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://gerardcsaperas:castrelosaperas9@cluster0.px0gu.mongodb.net/Cluster0?retryWrites=true&w=majority"
 }

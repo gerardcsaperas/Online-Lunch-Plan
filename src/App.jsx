@@ -1,8 +1,8 @@
 import React from 'react';
-import './styles/App.css';
+import './App.css';
 
-import Hero from './Hero';
-import MenuForm from './MenuForm';
+import Hero from './components/Hero';
+import MenuForm from './components/MenuForm';
 
 // Bootstrap
 import { Container } from 'react-bootstrap';
