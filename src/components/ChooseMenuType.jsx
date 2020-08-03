@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
-import './styles/Step2.css';
+import React from 'react';
+import './styles/ChooseMenuType.css';
 
 // Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
-export default class Step2 extends Component {
-	render() {
-		//Check for the current step
-		if (this.props.currentStep !== 2) {
-			return null;
-		}
-		//The markup for Step2 UI
+export default function ChooseMenuType(props) {
+	if (props.currentStep !== 'chooseMenuType') {
+		return null;
+	} else {
 		return (
 			<Container className="Step2">
 				<Row>
@@ -24,7 +21,7 @@ export default class Step2 extends Component {
 							id="primerSegon"
 							type="button"
 							className="customerNeeds"
-							onClick={this.props.toPrimerSegonOrder}
+							onClick={props._toPrimerSegonOrder}
 						>
 							<b>
 								Primer, Segon i Postre<br />8,95 €
@@ -37,7 +34,7 @@ export default class Step2 extends Component {
 							id="dosPrimers"
 							type="button"
 							className="customerNeeds"
-							onClick={this.props.toDosPrimersOrder}
+							onClick={props._toDosPrimersOrder}
 						>
 							<b>
 								2 Primers i Postre<br />7,95 €
@@ -50,7 +47,7 @@ export default class Step2 extends Component {
 							id="platPostres"
 							type="button"
 							className="customerNeeds"
-							onClick={this.props.toPlatPostresOrder}
+							onClick={props._toPlatPostresOrder}
 						>
 							<b>
 								1 Plat i Postre
@@ -64,14 +61,14 @@ export default class Step2 extends Component {
 							id="orderDrinks"
 							type="button"
 							className="customerNeeds"
-							onClick={this.props.toDrinks}
+							onClick={props._toOrderDrinks}
 						>
 							<b>Begudes</b>
 						</Button>
 					</Col>
 				</Row>
 				<Row>
-					<Button id="back" onClick={this.props._back}>
+					<Button id="back" onClick={props._toShowMenu}>
 						Enrrere
 					</Button>
 				</Row>

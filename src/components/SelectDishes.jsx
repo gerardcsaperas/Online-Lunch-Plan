@@ -7,11 +7,11 @@ import menuOf from './menuData';
 // Bootstrap
 import { Container, Row, Button } from 'react-bootstrap';
 
-class Step3 extends React.Component {
+export default class SelectDishes extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			menuType: '',
+			menuType: this.props.menuType,
 			primer: '',
 			primerA: '',
 			primerB: '',
@@ -204,7 +204,7 @@ class Step3 extends React.Component {
 	render() {
 		let dayOfTheWeek = this.props.dayOfTheWeek;
 
-		if (this.props.currentStep === 3) {
+		if (this.props.currentStep === 'selectDishes') {
 			switch (this.props.menuType) {
 				default:
 					return null;
@@ -305,7 +305,7 @@ class Step3 extends React.Component {
 									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
-									<Button id="back" onClick={this.props._back}>
+									<Button id="back" onClick={this.props._toChooseMenuType}>
 										Enrrere
 									</Button>
 								</Row>
@@ -405,7 +405,7 @@ class Step3 extends React.Component {
 									<Button className="btn" variant="info" id="add-more" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
-									<Button className="btn" id="back" onClick={this.props._back}>
+									<Button className="btn" id="back" onClick={this.props._toChooseMenuType}>
 										Enrrere
 									</Button>
 								</Row>
@@ -509,7 +509,7 @@ class Step3 extends React.Component {
 									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
-									<Button id="back" onClick={this.props._back}>
+									<Button id="back" onClick={this.props._toChooseMenuType}>
 										Enrrere
 									</Button>
 								</Row>
@@ -609,7 +609,7 @@ class Step3 extends React.Component {
 									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
-									<Button id="back" onClick={this.props._back}>
+									<Button id="back" onClick={this.props._toChooseMenuType}>
 										Enrrere
 									</Button>
 								</Row>
@@ -710,7 +710,7 @@ class Step3 extends React.Component {
 									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
-									<Button id="back" onClick={this.props._back}>
+									<Button id="back" onClick={this.props._toChooseMenuType}>
 										Enrrere
 									</Button>
 								</Row>
@@ -809,7 +809,7 @@ class Step3 extends React.Component {
 									<Button id="add-more" variant="info" onClick={this.addAnotherMenu}>
 										Afegeix i segueix comprant
 									</Button>
-									<Button id="back" onClick={this.props._back}>
+									<Button id="back" onClick={this.props._toChooseMenuType}>
 										Enrrere
 									</Button>
 								</Row>
@@ -822,5 +822,3 @@ class Step3 extends React.Component {
 		}
 	}
 }
-
-export default Step3;

@@ -1,8 +1,9 @@
 import React from 'react';
-import './styles/MenuForm.css';
-import Step1 from './Step1';
-import Step2 from './Step2';
-import Step3 from './Step3';
+import { Link } from 'react-router-dom';
+import './styles/DailyMenu.css';
+import ShowMenu from './ShowMenu';
+import ChooseMenuType from './ChooseMenuType';
+import SelectDishes from './SelectDishes';
 import OrderDrinks from './OrderDrinks';
 import ChangeDate from './ChangeDate';
 import OrderBasket from './OrderBasket';
@@ -10,17 +11,14 @@ import OrderBasket from './OrderBasket';
 // Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
-class MenuForm extends React.Component {
+class DailyMenu extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			//State is used for storing data and user inputs
-			currentStep: 1,
-			// How many menus have been ordered for this day?
-			count: 0,
-			currDate: new Date('03/08/2020'), //this.setDate(),
-			//Monday is 1, Friday is 5
-			dayOfTheWeek: 1, //new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay(), // this.setDay()
+			currentStep: 'showMenu',
+			totalOrdersCount: 0,
+			currDate: this.setDate(),
+			dayOfTheWeek: new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay(), // this.setDay()
 			menuType: '',
 			menus: [],
 			cashRegister: [],
@@ -38,44 +36,59 @@ class MenuForm extends React.Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 	};
-	toPrimerSegonOrder = () => {
+	_toPrimerSegonOrder = () => {
 		this.setState({
 			menuType: 'primerSegon',
-			currentStep: 3
+			currentStep: 'selectDishes'
 		});
 	};
-	toDosPrimersOrder = () => {
+	_toDosPrimersOrder = () => {
 		this.setState({
 			menuType: 'dosPrimers',
-			currentStep: 3
+			currentStep: 'selectDishes'
 		});
 	};
-	toPlatPostresOrder = () => {
+	_toPlatPostresOrder = () => {
 		this.setState({
 			menuType: 'platPostres',
-			currentStep: 3
+			currentStep: 'selectDishes'
 		});
 	};
-	handleClick = (e) => {
-		if (this.state.currentStep === 1) {
-			this.setState({
-				currentStep: 2
-			});
-		}
+	_toChooseMenuType = () => {
+		/*		
+		type	NAVIGATION
+		desc.	Takes the user to choose the menu type (or lunch plan)
+				they wish to order.
+		*/
+		this.setState({
+			currentStep: 'chooseMenuType'
+		});
 	};
-	toPayment = (e) => {
+	_toShowMenu = () => {
+		/*		
+		type	NAVIGATION
+		desc.	Takes the user back to see the dishes for the day.
+		*/
+		this.setState({
+			currentStep: 'showMenu'
+		});
+	};
+	_toPayment = (e) => {
 		this.setState({
 			currentStep: 'payment',
 			showCheckOut: false
 		});
 	};
-	changeDate = () => {
+	_toChangeDate = () => {
 		this.setState({
 			currentStep: 'changeDate'
 		});
 	};
 	setDate = () => {
-		// new Date().getHours() >= 11 ? new Date().getDay() + 1 : new Date().getDay()
+		/*
+		desc.	If it's past 11AM, render Tomorrow's menu.
+				Else, render Today's menu.
+		*/
 		if (new Date().getHours() >= 11) {
 			let tomorrow = new Date();
 			return new Date(tomorrow.setDate(new Date().getDate() + 1));
@@ -97,89 +110,57 @@ class MenuForm extends React.Component {
 			dayOfTheWeek: dateOk.getDay()
 		});
 
-		await fetch(`/update-orders?currDate=${this.state.currDate}`).then((res) => res.json()).then((data) => {
+		await fetch(`/api/orders?currDate=${this.state.currDate}`).then((res) => res.json()).then((data) => {
 			this.setState({
-				count: data.count
+				totalOrdersCount: data.count
 			});
 		});
 	};
-	_back = (e) => {
-		if (this.state.currentStep === 'changeDate') {
-			this.setState({
-				currentStep: 1
-			});
-		} else if (this.state.currentStep === 'orderDrinks') {
-			this.setState({
-				currentStep: 2
-			});
-		} else if (this.state.currentStep === 1) {
-			this.setState({
-				showCheckOut: false
-			});
-		} else if (this.state.showCheckOut === true) {
-			this.setState({
-				showCheckOut: false,
-				currentStep: 2
-			});
-		} else {
-			this.setState({
-				currentStep: this.state.currentStep - 1
-			});
-		}
-	};
-	addAnotherMenu = (e) => {
-		let { menuType } = e;
-		// We update the state according to the menu ordered (to avoid clotting component's state)
+	addAnotherMenu = (data) => {
+		/*
+
+		*/
+
+		let { menuType, primer, primerA, primerB, platUnic, segon, postres } = data;
+
 		if (menuType === 'primerSegon') {
 			this.setState({
 				menus: this.state.menus.concat({
-					//Concatenate the specific dishes.
 					menuType: menuType,
-					primer: e.primer,
-					segon: e.segon,
-					postres: e.postres
+					primer: primer,
+					segon: segon,
+					postres: postres
 				}),
 				cashRegister: this.state.cashRegister.concat({
-					//Concat the menu type.
 					menuType
 				}),
-				currentStep: 2 //Back to menu type selection.
+				currentStep: 'chooseMenuType'
 			});
 		} else if (menuType === 'dosPrimers') {
-			this.setState(
-				{
-					menus: this.state.menus.concat({
-						//Concatenate the specific dishes.
-						menuType: menuType,
-						primerA: e.primerA,
-						primerB: e.primerB,
-						postres: e.postres
-					}),
-					cashRegister: this.state.cashRegister.concat({
-						//Concat the menu type.
-						menuType
-					}),
-					currentStep: 2 //Back to menu type selection.
-				},
-				this.asyncConLog
-			);
+			this.setState({
+				menus: this.state.menus.concat({
+					menuType: menuType,
+					primerA: primerA,
+					primerB: primerB,
+					postres: postres
+				}),
+				cashRegister: this.state.cashRegister.concat({
+					menuType
+				}),
+				currentStep: 'chooseMenuType'
+			});
 		} else if (menuType === 'platPostres') {
-			this.setState(
-				{
-					menus: this.state.menus.concat({
-						// Concatenate the specific dishes.
-						menuType: menuType,
-						platUnic: e.platUnic,
-						postres: e.postres
-					}),
-					cashRegister: this.state.cashRegister.concat({
-						// Concat the menu type.
-						menuType
-					}),
-					currentStep: 2 //Back to menu type selection.
-				},
-				this.asyncConLog
-			);
+			this.setState({
+				menus: this.state.menus.concat({
+					menuType: menuType,
+					platUnic: platUnic,
+					postres: postres
+				}),
+				cashRegister: this.state.cashRegister.concat({
+					menuType
+				}),
+				currentStep: 'chooseMenuType'
+			});
 		}
 	};
 	addAndPay = (e) => {
@@ -202,45 +183,39 @@ class MenuForm extends React.Component {
 				showCheckOut: true // Order review and checkout screen
 			});
 		} else if (menuType === 'dosPrimers') {
-			this.setState(
-				{
-					menus: this.state.menus.concat({
-						//Concatenate the specific dishes.
-						menuType: menuType,
-						primerA: e.primerA,
-						primerB: e.primerB,
-						postres: e.postres
-					}),
-					cashRegister: this.state.cashRegister.concat({
-						//Concat the menu type.
-						menuType
-					}),
-					currentStep: 1,
-					showCheckOut: true // Order review and checkout screen
-				},
-				this.asyncConLog
-			);
+			this.setState({
+				menus: this.state.menus.concat({
+					//Concatenate the specific dishes.
+					menuType: menuType,
+					primerA: e.primerA,
+					primerB: e.primerB,
+					postres: e.postres
+				}),
+				cashRegister: this.state.cashRegister.concat({
+					//Concat the menu type.
+					menuType
+				}),
+				currentStep: 1,
+				showCheckOut: true // Order review and checkout screen
+			});
 		} else if (menuType === 'platPostres') {
-			this.setState(
-				{
-					menus: this.state.menus.concat({
-						// Concatenate the specific dishes.
-						menuType: menuType,
-						platUnic: e.platUnic,
-						postres: e.postres
-					}),
-					cashRegister: this.state.cashRegister.concat({
-						// Concat the menu type.
-						menuType
-					}),
-					currentStep: 1,
-					showCheckOut: true // Order review and checkout screen
-				},
-				this.asyncConLog
-			);
+			this.setState({
+				menus: this.state.menus.concat({
+					// Concatenate the specific dishes.
+					menuType: menuType,
+					platUnic: e.platUnic,
+					postres: e.postres
+				}),
+				cashRegister: this.state.cashRegister.concat({
+					// Concat the menu type.
+					menuType
+				}),
+				currentStep: 1,
+				showCheckOut: true // Order review and checkout screen
+			});
 		}
 	};
-	toDrinks = () => {
+	_toOrderDrinks = () => {
 		this.setState({
 			currentStep: 'orderDrinks',
 			showCheckOut: false
@@ -302,9 +277,9 @@ class MenuForm extends React.Component {
 		});
 	};
 	componentDidMount() {
-		fetch(`/update-orders?currDate=${this.state.currDate}`).then((res) => res.json()).then((data) => {
+		fetch(`/api/orders?currDate=${this.state.currDate}`).then((res) => res.json()).then((data) => {
 			this.setState({
-				count: data.count
+				totalOrdersCount: data.count
 			});
 		});
 	}
@@ -314,43 +289,43 @@ class MenuForm extends React.Component {
 				<Row>
 					<Col xs={12} md={6}>
 						<Button id="toOrderBasket" onClick={this.showCheckOut} />
-						<Button id="toHome" onClick={this.props._backToMain} />
-						<Step1
-							count={this.state.count}
+						<Link to="/">
+							<Button id="toHome" />
+						</Link>
+						<ShowMenu
+							totalOrdersCount={this.state.totalOrdersCount}
 							currentStep={this.state.currentStep}
 							dayOfTheWeek={this.state.dayOfTheWeek}
 							currDate={this.state.currDate}
-							handleClick={this.handleClick}
-							changeDate={this.changeDate}
-							_backToMain={this.props._backToMain}
+							_toChooseMenuType={this._toChooseMenuType}
+							_toChangeDate={this._toChangeDate}
+							_backToLanding={this.props._backToLanding}
 						/>
-						<Step2
+						<ChooseMenuType
 							currentStep={this.state.currentStep}
-							handleClick={this.handleClick}
-							toPrimerSegonOrder={this.toPrimerSegonOrder}
-							toDosPrimersOrder={this.toDosPrimersOrder}
-							toPlatPostresOrder={this.toPlatPostresOrder}
-							toDrinks={this.toDrinks}
-							_back={this._back}
+							_toPrimerSegonOrder={this._toPrimerSegonOrder}
+							_toDosPrimersOrder={this._toDosPrimersOrder}
+							_toPlatPostresOrder={this._toPlatPostresOrder}
+							_toOrderDrinks={this._toOrderDrinks}
+							_toShowMenu={this._toShowMenu}
 						/>
-						<Step3
+						<SelectDishes
 							currentStep={this.state.currentStep}
 							dayOfTheWeek={this.state.dayOfTheWeek}
 							menuType={this.state.menuType}
-							_back={this._back}
+							_toChooseMenuType={this._toChooseMenuType}
 							addAnotherMenu={this.addAnotherMenu}
 							addAndPay={this.addAndPay}
 						/>
 						<OrderDrinks
 							currentStep={this.state.currentStep}
-							_back={this._back}
+							_toChooseMenuType={this._toChooseMenuType}
 							addDrinksAndPay={this.addDrinksAndPay}
 						/>
 						<ChangeDate
 							currentStep={this.state.currentStep}
-							changeDate={this.changeDate}
 							selectDate={this.selectDate}
-							_back={this._back}
+							_toShowMenu={this._toShowMenu}
 						/>
 					</Col>
 					<Col xs={12}>
@@ -359,9 +334,9 @@ class MenuForm extends React.Component {
 							menus={this.state.menus}
 							cashRegister={this.state.cashRegister}
 							drinksOrdered={this.state.drinksOrdered}
-							toPayment={this.toPayment}
+							_toPayment={this._toPayment}
 							validateAddress={this.validateAddress}
-							toDrinks={this.toDrinks}
+							_toOrderDrinks={this._toOrderDrinks}
 							_back={this._back}
 							currDate={this.state.currDate}
 						/>
@@ -372,4 +347,4 @@ class MenuForm extends React.Component {
 	}
 }
 
-export default MenuForm;
+export default DailyMenu;

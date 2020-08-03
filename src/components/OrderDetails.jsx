@@ -6,9 +6,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import './styles/OrderDetails.css';
 
-// Send info to eMail
-import emailjs from 'emailjs-com';
-
 // Bootstrap modules
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
@@ -203,8 +200,6 @@ class OrderDetails extends React.Component {
 		return grandTotal.toFixed(2);
 	};
 	sendEmail = () => {
-		emailjs.init(process.env.REACT_APP_EMAILJS_USER);
-
 		const { nomReserva, email, tenda, municipi, address, tel, comentaris } = this.state.entrega;
 		const menusDetallats = [];
 		this.props.menus.map((menu, i) => {
@@ -256,7 +251,7 @@ class OrderDetails extends React.Component {
 			}
 		}
 
-		fetch('/email', {
+		fetch('/api/send-email', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -275,29 +270,6 @@ class OrderDetails extends React.Component {
 				comentaris: comentaris
 			})
 		});
-
-		// const serviceId = 'default_service';
-
-		// const emailRoger = 'template_vprh5Y0S';
-		// emailjs.send(serviceId, emailRoger, rogerParams);
-
-		// Falta Email.js premium...
-		// const emailCustomer = '';
-		// emailjs.send(serviceId, emailCustomer, customerParams);
-
-		// const customerParams = {
-		// 	email: email,
-		// 	data: this.props.currDate.toDateString(),
-		// 	comanda: menusDetallats.join(),
-		// 	begudes: begudesDetallades.join(),
-		// 	totalPrice: this.calculateTotalDebit(this.state.menuData),
-		// 	nomReserva: nomReserva,
-		// 	tenda: tenda,
-		// 	municipi: municipi,
-		// 	address: address,
-		// 	tel: tel,
-		// 	comentaris: comentaris
-		// };
 	};
 	setDeliveryAddressAndPay = async (data) => {
 		await this.setState({
@@ -407,9 +379,6 @@ class OrderDetails extends React.Component {
 						</Col>
 					</Row>
 					<Row>
-						{/* <Button role="link" variant="success" onClick={stripePayment}>
-							Pagar
-						</Button> */}
 						<Button variant="success" onClick={this.validateAddress}>
 							Pagar
 						</Button>

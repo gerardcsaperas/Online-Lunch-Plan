@@ -4,6 +4,7 @@ html {
 
 #Hero {
     height: 100vh;
+    padding: 0;
 }
 
 @media only screen and (max-width: 700px) {
@@ -16,32 +17,13 @@ html {
         width: 120px;
         border: 0;
     }
-}
-
-@media only screen and (min-width: 701px) {
-    #arrow-down {
-        position: absolute;
-        bottom: 1.5vh;
-        left: 50%;
-        margin-left: -120px;
-        height: 120px;
-        width: 240px;
-        border: 0;
-    }
-}
-
-#headerLogo {
-    height: 120px;
-    width: 150px;
-}
-
-@media only screen and (max-width: 700px) {
-    #hero-btn {
+    #Hero button {
+        box-sizing: border-box;
         position: fixed;
         bottom: 0;
         margin: 0;
         padding: 0;
-        z-index: 20;
+        z-index: 1;
         width: 100vw;
         height: 80px;
     }
@@ -51,10 +33,35 @@ html {
 }
 
 @media only screen and (min-width: 700px) {
-    #hero-btn {
+    #arrow-down {
+        position: absolute;
+        bottom: 1.5vh;
+        left: 50%;
+        margin-left: -120px;
+        height: 120px;
+        width: 240px;
+        border: 0;
+    }
+    #Hero button {
         width: 150px;
         height: 60px;
     }
+    #Hero a {
+        align-self: center;
+    }
+    #facebook {
+        position: absolute;
+        right: 0vw;
+    }
+    #instagram {
+        position: absolute;
+        right: 50px;
+    }
+}
+
+#headerLogo {
+    height: 120px;
+    width: 150px;
 }
 
 #services,
@@ -72,7 +79,7 @@ html {
     margin-bottom: 3vh;
 }
 
-#footer {
+footer {
     overflow: hidden;
     margin-top: 5vh;
 }
@@ -131,15 +138,4 @@ html {
 
 #instagram {
     background-image: url("../../assets/icons/iconmonstr-instagram-13-240.png");
-}
-
-@media only screen and (min-width: 700px) {
-    #facebook {
-        position: absolute;
-        right: 0vw;
-    }
-    #instagram {
-        position: absolute;
-        right: 50px;
-    }
 }

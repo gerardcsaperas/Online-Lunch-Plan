@@ -16,7 +16,7 @@ export default function CheckoutForm(props) {
 	useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
 		window
-			.fetch('/create-payment-intent', {
+			.fetch('/api/create-payment-intent', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -35,12 +35,15 @@ export default function CheckoutForm(props) {
 			})
 			.then((data) => {
 				setClientSecret(data.clientSecret);
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 	}, []);
 
 	const updateDB = () => {
 		window
-			.fetch('/update-orders', {
+			.fetch('/api/orders', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
