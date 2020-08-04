@@ -254,7 +254,7 @@ export class OrderDrinks extends Component {
 						</Button>
 					</Row>
 					<Row>
-						<Button id="back" onClick={this.props._toChooseMenutype}>
+						<Button id="back" onClick={this.props._toChooseMenuType}>
 							Enrrere
 						</Button>
 					</Row>

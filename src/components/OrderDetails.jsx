@@ -1,7 +1,7 @@
 import React from 'react';
 import DishesDetails from './DishesDetails';
 import AddressValidation from './AddressValidation';
-import CheckoutForm from './CheckoutForm';
+import CardInput from './CardInput';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import './styles/OrderDetails.css';
@@ -13,7 +13,7 @@ class OrderDetails extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			promise: '',
+			stripePromise: '',
 			primerSegonCount: 0,
 			dosPrimersCount: 0,
 			platPostresCount: 0,
@@ -31,8 +31,8 @@ class OrderDetails extends React.Component {
 					price: 6.95
 				}
 			],
-			showAddressValidation: false,
-			showCheckoutForm: false,
+			showDeliveryAddressStep: false,
+			showCardInputStep: false,
 			entrega: {
 				nomReserva: '',
 				email: '',
@@ -44,18 +44,56 @@ class OrderDetails extends React.Component {
 			grandTotal: 0
 		};
 	}
-	_backToCheckoutDetails = () => {
+	_backToOrderBasket = () => {
+		/*		
+		type	NAVIGATION
+		desc.	Takes the user back to the order basket.
+		*/
 		this.setState({
-			showAddressValidation: false
+			showDeliveryAddressStep: false
 		});
 	};
-	_backToAddressValidation = () => {
+	_backToSetDeliveryAddress = () => {
+		/*		
+		type	NAVIGATION
+		desc.	Takes the user back to the delivery
+				address' step.
+		*/
 		this.setState({
-			showAddressValidation: true,
-			showCheckoutForm: false
+			showDeliveryAddressStep: true,
+			showCardInputStep: false
+		});
+	};
+	_toDeliveryAddress = async () => {
+		/*		
+		type	NAVIGATION
+		desc.	Takes the user to the Delivery
+				Address' screen.
+		*/
+		if (
+			this.state.platPostresCount === 0 &&
+			this.state.dosPrimersCount === 0 &&
+			this.state.primerSegonCount === 0
+		) {
+			return alert('Ha de seleccionar algún menú per procedir al pagament.');
+		}
+
+		const stripePromise = await loadStripe(
+			'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
+		);
+
+		this.setState({
+			showOrderDetails: false,
+			showDeliveryAddressStep: true,
+			stripePromise: stripePromise
 		});
 	};
 	foodRow = () => {
+		/*
+		type	DISPLAY
+		desc.	Render food ordered dinamically
+				in the order basket.
+		*/
 		let primerSegonCount = 0;
 		let dosPrimersCount = 0;
 		let platPostresCount = 0;
@@ -130,6 +168,11 @@ class OrderDetails extends React.Component {
 		return foodArray;
 	};
 	drinksRow = () => {
+		/*
+		type	DISPLAY
+		desc.	Render drinks ordered dinamically
+				in the order basket.
+		*/
 		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = this.props.drinksOrdered;
 
 		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
@@ -171,6 +214,13 @@ class OrderDetails extends React.Component {
 		return drinksArray;
 	};
 	calculateTotalDebit = (ele) => {
+		/*
+		type	CALCULATION
+
+		desc.	Display the total sum of the order
+				in the front-end side for the customer
+				to dinamically see.
+		*/
 		// Food
 		const primerSegonTotalDebit = ele[0].price * this.state.primerSegonCount;
 		const dosPrimersTotalDebit = ele[1].price * this.state.dosPrimersCount;
@@ -200,7 +250,18 @@ class OrderDetails extends React.Component {
 		return grandTotal.toFixed(2);
 	};
 	sendEmail = () => {
+		/*
+		type	POST api/send-email
+				(NODEMAILER)
+
+		desc.	Once the payment has been successfully
+				processed, send email with order details
+				to both business and customer. 
+		*/
+		// Delivery Info
 		const { nomReserva, email, tenda, municipi, address, tel, comentaris } = this.state.entrega;
+
+		// FOOD
 		const menusDetallats = [];
 		this.props.menus.map((menu, i) => {
 			switch (menu.menuType) {
@@ -221,7 +282,7 @@ class OrderDetails extends React.Component {
 			}
 		});
 
-		// Add Drinks
+		// DRINKS
 		let { water, cola, colaZero, beer, lemonFanta, orangeFanta } = this.props.drinksOrdered;
 
 		let drinksOrdered = { water, cola, colaZero, beer, lemonFanta, orangeFanta };
@@ -229,6 +290,9 @@ class OrderDetails extends React.Component {
 		for (const [ key, value ] of Object.entries(drinksOrdered)) {
 			if (value > 0) {
 				switch (key) {
+					default:
+						console.log('You have an issue in OrderDetails.jsx -> sendEmail()');
+						break;
 					case 'water':
 						begudesDetallades.push(`Aigua: ${value} u.<br>`);
 						break;
@@ -251,6 +315,7 @@ class OrderDetails extends React.Component {
 			}
 		}
 
+		// Fetch Back-end request (NODEMAILER)
 		fetch('/api/send-email', {
 			method: 'POST',
 			headers: {
@@ -272,6 +337,13 @@ class OrderDetails extends React.Component {
 		});
 	};
 	setDeliveryAddressAndPay = async (data) => {
+		/*
+		type	STATE STORAGE -> DELIVERY ADDRESS
+		desc.	Sets the delivery information provided
+				by the customer.
+
+				Then, take the user to card input step.
+		*/
 		await this.setState({
 			entrega: {
 				nomReserva: data.nomReserva,
@@ -283,28 +355,9 @@ class OrderDetails extends React.Component {
 				tel: data.tel,
 				comentaris: data.comments
 			},
-			showAddressValidation: false,
-			showCheckoutForm: true,
+			showDeliveryAddressStep: false,
+			showCardInputStep: true,
 			grandTotal: this.calculateTotalDebit(this.state.menuData)
-		});
-	};
-	validateAddress = async () => {
-		if (
-			this.state.platPostresCount === 0 &&
-			this.state.dosPrimersCount === 0 &&
-			this.state.primerSegonCount === 0
-		) {
-			return alert('Ha de seleccionar algún menú per procedir al pagament.');
-		}
-
-		const promise = await loadStripe(
-			'pk_test_51GwkS9AhsXSRq7ctMS9vxsTFtWBXCbhcvkWunSZjxuhgjxLZO0SVFMUejI9rAolewXNRv7Cl11qg6k66Lb4qhGuX008luK1bg3'
-		);
-
-		this.setState({
-			showOrderDetails: false,
-			showAddressValidation: true,
-			promise: promise
 		});
 	};
 	componentDidMount() {
@@ -336,7 +389,7 @@ class OrderDetails extends React.Component {
 		});
 	}
 	render() {
-		if (this.state.showAddressValidation === false && this.state.showCheckoutForm === false) {
+		if (this.state.showDeliveryAddressStep === false && this.state.showCardInputStep === false) {
 			return (
 				<Container id="checkout-row">
 					<Col xs={12}>
@@ -379,17 +432,17 @@ class OrderDetails extends React.Component {
 						</Col>
 					</Row>
 					<Row>
-						<Button variant="success" onClick={this.validateAddress}>
+						<Button variant="success" onClick={this._toDeliveryAddress}>
 							Pagar
 						</Button>
 					</Row>
 					<Row>
-						<Button id="orderDrinks" variant="info" onClick={this.props.toDrinks}>
+						<Button id="orderDrinks" variant="info" onClick={this.props._toOrderDrinks}>
 							Begudes
 						</Button>
 					</Row>
 					<Row>
-						<Button id="back" onClick={this.props._back}>
+						<Button id="back" onClick={this.props._toShowMenu}>
 							Enrrere
 						</Button>
 					</Row>
@@ -398,21 +451,21 @@ class OrderDetails extends React.Component {
 					<DishesDetails menus={this.props.menus} />
 				</Container>
 			);
-		} else if (this.state.showAddressValidation === true) {
+		} else if (this.state.showDeliveryAddressStep === true) {
 			return (
 				<Container id="checkout-row">
 					<AddressValidation
-						showAddressValidation={this.state.showAddressValidation}
+						showDeliveryAddressStep={this.state.showDeliveryAddressStep}
 						setDeliveryAddressAndPay={this.setDeliveryAddressAndPay}
-						_backToCheckoutDetails={this._backToCheckoutDetails}
+						_backToOrderBasket={this._backToOrderBasket}
 					/>
 				</Container>
 			);
-		} else if (this.state.showCheckoutForm === true) {
+		} else if (this.state.showCardInputStep === true) {
 			return (
 				<Container id="checkout-row">
-					<Elements stripe={this.state.promise}>
-						<CheckoutForm
+					<Elements stripe={this.state.stripePromise}>
+						<CardInput
 							nomReserva={this.state.entrega.nomReserva}
 							currDate={this.props.currDate}
 							drinksOrdered={this.props.drinksOrdered}
@@ -421,7 +474,7 @@ class OrderDetails extends React.Component {
 							platPostresCount={this.state.platPostresCount}
 							grandTotal={this.state.grandTotal}
 							sendEmail={this.sendEmail}
-							_backToAddressValidation={this._backToAddressValidation}
+							_backToSetDeliveryAddress={this._backToSetDeliveryAddress}
 						/>
 					</Elements>
 				</Container>

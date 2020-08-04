@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 // Bootstrap
-import { Container, Row, Col, Button, Card, Form, Image } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 
 // Send info to eMail
 import emailjs from 'emailjs-com';

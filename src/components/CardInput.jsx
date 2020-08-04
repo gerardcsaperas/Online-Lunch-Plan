@@ -4,7 +4,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 // Bootstrap
 import { Container, Row, Col, Button, Spinner, Form } from 'react-bootstrap';
 
-export default function CheckoutForm(props) {
+export default function CardInput(props) {
 	const [ succeeded, setSucceeded ] = useState(false);
 	const [ error, setError ] = useState(null);
 	const [ processing, setProcessing ] = useState(false);
@@ -14,7 +14,10 @@ export default function CheckoutForm(props) {
 	const elements = useElements();
 
 	useEffect(() => {
-		// Create PaymentIntent as soon as the page loads
+		/*
+		type		STRIPE
+		desc.		Create PaymentIntent as soon as the page loads
+		*/
 		window
 			.fetch('/api/create-payment-intent', {
 				method: 'POST',
@@ -42,6 +45,13 @@ export default function CheckoutForm(props) {
 	}, []);
 
 	const updateDB = () => {
+		/*
+		type		DATABASE UPDATE
+		desc.		Update total orders for a given day. 
+
+					The business can serve up to 100 lunch
+					plans on a given day.
+		*/
 		window
 			.fetch('/api/orders', {
 				method: 'POST',
@@ -156,7 +166,7 @@ export default function CheckoutForm(props) {
 								{processing || succeeded ? (
 									<Button disabled>Enrrere</Button>
 								) : (
-									<Button onClick={props._backToAddressValidation}>Enrrere</Button>
+									<Button onClick={props._backToSetDeliveryAddress}>Enrrere</Button>
 								)}
 							</Col>
 							<Col xs={12} md={8} className="mb-2">

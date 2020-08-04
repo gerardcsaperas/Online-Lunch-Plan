@@ -11,7 +11,6 @@ export default class SelectDishes extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			menuType: this.props.menuType,
 			primer: '',
 			primerA: '',
 			primerB: '',
@@ -72,15 +71,8 @@ export default class SelectDishes extends React.Component {
 		}
 	};
 	addAndPay = () => {
-		this.setState(
-			{
-				menuType: this.props.menuType
-			},
-			this.passToParentAndPay // Pass data to parent component and go to order review and checkout
-		);
-	};
-	passToParentAndPay = () => {
-		let { primer, primerA, primerB, platUnic, segon, postres, menuType } = this.state;
+		const { primer, primerA, primerB, platUnic, segon, postres } = this.state;
+		const { menuType } = this.props;
 		// Switch to make sure all obligatory radio boxes are filled for every menu type.
 		switch (menuType) {
 			default:
@@ -88,7 +80,7 @@ export default class SelectDishes extends React.Component {
 				break;
 			case 'primerSegon':
 				if (primer !== '' && segon !== '' && postres !== '') {
-					this.props.addAndPay(this.state); // Call to the function passed by the parent with Step3's state as arguments.
+					this.props.addAndPay(this.state, menuType); // Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
 						// Clear state for future use.
 						primer: '',
@@ -104,7 +96,7 @@ export default class SelectDishes extends React.Component {
 				break;
 			case 'dosPrimers':
 				if (primerA !== '' && primerB !== '' && postres !== '') {
-					this.props.addAndPay(this.state); // Call to the function passed by the parent with Step3's state as arguments.
+					this.props.addAndPay(this.state, menuType); // Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
 						// Clear state for future use.
 						primer: '',
@@ -120,7 +112,7 @@ export default class SelectDishes extends React.Component {
 				break;
 			case 'platPostres':
 				if (platUnic !== '' && postres !== '') {
-					this.props.addAndPay(this.state); //Call to the function passed by the parent with Step3's state as arguments.
+					this.props.addAndPay(this.state, menuType); //Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
 						//Clear state for future use.
 						primer: '',
@@ -137,23 +129,15 @@ export default class SelectDishes extends React.Component {
 		}
 	};
 	addAnotherMenu = () => {
-		this.setState(
-			{
-				menuType: this.props.menuType
-			},
-			this.passToParent // Pass data to parent component
-		);
-	};
-	passToParent = () => {
-		let { primer, primerA, primerB, platUnic, segon, postres, menuType } = this.state;
-		// Switch to make sure all obligatory radio boxes are filled for every menu type.
+		const { primer, primerA, primerB, platUnic, segon, postres } = this.state;
+		const { menuType } = this.props;
 		switch (menuType) {
 			default:
 				console.log('You got a problem @ line 96, Step3.js');
 				break;
 			case 'primerSegon':
 				if (primer !== '' && segon !== '' && postres !== '') {
-					this.props.addAnotherMenu(this.state); // Call to the function passed by the parent with Step3's state as arguments.
+					this.props.addAnotherMenu(this.state, menuType); // Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
 						// Clear state for future use.
 						primer: '',
@@ -169,7 +153,7 @@ export default class SelectDishes extends React.Component {
 				break;
 			case 'dosPrimers':
 				if (primerA !== '' && primerB !== '' && postres !== '') {
-					this.props.addAnotherMenu(this.state); // Call to the function passed by the parent with Step3's state as arguments.
+					this.props.addAnotherMenu(this.state, menuType); // Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
 						// Clear state for future use.
 						primer: '',
@@ -185,7 +169,7 @@ export default class SelectDishes extends React.Component {
 				break;
 			case 'platPostres':
 				if (platUnic !== '' && postres !== '') {
-					this.props.addAnotherMenu(this.state); //Call to the function passed by the parent with Step3's state as arguments.
+					this.props.addAnotherMenu(this.state, menuType); //Call to the function passed by the parent with Step3's state as arguments.
 					this.setState({
 						//Clear state for future use.
 						primer: '',

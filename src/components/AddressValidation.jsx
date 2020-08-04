@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/AddressValidation.css';
 
 // Bootstrap
-import { Container, Form, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 
 class AddressValidation extends React.Component {
 	constructor(props) {
@@ -18,9 +18,7 @@ class AddressValidation extends React.Component {
 			payButtonPressed: false
 		};
 	}
-	_back = () => {
-		this.props._backToCheckoutDetails();
-	};
+	// Start of form handling (state store)
 	setCustomerName = (e) => {
 		let customerName = e.target.value;
 
@@ -74,8 +72,15 @@ class AddressValidation extends React.Component {
 			comments: comments
 		});
 	};
+	// End of form handling (state store)
 	passToParentAndPay = async () => {
-		const { nomReserva, tenda, municipi, address, tel, comments, email } = this.state;
+		/*
+	type		STATE LIFTING FUNCTION
+	desc.		Pass form's info to parent component.
+				Also, validate no required field is missing
+				and customize alert messages.
+	*/
+		const { nomReserva, tenda, municipi, address, tel } = this.state;
 
 		if (nomReserva === '') {
 			return alert('És obligatori deixar un nom per a la reserva');
@@ -100,7 +105,7 @@ class AddressValidation extends React.Component {
 		this.props.setDeliveryAddressAndPay(this.state);
 	};
 	render() {
-		if (this.props.showAddressValidation === true) {
+		if (this.props.showDeliveryAddressStep === true) {
 			return (
 				<Container id="AddressValidation">
 					<Row>
@@ -168,17 +173,13 @@ class AddressValidation extends React.Component {
 										/>
 									</Col>
 									<Col xs={12} md={8} className="d-flex justify-content-center">
-										{this.state.payButtonPressed ? (
-											<Spinner animation="border" variant="success" className="mb-2" />
-										) : (
-											<Button variant="success" onClick={this.passToParentAndPay}>
-												Pagar
-											</Button>
-										)}
+										<Button variant="success" onClick={this.passToParentAndPay}>
+											Pagar
+										</Button>
 									</Col>
 									<Col xs={12} md={8} className="d-flex justify-content-center">
 										{this.state.payButtonPressed ? null : (
-											<Button onClick={this._back}>Enrrere</Button>
+											<Button onClick={this.props._backToOrderBasket}>Enrrere</Button>
 										)}
 									</Col>
 								</Form.Row>

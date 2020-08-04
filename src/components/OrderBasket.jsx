@@ -13,17 +13,16 @@ export class OrderBasket extends Component {
 		};
 	}
 	render() {
-		if (this.props.showCheckOut) {
+		if (this.props.showOrderBasket) {
 			return (
 				<Container id="OrderBasket">
 					<OrderDetails
 						menus={this.props.menus}
 						cashRegister={this.props.cashRegister}
 						drinksOrdered={this.props.drinksOrdered}
-						validateAddress={this.props.validateAddress}
-						toPayment={this.props.toPayment}
-						toDrinks={this.props.toDrinks}
-						_back={this.props._back}
+						_toPayment={this.props._toPayment}
+						_toOrderDrinks={this.props._toOrderDrinks}
+						_toShowMenu={this.props._toShowMenu}
 						currDate={this.props.currDate}
 					/>
 				</Container>

@@ -4,7 +4,6 @@ import './App.css';
 
 import Landing from './components/layout/Landing';
 import DailyMenu from './components/DailyMenu';
-import ChooseMenuType from './components/ChooseMenuType';
 
 function App() {
 	return (

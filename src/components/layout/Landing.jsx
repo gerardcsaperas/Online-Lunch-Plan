@@ -1,4 +1,4 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import CookieConsent from 'react-cookie-consent';
 import '../styles/Landing.css';
 
